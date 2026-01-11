@@ -43,27 +43,33 @@ body {
 /* CONTAINER */
 .container {
     padding: 15px;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* MOVIE GRID */
+/* MOVIE GRID - Desktop: 5 centered images */
 .movie-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(5, minmax(180px, 1fr));
+    gap: 15px;
+    justify-content: center;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
 /* MOVIE CARD */
 .movie {
     position: relative;
-    border-radius: 6px;
+    border-radius: 8px;
     overflow: hidden;
     cursor: pointer;
+    transition: transform 0.3s;
 }
 
-/* POSTER */
+/* POSTER - Bigger for desktop */
 .movie img {
     width: 100%;
-    height: 210px;
+    height: 270px; /* Increased from 210px */
     object-fit: cover;
     display: block;
 }
@@ -89,7 +95,7 @@ body {
     z-index: 2;
 }
 
-/* MOBILE - Shows ENTIRE banner image */
+/* MOBILE - Shows ENTIRE banner image and responsive grid */
 @media (max-width: 600px) {
     .banner-image.desktop {
         display: none; /* Hide desktop version */
@@ -102,13 +108,14 @@ body {
         max-height: 200px; /* Optional: Limit max height on mobile */
     }
     
-    .movie img {
-        height: 180px;
-    }
-    
     .movie-grid {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
         gap: 8px;
+        max-width: 100%;
+    }
+    
+    .movie img {
+        height: 180px; /* Smaller for mobile */
     }
 }
 
@@ -137,6 +144,23 @@ body {
     .movie-grid {
         grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
         gap: 12px;
+        max-width: 100%;
+    }
+    
+    .movie img {
+        height: 225px;
+    }
+}
+
+/* For screens between 901px and 1200px (desktop) */
+@media (min-width: 901px) {
+    .movie-grid {
+        grid-template-columns: repeat(5, minmax(180px, 1fr));
+        gap: 15px;
+    }
+    
+    .movie img {
+        height: 270px;
     }
 }
 
@@ -144,6 +168,27 @@ body {
 @media (min-width: 1201px) {
     .banner-image.desktop {
         height: 350px; /* Slightly taller for large screens */
+    }
+    
+    .movie-grid {
+        grid-template-columns: repeat(5, minmax(200px, 1fr));
+        gap: 20px;
+    }
+    
+    .movie img {
+        height: 300px; /* Even bigger for large screens */
+    }
+}
+
+/* Medium desktop (to prevent overflow on smaller desktops) */
+@media (min-width: 901px) and (max-width: 1100px) {
+    .movie-grid {
+        grid-template-columns: repeat(5, minmax(160px, 1fr));
+        gap: 12px;
+    }
+    
+    .movie img {
+        height: 240px;
     }
 }
 </style>
@@ -214,6 +259,19 @@ body {
                  alt="Movie 8"
                  onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
         </div>
+        
+        <!-- Adding more movies to demonstrate 5-per-row layout -->
+        <div class="movie" onclick="handleMovieClick('movie9')">
+            <img src="https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+9" 
+                 alt="Movie 9"
+                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
+        </div>
+
+        <div class="movie" onclick="handleMovieClick('movie10')">
+            <img src="https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+10" 
+                 alt="Movie 10"
+                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
+        </div>
     </div>
 </div>
 
@@ -228,7 +286,9 @@ function handleMovieClick(movieId) {
         'movie5': 'https://example.com/movie5',
         'movie6': 'https://example.com/movie6',
         'movie7': 'https://example.com/movie7',
-        'movie8': 'https://example.com/movie8'
+        'movie8': 'https://example.com/movie8',
+        'movie9': 'https://example.com/movie9',
+        'movie10': 'https://example.com/movie10'
     };
     
     // Define different ad URLs if needed (or use the same for all)
@@ -240,7 +300,9 @@ function handleMovieClick(movieId) {
         'movie5': 'https://otieu.com/4/7512545',
         'movie6': 'https://otieu.com/4/8198889',
         'movie7': 'https://otieu.com/4/8236017',
-        'movie8': 'https://otieu.com/4/8195375'
+        'movie8': 'https://otieu.com/4/8195375',
+        'movie9': 'https://otieu.com/4/8251888',
+        'movie10': 'https://otieu.com/4/7512585'
     };
     
     // 1. Open monetag ad in a new tab FIRST
