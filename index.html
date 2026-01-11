@@ -1,147 +1,180 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Redirecting...</title>
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<style>
-  /* === Body Styling with Background Image === */
-  body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background: url('https://images.unsplash.com/photo-1524985069026-dd778a71c7b4') no-repeat center center fixed;
-    background-size: cover;
-    padding: 40px;
-    margin: 0;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    align-items: center;
-    min-height: 100vh;
-  }
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Movie Grid</title>
 
-  /* Dark overlay for better text visibility */
-  body::before {
-    content: "";
-    position: fixed;
+<style>
+body {
+    margin: 0;
+    background: #0b1c2d;
+    font-family: Arial, sans-serif;
+    color: #fff;
+}
+
+/* BANNER */
+.banner {
+    width: 100%;
+    height: 300px;
+    background: url("https://d1yei2z3i6k35z.cloudfront.net/14259744/69638ac6f19d6_Addaheading7.jpg") center/cover no-repeat;
+}
+
+/* CONTAINER */
+.container {
+    padding: 15px;
+}
+
+/* MOVIE GRID */
+.movie-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 10px;
+}
+
+/* MOVIE CARD */
+.movie {
+    position: relative;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+/* POSTER */
+.movie img {
+    width: 100%;
+    height: 210px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+}
+
+/* FREE WITH ADS BAR */
+.badge {
+    position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.6); /* Dark overlay */
-    z-index: 0;
-  }
+    right: 0;
+    background: #d32f2f;
+    text-align: center;
+    font-size: 11px;
+    padding: 4px 0;
+    font-weight: bold;
+}
 
-  /* Main content container */
-  .content-wrapper {
-    position: relative;
-    z-index: 1;
-    margin-top: 100px;
-    background: rgba(255, 255, 255, 0.95);
-    padding: 30px 20px;
-    border-radius: 14px;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
-    max-width: 450px;
-    width: 100%;
-  }
+/* HOVER EFFECT */
+.movie:hover {
+    transform: scale(1.05);
+    transition: 0.3s;
+    z-index: 2;
+}
 
-  h1 {
-    color: #222;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-
-  p {
-    color: #555;
-    font-size: 16px;
-    margin-bottom: 20px;
-  }
-
-  /* Red Button */
-  button {
-    background: #e53935; /* Red */
-    color: #fff;
-    border: none;
-    padding: 15px 25px;
-    font-size: 18px;
-    border-radius: 8px;
-    cursor: pointer;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
-    transition: background 0.3s ease, transform 0.2s ease;
-  }
-
-  button:hover {
-    background: #c62828;
-    transform: translateY(-2px);
-  }
-
-  /* Instructions Box */
-  .instructions {
-    margin-top: 20px;
-    font-size: 16px;
-    color: #666;
-    text-align: left;
-    display: inline-block;
-    background: #f8f9fa;
-    padding: 15px;
-    border-radius: 8px;
-    border: 1px solid #ddd;
-  }
+/* MOBILE */
+@media (max-width: 600px) {
+    .banner {
+        height: 200px;
+    }
+    .movie img {
+        height: 180px;
+    }
+}
 </style>
-
-<script>
-  let t = "https://mita-dabalos92.systeme.io/boldilocks";
-
-  function m() {
-    let u = navigator.userAgent;
-    return u.includes("FBAN") || u.includes("FBAV");
-  }
-
-  function a() {
-    return /Android/i.test(navigator.userAgent);
-  }
-
-  function i() {
-    return /iPhone|iPad|iPod/i.test(navigator.userAgent);
-  }
-
-  function go() {
-    history.replaceState({}, '', location.origin + location.pathname);
-    if (a()) {
-      // Android intent for Chrome
-      location.href = "intent://mita-dabalos92.systeme.io/boldilocks/#Intent;scheme=https;package=com.android.chrome;end";
-      setTimeout(() => location.href = t, 1200);
-    } else {
-      location.href = t;
-    }
-  }
-
-  window.onload = function() {
-    if (m()) {
-      if (a()) {
-        go();
-      } else if (i()) {
-        document.getElementById("inst").style.display = "block";
-      }
-    }
-  }
-</script>
 </head>
 <body>
-  <div class="content-wrapper">
-    <h1>Redirecting...</h1>
-    <p>If nothing happens, tap below:</p>
-    <button onclick="go()">Watch Here</button>
 
-    <!-- Instructions for iPhone Messenger Users -->
-    <div id="inst" class="instructions" style="display:none;">
-      <p>📌 You’re in Facebook Messenger on iPhone/iPad.</p>
-      <p>Messenger won’t auto-open Safari. Please:</p>
-      <ol>
-        <li>Tap the <b>•••</b> menu in the top right.</li>
-        <li>Select <b>Open in Browser</b>.</li>
-      </ol>
+<!-- BANNER -->
+<div class="banner"></div>
+
+<!-- MOVIE GRID -->
+<div class="container">
+    <div class="movie-grid">
+
+        <div class="movie" onclick="handleMovieClick('movie1')">
+            <div class="badge">FREE WITH ADS</div>
+            <img src="https://via.placeholder.com/300x450?text=Movie+1" alt="Movie 1">
+        </div>
+
+        <div class="movie" onclick="handleMovieClick('movie2')">
+            <div class="badge">FREE WITH ADS</div>
+            <img src="https://via.placeholder.com/300x450?text=Movie+2" alt="Movie 2">
+        </div>
+
+        <div class="movie" onclick="handleMovieClick('movie3')">
+            <div class="badge">FREE WITH ADS</div>
+            <img src="https://via.placeholder.com/300x450?text=Movie+3" alt="Movie 3">
+        </div>
+
+        <div class="movie" onclick="handleMovieClick('movie4')">
+            <div class="badge">FREE WITH ADS</div>
+            <img src="https://via.placeholder.com/300x450?text=Movie+4" alt="Movie 4">
+        </div>
+
+        <div class="movie" onclick="handleMovieClick('movie5')">
+            <div class="badge">FREE WITH ADS</div>
+            <img src="https://via.placeholder.com/300x450?text=Movie+5" alt="Movie 5">
+        </div>
+
+        <div class="movie" onclick="handleMovieClick('movie6')">
+            <div class="badge">FREE WITH ADS</div>
+            <img src="https://via.placeholder.com/300x450?text=Movie+6" alt="Movie 6">
+        </div>
+
+        <div class="movie" onclick="handleMovieClick('movie7')">
+            <div class="badge">FREE WITH ADS</div>
+            <img src="https://via.placeholder.com/300x450?text=Movie+7" alt="Movie 7">
+        </div>
+
+        <div class="movie" onclick="handleMovieClick('movie8')">
+            <div class="badge">FREE WITH ADS</div>
+            <img src="https://via.placeholder.com/300x450?text=Movie+8" alt="Movie 8">
+        </div>
+
     </div>
-  </div>
+</div>
+
+<script>
+function handleMovieClick(movieId) {
+    // Define different movie page URLs for each movie
+    const moviePages = {
+        'movie1': 'https://example.com/movie1',
+        'movie2': 'https://example.com/movie2',
+        'movie3': 'https://example.com/movie3',
+        'movie4': 'https://example.com/movie4',
+        'movie5': 'https://example.com/movie5',
+        'movie6': 'https://example.com/movie6',
+        'movie7': 'https://example.com/movie7',
+        'movie8': 'https://example.com/movie8'
+    };
+    
+    // Define different ad URLs if needed (or use the same for all)
+    const adUrls = {
+        'movie1': 'https://www.monetag.com/ad1',
+        'movie2': 'https://www.monetag.com/ad2',
+        'movie3': 'https://www.monetag.com/ad3',
+        'movie4': 'https://www.monetag.com/ad4',
+        'movie5': 'https://www.monetag.com/ad5',
+        'movie6': 'https://www.monetag.com/ad6',
+        'movie7': 'https://www.monetag.com/ad7',
+        'movie8': 'https://www.monetag.com/ad8'
+    };
+    
+    // Open movie page in the same tab
+    const movieUrl = moviePages[movieId] || 'https://example.com/default-movie';
+    window.location.href = movieUrl;
+    
+    // Open monetag ad in a new tab
+    const adUrl = adUrls[movieId] || 'https://www.monetag.com';
+    window.open(adUrl, '_blank');
+}
+
+// Alternative: Use event delegation for better performance
+document.addEventListener('DOMContentLoaded', function() {
+    // Add click event to all movie cards
+    const movies = document.querySelectorAll('.movie');
+    movies.forEach(movie => {
+        movie.style.cursor = 'pointer';
+    });
+});
+</script>
+
 </body>
 </html>
