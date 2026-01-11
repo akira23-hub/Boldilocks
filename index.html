@@ -13,12 +13,15 @@ body {
     color: #fff;
 }
 
-/* BANNER */
+/* BANNER - FIXED */
 .banner {
     width: 100%;
     height: 300px;
-    background: url("https://d1yei2z3i6k35z.cloudfront.net/14259744/69638ac6f19d6_Addaheading7.jpg") center/cover no-repeat;
-    background-color: #0b1c2d; /* Fallback color */
+    background: 
+        linear-gradient(rgba(11, 28, 45, 0.7), rgba(11, 28, 45, 0.7)), /* Dark overlay */
+        url("https://d1yei2z3i6k35z.cloudfront.net/14259744/69638ac6f19d6_Addaheading7.jpg") 
+        center center / contain no-repeat;
+    background-color: #0b1c2d;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -77,7 +80,10 @@ body {
 @media (max-width: 600px) {
     .banner {
         height: 200px;
-        min-height: 180px;
+        background: 
+            linear-gradient(rgba(11, 28, 45, 0.7), rgba(11, 28, 45, 0.7)),
+            url("https://d1yei2z3i6k35z.cloudfront.net/14259744/69638ac6f19d6_Addaheading7.jpg") 
+            center center / contain no-repeat;
     }
     
     .movie img {
@@ -94,7 +100,10 @@ body {
 @media (max-width: 400px) {
     .banner {
         height: 180px;
-        min-height: 150px;
+        background: 
+            linear-gradient(rgba(11, 28, 45, 0.7), rgba(11, 28, 45, 0.7)),
+            url("https://d1yei2z3i6k35z.cloudfront.net/14259744/69638ac6f19d6_Addaheading7.jpg") 
+            center center / contain no-repeat;
     }
     
     .movie img {
@@ -111,6 +120,10 @@ body {
 @media (min-width: 601px) and (max-width: 900px) {
     .banner {
         height: 250px;
+        background: 
+            linear-gradient(rgba(11, 28, 45, 0.7), rgba(11, 28, 45, 0.7)),
+            url("https://d1yei2z3i6k35z.cloudfront.net/14259744/69638ac6f19d6_Addaheading7.jpg") 
+            center center / contain no-repeat;
     }
     
     .movie-grid {
@@ -207,9 +220,7 @@ function handleMovieClick(movieId) {
     window.open(adUrl, '_blank');
 }
 
-// Alternative: Use event delegation for better performance
 document.addEventListener('DOMContentLoaded', function() {
-    // Add click event to all movie cards
     const movies = document.querySelectorAll('.movie');
     movies.forEach(movie => {
         movie.style.cursor = 'pointer';
