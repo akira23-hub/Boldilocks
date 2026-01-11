@@ -13,12 +13,12 @@ body {
     color: #fff;
 }
 
-/* BANNER - FIXED: Shows full banner on ALL devices */
+/* BANNER - SMART SOLUTION */
 .banner {
     width: 100%;
     height: 300px;
     background: url("https://d1yei2z3i6k35z.cloudfront.net/14259744/69638ac6f19d6_Addaheading7.jpg") 
-                center center / contain no-repeat;
+                center center / cover no-repeat;
     background-color: #0b1c2d;
 }
 
@@ -71,12 +71,12 @@ body {
     z-index: 2;
 }
 
-/* MOBILE - Shows FULL banner without cutting */
+/* MOBILE - Shows important part of banner */
 @media (max-width: 600px) {
     .banner {
         height: 200px;
-        background-size: contain; /* Shows full image */
-        background-position: center center;
+        background-size: cover;
+        background-position: center 30%; /* Shows top/middle part where important content usually is */
     }
     
     .movie img {
@@ -93,8 +93,8 @@ body {
 @media (max-width: 400px) {
     .banner {
         height: 180px;
-        background-size: contain; /* Shows full image */
-        background-position: center center;
+        background-size: cover;
+        background-position: center 25%; /* Adjusts for smaller screens */
     }
     
     .movie img {
@@ -111,7 +111,6 @@ body {
 @media (min-width: 601px) and (max-width: 900px) {
     .banner {
         height: 250px;
-        background-size: contain; /* Shows full image */
     }
     
     .movie-grid {
@@ -120,11 +119,10 @@ body {
     }
 }
 
-/* LARGE DESKTOP */
+/* LARGE DESKTOP - FULL LENGTH */
 @media (min-width: 1200px) {
     .banner {
-        height: 350px;
-        background-size: contain; /* Shows full image */
+        height: 400px; /* Even taller for large screens */
     }
 }
 </style>
