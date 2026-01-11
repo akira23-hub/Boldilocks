@@ -13,29 +13,31 @@ body {
     color: #fff;
 }
 
-/* BANNER SOLUTION THAT WORKS */
+/* BANNER CONTAINER */
 .banner {
     width: 100%;
-    overflow: hidden; /* Prevents any overflow */
+    overflow: hidden;
+    position: relative;
 }
 
 /* The actual banner image */
 .banner-image {
     width: 100%;
     display: block;
-    max-width: 100%; /* Ensures it doesn't exceed container */
-    height: auto; /* Maintains aspect ratio */
+    max-width: 100%;
 }
 
-/* Desktop: Tall banner */
+/* Desktop: Controlled height */
 .banner-image.desktop {
-    min-height: 300px;
-    object-fit: cover; /* Fills space on desktop */
+    height: 300px;
+    object-fit: cover; /* Fills space nicely */
+    object-position: center center;
 }
 
 /* Mobile: Shows FULL image without cropping */
 .banner-image.mobile {
-    display: none; /* Hidden by default */
+    display: none; /* Hidden by default on desktop */
+    height: auto; /* Natural height */
 }
 
 /* CONTAINER */
@@ -97,6 +99,7 @@ body {
         display: block; /* Show mobile version */
         width: 100%;
         height: auto;
+        max-height: 200px; /* Optional: Limit max height on mobile */
     }
     
     .movie img {
@@ -111,6 +114,10 @@ body {
 
 /* SMALL MOBILE */
 @media (max-width: 400px) {
+    .banner-image.mobile {
+        max-height: 180px; /* Slightly smaller for very small screens */
+    }
+    
     .movie img {
         height: 160px;
     }
@@ -124,7 +131,7 @@ body {
 /* TABLET */
 @media (min-width: 601px) and (max-width: 900px) {
     .banner-image.desktop {
-        min-height: 250px;
+        height: 250px;
     }
     
     .movie-grid {
@@ -136,7 +143,7 @@ body {
 /* LARGE DESKTOP */
 @media (min-width: 1201px) {
     .banner-image.desktop {
-        min-height: 400px;
+        height: 350px; /* Slightly taller for large screens */
     }
 }
 </style>
@@ -145,7 +152,7 @@ body {
 
 <!-- BANNER - USING REGULAR IMG TAG FOR CONTROL -->
 <div class="banner">
-    <!-- Desktop version - can be cropped -->
+    <!-- Desktop version - fixed height -->
     <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/69638ac6f19d6_Addaheading7.jpg" 
          alt="Banner" 
          class="banner-image desktop">
