@@ -268,54 +268,66 @@ body {
         </div>
 
         <div class="movie" onclick="handleMovieClick('movie10')">
-            <img src="https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+10" 
+            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/696796e921f0e_Boldilocks401.jpg" 
                  alt="Movie 10"
                  onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
         </div>
+        
     </div>
 </div>
 
 <script>
 function handleMovieClick(movieId) {
-    // Define different movie page URLs for each movie
-    const moviePages = {
-        'movie1': 'https://jav.boldilocks.xyz/jav1',
-        'movie2': 'https://jav.boldilocks.xyz/jav2',
-        'movie3': 'https://jav.boldilocks.xyz/jav3',
-        'movie4': 'https://jav.boldilocks.xyz/jav4',
-        'movie5': 'https://jav.boldilocks.xyz/jav5',
-        'movie6': 'https://jav.boldilocks.xyz/jav6',
-        'movie7': 'https://jav.boldilocks.xyz/jav7',
-        'movie8': 'https://jav.boldilocks.xyz/jav8',
-        'movie9': 'https://jav.boldilocks.xyz/jav9',
-        'movie10': 'https://jav.boldilocks.xyz/jav10'
-
-
-        
-    };
+    // Extract movie number from movieId (e.g., 'movie15' -> 15)
+    const movieNumber = parseInt(movieId.replace('movie', ''));
     
-    // Define different ad URLs if needed (or use the same for all)
-    const adUrls = {
-        'movie1': 'https://otieu.com/4/8251888',
-        'movie2': 'https://otieu.com/4/7512585',
-        'movie3': 'https://otieu.com/4/8257954',
-        'movie4': 'https://otieu.com/4/1415254',
-        'movie5': 'https://otieu.com/4/7512545',
-        'movie6': 'https://otieu.com/4/8198889',
-        'movie7': 'https://otieu.com/4/8236017',
-        'movie8': 'https://otieu.com/4/8195375',
-        'movie9': 'https://otieu.com/4/8251888',
-        'movie10': 'https://otieu.com/4/7512585'
-    };
+    // Define ad URLs that repeat in sequence (first 10 ads)
+    const adUrls = [
+        'https://otieu.com/4/8251888',
+        'https://otieu.com/4/7512585',
+        'https://otieu.com/4/8257954',
+        'https://otieu.com/4/1415254',
+        'https://otieu.com/4/7512545',
+        'https://otieu.com/4/8198889',
+        'https://otieu.com/4/8236017',
+        'https://otieu.com/4/8195375',
+        'https://otieu.com/4/8251888',
+        'https://otieu.com/4/7512585'
+    ];
+    
+    // Get ad URL - repeats after 10 using modulo operator
+    // Example: Movie 1 -> index 0, Movie 11 -> index 0, Movie 12 -> index 1, etc.
+    const adIndex = (movieNumber - 1) % adUrls.length;
+    const adUrl = adUrls[adIndex];
+    
+    // Create movie URL pattern
+    // For movies 1-10, use specific URLs; for movies beyond 10, use pattern
+    let movieUrl;
+    if (movieNumber <= 10) {
+        // Specific URLs for first 10 movies
+        const specificUrls = {
+            1: 'https://jav.boldilocks.xyz/jav1',
+            2: 'https://jav.boldilocks.xyz/jav2',
+            3: 'https://jav.boldilocks.xyz/jav3',
+            4: 'https://jav.boldilocks.xyz/jav4',
+            5: 'https://jav.boldilocks.xyz/jav5',
+            6: 'https://jav.boldilocks.xyz/jav6',
+            7: 'https://jav.boldilocks.xyz/jav7',
+            8: 'https://jav.boldilocks.xyz/jav8',
+            9: 'https://jav.boldilocks.xyz/jav9',
+            10: 'https://jav.boldilocks.xyz/jav10'
+        };
+        movieUrl = specificUrls[movieNumber];
+    } else {
+        // Pattern for movies beyond 10
+        movieUrl = `https://jav.boldilocks.xyz/jav${movieNumber}`;
+    }
     
     // 1. Open monetag ad in a new tab FIRST
-    const adUrl = adUrls[movieId] || 'https://www.monetag.com';
     window.open(adUrl, '_blank');
     
     // 2. After a short delay, navigate to movie page
-    // This prevents the popup from being blocked
     setTimeout(() => {
-        const movieUrl = moviePages[movieId] || 'https://example.com/default-movie';
         window.location.href = movieUrl;
     }, 100); // 100ms delay ensures popup opens before navigation
 }
@@ -327,11 +339,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
     // Optional: Add click event listeners programmatically instead of inline onclick
+    // This is already handled by inline onclick, but we keep it for reference
     movies.forEach((movie, index) => {
-        movie.addEventListener('click', function(e) {
-            const movieId = 'movie' + (index + 1);
-            handleMovieClick(movieId);
-        });
+        // You can also add event listeners here if you prefer
+        // But inline onclick is already working
     });
 });
 </script>
