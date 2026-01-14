@@ -30,14 +30,14 @@ body {
 /* Desktop: Controlled height */
 .banner-image.desktop {
     height: 300px;
-    object-fit: cover; /* Fills space nicely */
+    object-fit: cover;
     object-position: center center;
 }
 
 /* Mobile: Shows FULL image without cropping */
 .banner-image.mobile {
-    display: none; /* Hidden by default on desktop */
-    height: auto; /* Natural height */
+    display: none;
+    height: auto;
 }
 
 /* CONTAINER */
@@ -69,7 +69,7 @@ body {
 /* POSTER - Bigger for desktop */
 .movie img {
     width: 100%;
-    height: 270px; /* Increased from 210px */
+    height: 270px;
     object-fit: cover;
     display: block;
 }
@@ -95,17 +95,61 @@ body {
     z-index: 2;
 }
 
-/* MOBILE - Shows ENTIRE banner image and responsive grid */
+/* PAGINATION STYLES */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px 0;
+    padding: 10px;
+    flex-wrap: wrap;
+}
+
+.pagination a {
+    color: white;
+    text-decoration: none;
+    margin: 0 5px;
+    padding: 8px 14px;
+    border-radius: 4px;
+    background: #1e3a8a;
+    transition: background 0.3s;
+    font-size: 14px;
+    min-width: 40px;
+    text-align: center;
+}
+
+.pagination a:hover {
+    background: #2d4fa5;
+}
+
+.pagination a.active {
+    background: #d32f2f;
+    font-weight: bold;
+}
+
+.pagination a.disabled {
+    background: #2c3e50;
+    color: #95a5a6;
+    cursor: not-allowed;
+}
+
+.pagination-ellipsis {
+    color: white;
+    margin: 0 5px;
+    padding: 8px 5px;
+}
+
+/* MOBILE STYLES */
 @media (max-width: 600px) {
     .banner-image.desktop {
-        display: none; /* Hide desktop version */
+        display: none;
     }
     
     .banner-image.mobile {
-        display: block; /* Show mobile version */
+        display: block;
         width: 100%;
         height: auto;
-        max-height: 200px; /* Optional: Limit max height on mobile */
+        max-height: 200px;
     }
     
     .movie-grid {
@@ -115,14 +159,25 @@ body {
     }
     
     .movie img {
-        height: 180px; /* Smaller for mobile */
+        height: 180px;
+    }
+    
+    .pagination {
+        margin: 20px 0;
+    }
+    
+    .pagination a {
+        padding: 6px 10px;
+        margin: 0 3px;
+        font-size: 13px;
+        min-width: 35px;
     }
 }
 
 /* SMALL MOBILE */
 @media (max-width: 400px) {
     .banner-image.mobile {
-        max-height: 180px; /* Slightly smaller for very small screens */
+        max-height: 180px;
     }
     
     .movie img {
@@ -132,6 +187,13 @@ body {
     .movie-grid {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
         gap: 6px;
+    }
+    
+    .pagination a {
+        padding: 5px 8px;
+        margin: 0 2px;
+        font-size: 12px;
+        min-width: 30px;
     }
 }
 
@@ -167,7 +229,7 @@ body {
 /* LARGE DESKTOP */
 @media (min-width: 1201px) {
     .banner-image.desktop {
-        height: 350px; /* Slightly taller for large screens */
+        height: 350px;
     }
     
     .movie-grid {
@@ -176,11 +238,11 @@ body {
     }
     
     .movie img {
-        height: 300px; /* Even bigger for large screens */
+        height: 300px;
     }
 }
 
-/* Medium desktop (to prevent overflow on smaller desktops) */
+/* Medium desktop */
 @media (min-width: 901px) and (max-width: 1100px) {
     .movie-grid {
         grid-template-columns: repeat(5, minmax(160px, 1fr));
@@ -191,18 +253,20 @@ body {
         height: 240px;
     }
 }
+
+/* HIDE MOVIES FOR PAGINATION */
+.movie.hidden {
+    display: none;
+}
 </style>
 </head>
 <body>
 
-<!-- BANNER - USING REGULAR IMG TAG FOR CONTROL -->
+<!-- BANNER -->
 <div class="banner">
-    <!-- Desktop version - fixed height -->
     <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/69638ac6f19d6_Addaheading7.jpg" 
          alt="Banner" 
          class="banner-image desktop">
-    
-    <!-- Mobile version - shows ENTIRE image -->
     <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/69638ac6f19d6_Addaheading7.jpg" 
          alt="Banner" 
          class="banner-image mobile">
@@ -210,136 +274,84 @@ body {
 
 <!-- MOVIE GRID -->
 <div class="container">
-    <div class="movie-grid">
-        <!-- Movie 1 with error handling for broken image -->
-        <div class="movie" onclick="handleMovieClick('movie1')">
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/6963acc44ab17_Boldilocks27.jpg" 
-                 alt="Movie 1"
-                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+1'">
-        </div>
-
-        <div class="movie" onclick="handleMovieClick('movie2')">
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/6963b01adb7ed_Boldilocks28.jpg" 
-                 alt="Movie 2"
-                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
-        </div>
-
-        <div class="movie" onclick="handleMovieClick('movie3')">
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/6963b5876be7a_Boldilocks33.jpg" 
-                 alt="Movie 3"
-                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
-        </div>
-
-        <div class="movie" onclick="handleMovieClick('movie4')">
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/69650787d2d5b_Boldilocks35.jpg" 
-                 alt="Movie 4"
-                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
-        </div>
-
-        <div class="movie" onclick="handleMovieClick('movie5')">
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/69650e4896eb5_Boldilocks34.jpg" 
-                 alt="Movie 5"
-                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
-        </div>
-
-        <div class="movie" onclick="handleMovieClick('movie6')">
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/69664890659a2_Boldilocks36.jpg" 
-                 alt="Movie 6"
-                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
-        </div>
-
-        <div class="movie" onclick="handleMovieClick('movie7')">
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/69664df0e678e_Boldilocks37.jpg" 
-                 alt="Movie 7"
-                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
-        </div>
-
-        <div class="movie" onclick="handleMovieClick('movie8')">
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/696651d7576c8_Boldilocks38.jpg" 
-                 alt="Movie 8"
-                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
-        </div>
-        
-        <!-- Adding more movies to demonstrate 5-per-row layout -->
-        <div class="movie" onclick="handleMovieClick('movie9')">
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/696655a5134dc_Boldilocks39.jpg" 
-                 alt="Movie 9"
-                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
-        </div>
-
-        <div class="movie" onclick="handleMovieClick('movie10')">
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/696796e921f0e_Boldilocks401.jpg" 
-                 alt="Movie 10"
-                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
-        </div>
-        
-        <div class="movie" onclick="handleMovieClick('movie11')">
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/69679cd8abddf_Boldilocks27.jpg" 
-                 alt="Movie 11"
-                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
-        </div>
-
-   <div class="movie" onclick="handleMovieClick('movie12')">
-            <img src="https://d1yei2z3i6k35z.cloudfront.net/14259744/69679f59390b4_Boldilocks32.jpg" 
-                 alt="Movie 12"
-                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
-        </div>
-
-        
-        
+    <div class="movie-grid" id="movieGrid">
+        <!-- All movies will be generated by JavaScript -->
+    </div>
+    
+    <!-- PAGINATION -->
+    <div class="pagination" id="pagination">
+        <!-- Pagination will be generated by JavaScript -->
     </div>
 </div>
 
 <script>
-function handleMovieClick(movieId) {
-    // Extract movie number from movieId (e.g., 'movie15' -> 15)
-    const movieNumber = parseInt(movieId.replace('movie', ''));
-    
-    // Define ad URLs that repeat in sequence (first 10 ads)
-    const adUrls = [
-        'https://otieu.com/4/8251888',
-        'https://otieu.com/4/7512585',
-        'https://otieu.com/4/8257954',
-        'https://otieu.com/4/1415254',
-        'https://otieu.com/4/7512545',
-        'https://otieu.com/4/8198889',
-        'https://otieu.com/4/8236017',
-        'https://otieu.com/4/8195375',
-        'https://otieu.com/4/8251888',
-        'https://otieu.com/4/7512585'
-    ];
-    
-    // Get ad URL - repeats after 10 using modulo operator
-    // Example: Movie 1 -> index 0, Movie 11 -> index 0, Movie 12 -> index 1, etc.
-    const adIndex = (movieNumber - 1) % adUrls.length;
-    const adUrl = adUrls[adIndex];
-    
-    // Create movie URL pattern
-    // For movies 1-10, use specific URLs; for movies beyond 10, use pattern
-    let movieUrl;
-    if (movieNumber <= 10) {
-        // Specific URLs for first 10 movies
-        const specificUrls = {
-            1: 'https://jav.boldilocks.xyz/jav1',
-            2: 'https://jav.boldilocks.xyz/jav2',
-            3: 'https://jav.boldilocks.xyz/jav3',
-            4: 'https://jav.boldilocks.xyz/jav4',
-            5: 'https://jav.boldilocks.xyz/jav5',
-            6: 'https://jav.boldilocks.xyz/jav6',
-            7: 'https://jav.boldilocks.xyz/jav7',
-            8: 'https://jav.boldilocks.xyz/jav8',
-            9: 'https://jav.boldilocks.xyz/jav9',
-            10: 'https://jav.boldilocks.xyz/jav10',
-            11: 'https://jav.boldilocks.xyz/jav11',   
-            12: 'https://jav.boldilocks.xyz/jav12' 
+// Movie data with IDs, image URLs, and movie URLs
+const movies = [
+    { id: 1, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6963acc44ab17_Boldilocks27.jpg', alt: 'Movie 1', url: 'https://jav.boldilocks.xyz/jav1' },
+    { id: 2, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6963b01adb7ed_Boldilocks28.jpg', alt: 'Movie 2', url: 'https://jav.boldilocks.xyz/jav2' },
+    { id: 3, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6963b5876be7a_Boldilocks33.jpg', alt: 'Movie 3', url: 'https://jav.boldilocks.xyz/jav3' },
+    { id: 4, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69650787d2d5b_Boldilocks35.jpg', alt: 'Movie 4', url: 'https://jav.boldilocks.xyz/jav4' },
+    { id: 5, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69650e4896eb5_Boldilocks34.jpg', alt: 'Movie 5', url: 'https://jav.boldilocks.xyz/jav5' },
+    { id: 6, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69664890659a2_Boldilocks36.jpg', alt: 'Movie 6', url: 'https://jav.boldilocks.xyz/jav6' },
+    { id: 7, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69664df0e678e_Boldilocks37.jpg', alt: 'Movie 7', url: 'https://jav.boldilocks.xyz/jav7' },
+    { id: 8, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696651d7576c8_Boldilocks38.jpg', alt: 'Movie 8', url: 'https://jav.boldilocks.xyz/jav8' },
+    { id: 9, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696655a5134dc_Boldilocks39.jpg', alt: 'Movie 9', url: 'https://jav.boldilocks.xyz/jav9' },
+    { id: 10, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696796e921f0e_Boldilocks401.jpg', alt: 'Movie 10', url: 'https://jav.boldilocks.xyz/jav10' },
+    { id: 11, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69679cd8abddf_Boldilocks27.jpg', alt: 'Movie 11', url: 'https://jav.boldilocks.xyz/jav11' },
+    { id: 12, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69679f59390b4_Boldilocks32.jpg', alt: 'Movie 12', url: 'https://jav.boldilocks.xyz/jav12' },
+    // Add more movies as needed
+    { id: 13, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+13', alt: 'Movie 13', url: 'https://jav.boldilocks.xyz/jav13' },
+    { id: 14, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+14', alt: 'Movie 14', url: 'https://jav.boldilocks.xyz/jav14' },
+    { id: 15, img: 'https://via.holder.com/300x450/1e3a8a/ffffff?text=Movie+15', alt: 'Movie 15', url: 'https://jav.boldilocks.xyz/jav15' },
+    { id: 16, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+16', alt: 'Movie 16', url: 'https://jav.boldilocks.xyz/jav16' },
+    { id: 17, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+17', alt: 'Movie 17', url: 'https://jav.boldilocks.xyz/jav17' },
+    { id: 18, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+18', alt: 'Movie 18', url: 'https://jav.boldilocks.xyz/jav18' },
+    { id: 19, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+19', alt: 'Movie 19', url: 'https://jav.boldilocks.xyz/jav19' },
+    { id: 20, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+20', alt: 'Movie 20', url: 'https://jav.boldilocks.xyz/jav20' },
+    { id: 21, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+21', alt: 'Movie 21', url: 'https://jav.boldilocks.xyz/jav21' },
+    { id: 22, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+22', alt: 'Movie 22', url: 'https://jav.boldilocks.xyz/jav22' },
+    { id: 23, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+23', alt: 'Movie 23', url: 'https://jav.boldilocks.xyz/jav23' },
+    { id: 24, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+24', alt: 'Movie 24', url: 'https://jav.boldilocks.xyz/jav24' },
+    { id: 25, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+25', alt: 'Movie 25', url: 'https://jav.boldilocks.xyz/jav25' },
+    { id: 26, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+26', alt: 'Movie 26', url: 'https://jav.boldilocks.xyz/jav26' },
+    { id: 27, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+27', alt: 'Movie 27', url: 'https://jav.boldilocks.xyz/jav27' },
+    { id: 28, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+28', alt: 'Movie 28', url: 'https://jav.boldilocks.xyz/jav28' },
+    { id: 29, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+29', alt: 'Movie 29', url: 'https://jav.boldilocks.xyz/jav29' },
+    { id: 30, img: 'https://via.placeholder.com/300x450/1e3a8a/ffffff?text=Movie+30', alt: 'Movie 30', url: 'https://jav.boldilocks.xyz/jav30' }
+];
 
-            
-        };
-        movieUrl = specificUrls[movieNumber];
+// Ad URLs that repeat in sequence
+const adUrls = [
+    'https://otieu.com/4/8251888',
+    'https://otieu.com/4/7512585',
+    'https://otieu.com/4/8257954',
+    'https://otieu.com/4/1415254',
+    'https://otieu.com/4/7512545',
+    'https://otieu.com/4/8198889',
+    'https://otieu.com/4/8236017',
+    'https://otieu.com/4/8195375',
+    'https://otieu.com/4/8251888',
+    'https://otieu.com/4/7512585'
+];
+
+// Pagination variables
+let currentPage = 1;
+let moviesPerPage;
+
+// Function to determine movies per page based on screen size
+function getMoviesPerPage() {
+    if (window.innerWidth <= 600) {
+        return 12; // Mobile: 12 movies per page
     } else {
-        // Pattern for movies beyond 10
-        movieUrl = `https://jav.boldilocks.xyz/jav${movieNumber}`;
+        return 15; // Desktop: 15 movies per page
     }
+}
+
+// Function to handle movie click
+function handleMovieClick(movieId, movieUrl) {
+    // Get ad URL - repeats after 10 using modulo operator
+    const adIndex = (movieId - 1) % adUrls.length;
+    const adUrl = adUrls[adIndex];
     
     // 1. Open monetag ad in a new tab FIRST
     window.open(adUrl, '_blank');
@@ -347,20 +359,173 @@ function handleMovieClick(movieId) {
     // 2. After a short delay, navigate to movie page
     setTimeout(() => {
         window.location.href = movieUrl;
-    }, 100); // 100ms delay ensures popup opens before navigation
+    }, 100);
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    const movies = document.querySelectorAll('.movie');
-    movies.forEach(movie => {
-        movie.style.cursor = 'pointer';
-    });
+// Function to render movies for current page
+function renderMovies() {
+    const movieGrid = document.getElementById('movieGrid');
+    movieGrid.innerHTML = '';
     
-    // Optional: Add click event listeners programmatically instead of inline onclick
-    // This is already handled by inline onclick, but we keep it for reference
-    movies.forEach((movie, index) => {
-        // You can also add event listeners here if you prefer
-        // But inline onclick is already working
+    moviesPerPage = getMoviesPerPage();
+    const startIndex = (currentPage - 1) * moviesPerPage;
+    const endIndex = startIndex + moviesPerPage;
+    const moviesToShow = movies.slice(startIndex, endIndex);
+    
+    moviesToShow.forEach(movie => {
+        const movieElement = document.createElement('div');
+        movieElement.className = 'movie';
+        movieElement.onclick = () => handleMovieClick(movie.id, movie.url);
+        
+        movieElement.innerHTML = `
+            <img src="${movie.img}" 
+                 alt="${movie.alt}"
+                 onerror="this.onerror=null; this.src='https://via.placeholder.com/300x450/333333/ffffff?text=Image+Error'">
+        `;
+        
+        movieGrid.appendChild(movieElement);
+    });
+}
+
+// Function to render pagination
+function renderPagination() {
+    const pagination = document.getElementById('pagination');
+    pagination.innerHTML = '';
+    
+    moviesPerPage = getMoviesPerPage();
+    const totalPages = Math.ceil(movies.length / moviesPerPage);
+    
+    // Previous button
+    const prevButton = document.createElement('a');
+    prevButton.href = '#';
+    prevButton.innerHTML = '&laquo;';
+    if (currentPage === 1) {
+        prevButton.classList.add('disabled');
+    } else {
+        prevButton.onclick = (e) => {
+            e.preventDefault();
+            currentPage--;
+            renderMovies();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    }
+    pagination.appendChild(prevButton);
+    
+    // Page numbers
+    const maxVisiblePages = window.innerWidth <= 600 ? 3 : 5;
+    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
+    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
+    
+    // Adjust startPage if endPage is at max
+    if (endPage - startPage + 1 < maxVisiblePages) {
+        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+    }
+    
+    // First page
+    if (startPage > 1) {
+        const firstPage = document.createElement('a');
+        firstPage.href = '#';
+        firstPage.textContent = '1';
+        firstPage.onclick = (e) => {
+            e.preventDefault();
+            currentPage = 1;
+            renderMovies();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        pagination.appendChild(firstPage);
+        
+        if (startPage > 2) {
+            const ellipsis = document.createElement('span');
+            ellipsis.className = 'pagination-ellipsis';
+            ellipsis.textContent = '...';
+            pagination.appendChild(ellipsis);
+        }
+    }
+    
+    // Page numbers
+    for (let i = startPage; i <= endPage; i++) {
+        const pageButton = document.createElement('a');
+        pageButton.href = '#';
+        pageButton.textContent = i;
+        
+        if (i === currentPage) {
+            pageButton.classList.add('active');
+        } else {
+            pageButton.onclick = (e) => {
+                e.preventDefault();
+                currentPage = i;
+                renderMovies();
+                renderPagination();
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+        }
+        
+        pagination.appendChild(pageButton);
+    }
+    
+    // Last page
+    if (endPage < totalPages) {
+        if (endPage < totalPages - 1) {
+            const ellipsis = document.createElement('span');
+            ellipsis.className = 'pagination-ellipsis';
+            ellipsis.textContent = '...';
+            pagination.appendChild(ellipsis);
+        }
+        
+        const lastPage = document.createElement('a');
+        lastPage.href = '#';
+        lastPage.textContent = totalPages;
+        lastPage.onclick = (e) => {
+            e.preventDefault();
+            currentPage = totalPages;
+            renderMovies();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+        pagination.appendChild(lastPage);
+    }
+    
+    // Next button
+    const nextButton = document.createElement('a');
+    nextButton.href = '#';
+    nextButton.innerHTML = '&raquo;';
+    if (currentPage === totalPages) {
+        nextButton.classList.add('disabled');
+    } else {
+        nextButton.onclick = (e) => {
+            e.preventDefault();
+            currentPage++;
+            renderMovies();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+    }
+    pagination.appendChild(nextButton);
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', function() {
+    renderMovies();
+    renderPagination();
+    
+    // Update pagination on window resize
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            // Recalculate current page based on new movies per page
+            const oldMoviesPerPage = moviesPerPage;
+            moviesPerPage = getMoviesPerPage();
+            
+            // Calculate new current page to show same starting movie
+            const firstMovieIndex = (currentPage - 1) * oldMoviesPerPage;
+            currentPage = Math.floor(firstMovieIndex / moviesPerPage) + 1;
+            
+            renderMovies();
+            renderPagination();
+        }, 250);
     });
 });
 </script>
