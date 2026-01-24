@@ -1,3 +1,9 @@
+
+
+
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +35,7 @@ body {
 
 /* Desktop: Controlled height */
 .banner-image.desktop {
-    height: 300px;
+    height: 250px;
     object-fit: cover;
     object-position: center center;
 }
@@ -40,9 +46,104 @@ body {
     height: auto;
 }
 
+/* SEARCH BAR CONTAINER */
+.search-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 15px 15px 5px 15px; /* Reduced bottom padding */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    z-index: 10;
+}
+
+.search-wrapper {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.search-input {
+    flex: 1;
+    padding: 12px 20px;
+    border-radius: 30px;
+    border: 2px solid #1e3a8a;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    font-size: 16px;
+    outline: none;
+    transition: all 0.3s;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.search-input:focus {
+    border-color: #d32f2f;
+    box-shadow: 0 4px 20px rgba(211, 47, 47, 0.4);
+    background: rgba(0, 0, 0, 0.7);
+}
+
+.search-button {
+    padding: 12px 30px;
+    border-radius: 30px;
+    border: none;
+    background: linear-gradient(to right, #d32f2f, #ff5252);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 16px;
+    white-space: nowrap;
+    box-shadow: 0 4px 15px rgba(211, 47, 47, 0.3);
+}
+
+.search-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(211, 47, 47, 0.4);
+}
+
+.search-button:active {
+    transform: translateY(0);
+}
+
+.clear-button {
+    padding: 12px 25px;
+    border-radius: 30px;
+    border: 2px solid #1e3a8a;
+    background: rgba(0, 0, 0, 0.6);
+    color: white;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 16px;
+    white-space: nowrap;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+}
+
+.clear-button:hover {
+    background: rgba(30, 58, 138, 0.3);
+    border-color: #d32f2f;
+}
+
+/* SEARCH RESULTS MESSAGE */
+.search-results {
+    text-align: center;
+    padding: 5px 10px; /* Reduced padding */
+    margin: 0 auto 5px auto; /* Reduced margin */
+    max-width: 1200px;
+    color: #96c93d;
+    font-size: 14px;
+    min-height: 18px; /* Reduced height */
+}
+
 /* CONTAINER */
 .container {
-    padding: 15px;
+    padding: 0 15px 15px 15px; /* Reduced top padding to 0 */
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -60,10 +161,11 @@ body {
 /* MOVIE CARD */
 .movie {
     position: relative;
-    border-radius: 8px;
+    border-radius: 10px;
     overflow: hidden;
     cursor: pointer;
     transition: transform 0.3s;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 /* POSTER - Bigger for desktop */
@@ -74,25 +176,12 @@ body {
     display: block;
 }
 
-/* FREE WITH ADS BAR */
-.badge {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    background: #d32f2f;
-    text-align: center;
-    font-size: 11px;
-    padding: 4px 0;
-    font-weight: bold;
-    z-index: 1;
-}
-
 /* HOVER EFFECT */
 .movie:hover {
     transform: scale(1.05);
     transition: 0.3s;
     z-index: 2;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 /* PAGINATION STYLES */
@@ -100,8 +189,8 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 30px 0;
-    padding: 10px;
+    margin: 25px 0; /* Reduced from 30px */
+    padding: 8px; /* Reduced from 10px */
     flex-wrap: wrap;
 }
 
@@ -110,7 +199,7 @@ body {
     text-decoration: none;
     margin: 0 5px;
     padding: 8px 14px;
-    border-radius: 4px;
+    border-radius: 5px;
     background: #1e3a8a;
     transition: background 0.3s;
     font-size: 14px;
@@ -149,12 +238,43 @@ body {
         display: block;
         width: 100%;
         height: auto;
-        max-height: 200px;
+        max-height: 160px;
+    }
+    
+    .search-container {
+        padding: 10px 10px 5px 10px; /* Reduced padding */
+    }
+    
+    .search-wrapper {
+        flex-direction: column;
+        gap: 8px;
+    }
+    
+    .search-input {
+        width: 100%;
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    
+    .search-button, .clear-button {
+        width: 100%;
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    
+    .search-results {
+        padding: 3px 8px; /* Reduced */
+        margin: 0 auto 3px auto; /* Reduced */
+        font-size: 13px; /* Reduced */
+    }
+    
+    .container {
+        padding: 0 10px 10px 10px; /* Reduced top padding to 0 */
     }
     
     .movie-grid {
         grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 8px;
+        gap: 10px;
         max-width: 100%;
     }
     
@@ -163,7 +283,8 @@ body {
     }
     
     .pagination {
-        margin: 20px 0;
+        margin: 15px 0; /* Reduced */
+        padding: 6px; /* Reduced */
     }
     
     .pagination a {
@@ -177,7 +298,7 @@ body {
 /* SMALL MOBILE */
 @media (max-width: 400px) {
     .banner-image.mobile {
-        max-height: 180px;
+        max-height: 140px;
     }
     
     .movie img {
@@ -186,7 +307,7 @@ body {
     
     .movie-grid {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 6px;
+        gap: 8px;
     }
     
     .pagination a {
@@ -200,7 +321,11 @@ body {
 /* TABLET */
 @media (min-width: 601px) and (max-width: 900px) {
     .banner-image.desktop {
-        height: 250px;
+        height: 220px;
+    }
+    
+    .search-container {
+        padding: 12px 15px 5px 15px; /* Reduced bottom padding */
     }
     
     .movie-grid {
@@ -229,7 +354,7 @@ body {
 /* LARGE DESKTOP */
 @media (min-width: 1201px) {
     .banner-image.desktop {
-        height: 350px;
+        height: 280px;
     }
     
     .movie-grid {
@@ -258,6 +383,15 @@ body {
 .movie.hidden {
     display: none;
 }
+
+/* NO RESULTS MESSAGE */
+.no-results {
+    text-align: center;
+    padding: 30px; /* Reduced from 40px */
+    color: #ff5252;
+    font-size: 16px; /* Reduced from 18px */
+    grid-column: 1 / -1;
+}
 </style>
 </head>
 <body>
@@ -272,6 +406,21 @@ body {
          class="banner-image mobile">
 </div>
 
+<!-- SEARCH BAR - Centered between banner and movies -->
+<div class="search-container">
+    <div class="search-wrapper">
+        <input type="text" 
+               class="search-input" 
+               id="searchInput" 
+               placeholder="Search by code or movie title..."
+               autocomplete="off">
+        <button class="search-button" id="searchButton">Search</button>
+        <button class="clear-button" id="clearButton">Show All</button>
+    </div>
+</div>
+
+<div class="search-results" id="searchResults"></div>
+
 <!-- MOVIE GRID -->
 <div class="container">
     <div class="movie-grid" id="movieGrid">
@@ -285,61 +434,57 @@ body {
 </div>
 
 <script>
-// Movie data with IDs, image URLs, and movie URLs
+// Movie data with alphanumeric codes, image URLs, and movie URLs
 const movies = [
 
 
-    { id: 46, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69748da259eec_Boldilocks61.jpg', alt: 'Movie 45', url: 'https://jav.boldilocks.xyz/jav45' },
-    { id: 46, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69748062407e5_AngKapitbahay.jpg', alt: 'Movie 45', url: 'https://play.boldilocks.xyz/angkapitbahay' },
-    { id: 45, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697477817a791_AkinangGabi.jpg', alt: 'Movie 45', url: 'https://play.boldilocks.xyz/akinanggabi' },
-    { id: 44, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69746aee45ae0_Boldilocks60.jpg', alt: 'Movie 44', url: 'https://jav.boldilocks.xyz/jav44' },
-    { id: 43, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697386a098e15_Boldilocks59.jpg', alt: 'Movie 43', url: 'https://jav.boldilocks.xyz/jav43' },
-    { id: 42, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697373d9bf3c9_Boldilocks58.jpg', alt: 'Movie 42', url: 'https://jav.boldilocks.xyz/jav42' },
-    { id: 41, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697370a869edb_Boldilocks57.jpg', alt: 'Movie 41', url: 'https://jav.boldilocks.xyz/jav41' },
-    { id: 40, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69736e52462ba_Boldilocks56.jpg', alt: 'Movie 40', url: 'https://jav.boldilocks.xyz/jav40' },
-    { id: 39, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69735ff3f21cb_Boldilocks55.jpg', alt: 'Movie 39', url: 'https://jav.boldilocks.xyz/jav39' },
-    { id: 38, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6972050b0696b_Boldilocks54.jpg', alt: 'Movie 38', url: 'https://jav.boldilocks.xyz/jav38' },
-    { id: 37, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6972030240459_Boldilocks53.jpg', alt: 'Movie 37', url: 'https://jav.boldilocks.xyz/jav37' },
-    { id: 36, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697200da51b5f_Boldilocks52.jpg', alt: 'Movie 36', url: 'https://jav.boldilocks.xyz/jav36' },
-    { id: 35, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6971fc7094b32_Boldilocks48.jpg', alt: 'Movie 35', url: 'https://jav.boldilocks.xyz/jav35' },
-    { id: 34, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6971e77d2368d_Boldilocks47.jpg', alt: 'Movie 34', url: 'https://jav.boldilocks.xyz/jav34' },
-    { id: 33, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6970b11c875dc_Boldilocks45.jpg', alt: 'Movie 33', url: 'https://jav.boldilocks.xyz/jav33' },
-    { id: 32, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69707a7a348a7_Boldilocks46.jpg', alt: 'Movie 32', url: 'https://jav.boldilocks.xyz/jav32' },
-    { id: 31, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697075dd82e09_Boldilocks43.jpg', alt: 'Movie 31', url: 'https://jav.boldilocks.xyz/jav31' },
-    { id: 30, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69707130b6a3a_Boldilocks39.jpg', alt: 'Movie 30', url: 'https://jav.boldilocks.xyz/jav30' },
-    { id: 29, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697066f597188_Boldilocks38.jpg', alt: 'Movie 29', url: 'https://jav.boldilocks.xyz/jav29' },
-    { id: 28, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696f90ff93f52_Boldilocks44.jpg', alt: 'Movie 28', url: 'https://jav.boldilocks.xyz/jav28' },
-    { id: 27, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696e1ce5e8246_Boldilocks52.jpg', alt: 'Movie 27', url: 'https://jav.boldilocks.xyz/jav27' },
-    { id: 26, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696e1893a22c3_Boldilocks47.jpg', alt: 'Movie 26', url: 'https://jav.boldilocks.xyz/jav26' },
-    { id: 25, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696e1743353c6_Boldilocks46.jpg', alt: 'Movie 25', url: 'https://jav.boldilocks.xyz/jav25' }, 
-    { id: 24, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696e163ee2e6b_Boldilocks45.jpg', alt: 'Movie 24', url: 'https://jav.boldilocks.xyz/jav24' },
-    { id: 23, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696e14a142243_Boldilocks44.jpg', alt: 'Movie 23', url: 'https://jav.boldilocks.xyz/jav23' },
-    { id: 22, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696a35a4d6e80_Boldilocks43.jpg', alt: 'Movie 22', url: 'https://jav.boldilocks.xyz/jav22' },
-    { id: 21, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696a281ade183_Boldilocks42.jpg', alt: 'Movie 21', url: 'https://jav.boldilocks.xyz/jav21' },
-    { id: 20, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696a252505767_Boldilocks41.jpg', alt: 'Movie 20', url: 'https://jav.boldilocks.xyz/jav20' },
-    { id: 19, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696a22fa0e25c_Boldilocks39.jpg', alt: 'Movie 19', url: 'https://jav.boldilocks.xyz/jav19' },
-    { id: 18, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696a141fa81e8_Boldilocks38.jpg', alt: 'Movie 18', url: 'https://jav.boldilocks.xyz/jav18' },
-    { id: 1, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6963acc44ab17_Boldilocks27.jpg', alt: 'Movie 1', url: 'https://jav.boldilocks.xyz/jav1' },
-    { id: 2, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6963b01adb7ed_Boldilocks28.jpg', alt: 'Movie 2', url: 'https://jav.boldilocks.xyz/jav2' },
-    { id: 3, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6963b5876be7a_Boldilocks33.jpg', alt: 'Movie 3', url: 'https://jav.boldilocks.xyz/jav3' },
-    { id: 4, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69650787d2d5b_Boldilocks35.jpg', alt: 'Movie 4', url: 'https://jav.boldilocks.xyz/jav4' },
-    { id: 5, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69650e4896eb5_Boldilocks34.jpg', alt: 'Movie 5', url: 'https://jav.boldilocks.xyz/jav5' },
-    { id: 6, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69664890659a2_Boldilocks36.jpg', alt: 'Movie 6', url: 'https://jav.boldilocks.xyz/jav6' },
-    { id: 7, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69664df0e678e_Boldilocks37.jpg', alt: 'Movie 7', url: 'https://jav.boldilocks.xyz/jav7' },
-    { id: 8, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696651d7576c8_Boldilocks38.jpg', alt: 'Movie 8', url: 'https://jav.boldilocks.xyz/jav8' },
-    { id: 9, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696655a5134dc_Boldilocks39.jpg', alt: 'Movie 9', url: 'https://jav.boldilocks.xyz/jav9' },
-    { id: 10, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696796e921f0e_Boldilocks401.jpg', alt: 'Movie 10', url: 'https://jav.boldilocks.xyz/jav10' },
-    { id: 11, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69679cd8abddf_Boldilocks27.jpg', alt: 'Movie 11', url: 'https://jav.boldilocks.xyz/jav11' },
-    { id: 12, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69679f59390b4_Boldilocks32.jpg', alt: 'Movie 12', url: 'https://jav.boldilocks.xyz/jav12' },
-    { id: 13, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6967a15e970dd_Boldilocks28.jpg', alt: 'Movie 13', url: 'https://jav.boldilocks.xyz/jav13' },
-    // Add more movies as needed
-   
-    { id: 14, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6968c2aa9fd20_Boldilocks331.jpg', alt: 'Movie 14', url: 'https://jav.boldilocks.xyz/jav14' },
-    { id: 15, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6968c9cb5acfa_Boldilocks34.jpg', alt: 'Movie 15', url: 'https://jav.boldilocks.xyz/jav15' },
-    { id: 16, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6968e7901128e_Boldilocks36.jpg', alt: 'Movie 16', url: 'https://jav.boldilocks.xyz/jav16' },
-    { id: 17, img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6968e9eeb1606_Boldilocks37.jpg', alt: 'Movie 17', url: 'https://jav.boldilocks.xyz/jav17' }
-   
-   
+    { code: 'AKDL-332', title: 'AKDL-332', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69748da259eec_Boldilocks61.jpg', alt: 'AKDL-332', url: 'https://jav.boldilocks.xyz/jav45' },
+    { code: 'Vivamax', title: 'Akin Kapitbahay', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69748062407e5_AngKapitbahay.jpg', alt: 'Ang Kapitbahay', url: 'https://play.boldilocks.xyz/angkapitbahay' },
+    { code: 'MV045', title: 'Akin ang Gabi', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697477817a791_AkinangGabi.jpg', alt: 'Akin ang Gabi', url: 'https://play.boldilocks.xyz/akinanggabi' },
+    { code: 'ABF-269', title: 'ABF-269', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69746aee45ae0_Boldilocks60.jpg', alt: 'ABF-269', url: 'https://jav.boldilocks.xyz/jav44' },
+    { code: 'DASD-621', title: 'DASD-621', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697386a098e15_Boldilocks59.jpg', alt: 'DASD-621', url: 'https://jav.boldilocks.xyz/jav43' },
+    { code: 'CAWD-835', title: 'CAWD-835', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697373d9bf3c9_Boldilocks58.jpg', alt: 'CAWD-835', url: 'https://jav.boldilocks.xyz/jav42' },
+    { code: 'MV041', title: 'Boldilocks 57', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697370a869edb_Boldilocks57.jpg', alt: 'Boldilocks 57', url: 'https://jav.boldilocks.xyz/jav41' },
+    { code: 'MV040', title: 'Boldilocks 56', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69736e52462ba_Boldilocks56.jpg', alt: 'Boldilocks 56', url: 'https://jav.boldilocks.xyz/jav40' },
+    { code: 'MV039', title: 'Boldilocks 55', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69735ff3f21cb_Boldilocks55.jpg', alt: 'Boldilocks 55', url: 'https://jav.boldilocks.xyz/jav39' },
+    { code: 'MV038', title: 'Boldilocks 54', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6972050b0696b_Boldilocks54.jpg', alt: 'Boldilocks 54', url: 'https://jav.boldilocks.xyz/jav38' },
+    { code: 'MV037', title: 'Boldilocks 53', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6972030240459_Boldilocks53.jpg', alt: 'Boldilocks 53', url: 'https://jav.boldilocks.xyz/jav37' },
+    { code: 'MV036', title: 'Boldilocks 52', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697200da51b5f_Boldilocks52.jpg', alt: 'Boldilocks 52', url: 'https://jav.boldilocks.xyz/jav36' },
+    { code: 'MV035', title: 'Boldilocks 48', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6971fc7094b32_Boldilocks48.jpg', alt: 'Boldilocks 48', url: 'https://jav.boldilocks.xyz/jav35' },
+    { code: 'MV034', title: 'Boldilocks 47', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6971e77d2368d_Boldilocks47.jpg', alt: 'Boldilocks 47', url: 'https://jav.boldilocks.xyz/jav34' },
+    { code: 'MV033', title: 'Boldilocks 45', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6970b11c875dc_Boldilocks45.jpg', alt: 'Boldilocks 45', url: 'https://jav.boldilocks.xyz/jav33' },
+    { code: 'MV032', title: 'Boldilocks 46', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69707a7a348a7_Boldilocks46.jpg', alt: 'Boldilocks 46', url: 'https://jav.boldilocks.xyz/jav32' },
+    { code: 'MV031', title: 'Boldilocks 43', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697075dd82e09_Boldilocks43.jpg', alt: 'Boldilocks 43', url: 'https://jav.boldilocks.xyz/jav31' },
+    { code: 'MV030', title: 'Boldilocks 39', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69707130b6a3a_Boldilocks39.jpg', alt: 'Boldilocks 39', url: 'https://jav.boldilocks.xyz/jav30' },
+    { code: 'MV029', title: 'Boldilocks 38', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697066f597188_Boldilocks38.jpg', alt: 'Boldilocks 38', url: 'https://jav.boldilocks.xyz/jav29' },
+    { code: 'MV028', title: 'Boldilocks 44', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696f90ff93f52_Boldilocks44.jpg', alt: 'Boldilocks 44', url: 'https://jav.boldilocks.xyz/jav28' },
+    { code: 'MV027', title: 'Boldilocks 52', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696e1ce5e8246_Boldilocks52.jpg', alt: 'Boldilocks 52', url: 'https://jav.boldilocks.xyz/jav27' },
+    { code: 'MV026', title: 'Boldilocks 47', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696e1893a22c3_Boldilocks47.jpg', alt: 'Boldilocks 47', url: 'https://jav.boldilocks.xyz/jav26' },
+    { code: 'MV025', title: 'Boldilocks 46', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696e1743353c6_Boldilocks46.jpg', alt: 'Boldilocks 46', url: 'https://jav.boldilocks.xyz/jav25' }, 
+    { code: 'MV024', title: 'Boldilocks 45', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696e163ee2e6b_Boldilocks45.jpg', alt: 'Boldilocks 45', url: 'https://jav.boldilocks.xyz/jav24' },
+    { code: 'MV023', title: 'Boldilocks 44', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696e14a142243_Boldilocks44.jpg', alt: 'Boldilocks 44', url: 'https://jav.boldilocks.xyz/jav23' },
+    { code: 'MV022', title: 'Boldilocks 43', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696a35a4d6e80_Boldilocks43.jpg', alt: 'Boldilocks 43', url: 'https://jav.boldilocks.xyz/jav22' },
+    { code: 'MV021', title: 'Boldilocks 42', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696a281ade183_Boldilocks42.jpg', alt: 'Boldilocks 42', url: 'https://jav.boldilocks.xyz/jav21' },
+    { code: 'MV020', title: 'Boldilocks 41', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696a252505767_Boldilocks41.jpg', alt: 'Boldilocks 41', url: 'https://jav.boldilocks.xyz/jav20' },
+    { code: 'MV019', title: 'Boldilocks 39', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696a22fa0e25c_Boldilocks39.jpg', alt: 'Boldilocks 39', url: 'https://jav.boldilocks.xyz/jav19' },
+    { code: 'MV018', title: 'Boldilocks 38', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696a141fa81e8_Boldilocks38.jpg', alt: 'Boldilocks 38', url: 'https://jav.boldilocks.xyz/jav18' },
+    { code: 'MV001', title: 'Boldilocks 27', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6963acc44ab17_Boldilocks27.jpg', alt: 'Boldilocks 27', url: 'https://jav.boldilocks.xyz/jav1' },
+    { code: 'MV002', title: 'Boldilocks 28', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6963b01adb7ed_Boldilocks28.jpg', alt: 'Boldilocks 28', url: 'https://jav.boldilocks.xyz/jav2' },
+    { code: 'MV003', title: 'Boldilocks 33', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6963b5876be7a_Boldilocks33.jpg', alt: 'Boldilocks 33', url: 'https://jav.boldilocks.xyz/jav3' },
+    { code: 'MV004', title: 'Boldilocks 35', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69650787d2d5b_Boldilocks35.jpg', alt: 'Boldilocks 35', url: 'https://jav.boldilocks.xyz/jav4' },
+    { code: 'MV005', title: 'Boldilocks 34', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69650e4896eb5_Boldilocks34.jpg', alt: 'Boldilocks 34', url: 'https://jav.boldilocks.xyz/jav5' },
+    { code: 'MV006', title: 'Boldilocks 36', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69664890659a2_Boldilocks36.jpg', alt: 'Boldilocks 36', url: 'https://jav.boldilocks.xyz/jav6' },
+    { code: 'MV007', title: 'Boldilocks 37', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69664df0e678e_Boldilocks37.jpg', alt: 'Boldilocks 37', url: 'https://jav.boldilocks.xyz/jav7' },
+    { code: 'MV008', title: 'Boldilocks 38', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696651d7576c8_Boldilocks38.jpg', alt: 'Boldilocks 38', url: 'https://jav.boldilocks.xyz/jav8' },
+    { code: 'MV009', title: 'Boldilocks 39', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696655a5134dc_Boldilocks39.jpg', alt: 'Boldilocks 39', url: 'https://jav.boldilocks.xyz/jav9' },
+    { code: 'MV010', title: 'Boldilocks 401', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/696796e921f0e_Boldilocks401.jpg', alt: 'Boldilocks 401', url: 'https://jav.boldilocks.xyz/jav10' },
+    { code: 'MV011', title: 'Boldilocks 27', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69679cd8abddf_Boldilocks27.jpg', alt: 'Boldilocks 27', url: 'https://jav.boldilocks.xyz/jav11' },
+    { code: 'MV012', title: 'Boldilocks 32', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69679f59390b4_Boldilocks32.jpg', alt: 'Boldilocks 32', url: 'https://jav.boldilocks.xyz/jav12' },
+    { code: 'MV013', title: 'Boldilocks 28', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6967a15e970dd_Boldilocks28.jpg', alt: 'Boldilocks 28', url: 'https://jav.boldilocks.xyz/jav13' },
+    { code: 'MV014', title: 'Boldilocks 331', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6968c2aa9fd20_Boldilocks331.jpg', alt: 'Boldilocks 331', url: 'https://jav.boldilocks.xyz/jav14' },
+    { code: 'MV015', title: 'Boldilocks 34', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6968c9cb5acfa_Boldilocks34.jpg', alt: 'Boldilocks 34', url: 'https://jav.boldilocks.xyz/jav15' },
+    { code: 'MV016', title: 'Boldilocks 36', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6968e7901128e_Boldilocks36.jpg', alt: 'Boldilocks 36', url: 'https://jav.boldilocks.xyz/jav16' },
+    { code: 'MV017', title: 'Boldilocks 37', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/6968e9eeb1606_Boldilocks37.jpg', alt: 'Boldilocks 37', url: 'https://jav.boldilocks.xyz/jav17' }
 ];
 
 // Ad URLs that repeat in sequence
@@ -356,9 +501,11 @@ const adUrls = [
     'https://otieu.com/4/7512585'
 ];
 
-// Pagination variables
+// Global variables
 let currentPage = 1;
 let moviesPerPage;
+let isSearchActive = false;
+let searchResults = [];
 
 // Function to determine movies per page based on screen size
 function getMoviesPerPage() {
@@ -369,10 +516,13 @@ function getMoviesPerPage() {
     }
 }
 
-// Function to handle movie click
-function handleMovieClick(movieId, movieUrl) {
+// Function to handle movie click - using code for ad sequence
+function handleMovieClick(movieCode, movieUrl) {
+    // Extract numeric part from code (e.g., "MV045" -> 45)
+    const numericId = parseInt(movieCode.replace(/[^0-9]/g, '')) || 1;
+    
     // Get ad URL - repeats after 10 using modulo operator
-    const adIndex = (movieId - 1) % adUrls.length;
+    const adIndex = (numericId - 1) % adUrls.length;
     const adUrl = adUrls[adIndex];
     
     // 1. Open monetag ad in a new tab FIRST
@@ -387,18 +537,48 @@ function handleMovieClick(movieId, movieUrl) {
 // Function to render movies for current page
 function renderMovies() {
     const movieGrid = document.getElementById('movieGrid');
+    const searchResultsElement = document.getElementById('searchResults');
     movieGrid.innerHTML = '';
     
     moviesPerPage = getMoviesPerPage();
-    const startIndex = (currentPage - 1) * moviesPerPage;
-    const endIndex = startIndex + moviesPerPage;
-    const moviesToShow = movies.slice(startIndex, endIndex);
+    
+    let moviesToShow;
+    if (isSearchActive) {
+        // Show search results
+        const startIndex = (currentPage - 1) * moviesPerPage;
+        const endIndex = startIndex + moviesPerPage;
+        moviesToShow = searchResults.slice(startIndex, endIndex);
+        
+        // Update search results message
+        if (searchResults.length > 0) {
+            searchResultsElement.textContent = `Found ${searchResults.length} movie(s) matching your search`;
+            searchResultsElement.style.color = '#96c93d';
+        } else {
+            searchResultsElement.textContent = 'No movies found. Try searching by code or title keywords';
+            searchResultsElement.style.color = '#ff5252';
+        }
+    } else {
+        // Show all movies (normal pagination)
+        const startIndex = (currentPage - 1) * moviesPerPage;
+        const endIndex = startIndex + moviesPerPage;
+        moviesToShow = movies.slice(startIndex, endIndex);
+        searchResultsElement.textContent = ''; // Clear search message
+    }
+    
+    if (moviesToShow.length === 0) {
+        const noResults = document.createElement('div');
+        noResults.className = 'no-results';
+        noResults.textContent = 'No movies found';
+        movieGrid.appendChild(noResults);
+        return;
+    }
     
     moviesToShow.forEach(movie => {
         const movieElement = document.createElement('div');
         movieElement.className = 'movie';
-        movieElement.onclick = () => handleMovieClick(movie.id, movie.url);
+        movieElement.onclick = () => handleMovieClick(movie.code, movie.url);
         
+        // Clean image only - no badges
         movieElement.innerHTML = `
             <img src="${movie.img}" 
                  alt="${movie.alt}"
@@ -415,7 +595,10 @@ function renderPagination() {
     pagination.innerHTML = '';
     
     moviesPerPage = getMoviesPerPage();
-    const totalPages = Math.ceil(movies.length / moviesPerPage);
+    const totalMovies = isSearchActive ? searchResults.length : movies.length;
+    const totalPages = Math.ceil(totalMovies / moviesPerPage);
+    
+    if (totalPages <= 1) return; // Hide pagination if only 1 page
     
     // Previous button
     const prevButton = document.createElement('a');
@@ -527,10 +710,101 @@ function renderPagination() {
     pagination.appendChild(nextButton);
 }
 
+// Function to search movies by code or title
+function searchMovies(query) {
+    const searchTerm = query.trim().toLowerCase();
+    
+    if (!searchTerm) {
+        alert('Please enter a search term');
+        return;
+    }
+    
+    // Search in multiple fields: code, title, and alt text
+    searchResults = movies.filter(movie => {
+        // Exact code match (case-insensitive)
+        if (movie.code.toLowerCase() === searchTerm) {
+            return true;
+        }
+        
+        // Partial code match
+        if (movie.code.toLowerCase().includes(searchTerm)) {
+            return true;
+        }
+        
+        // Title match
+        if (movie.title.toLowerCase().includes(searchTerm)) {
+            return true;
+        }
+        
+        // Alt text match
+        if (movie.alt.toLowerCase().includes(searchTerm)) {
+            return true;
+        }
+        
+        // Also search for numeric-only queries in codes (e.g., "45" matches "MV045")
+        const numericMatch = searchTerm.match(/^\d+$/);
+        if (numericMatch) {
+            const numericCode = movie.code.replace(/[^0-9]/g, '');
+            if (numericCode.includes(searchTerm)) {
+                return true;
+            }
+        }
+        
+        return false;
+    });
+    
+    isSearchActive = true;
+    currentPage = 1;
+    
+    renderMovies();
+    renderPagination();
+    
+    // Clear search input
+    document.getElementById('searchInput').value = '';
+}
+
+// Function to clear search and show all movies
+function clearSearch() {
+    isSearchActive = false;
+    searchResults = [];
+    currentPage = 1;
+    document.getElementById('searchInput').value = '';
+    document.getElementById('searchResults').textContent = '';
+    
+    renderMovies();
+    renderPagination();
+}
+
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
     renderMovies();
     renderPagination();
+    
+    // Add event listeners for search
+    const searchInput = document.getElementById('searchInput');
+    const searchButton = document.getElementById('searchButton');
+    const clearButton = document.getElementById('clearButton');
+    
+    // Search button click
+    searchButton.addEventListener('click', function() {
+        const query = searchInput.value.trim();
+        if (query) {
+            searchMovies(query);
+        }
+    });
+    
+    // Clear button click
+    clearButton.addEventListener('click', clearSearch);
+    
+    // Enter key support in search input
+    searchInput.addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            const query = searchInput.value.trim();
+            if (query) {
+                searchMovies(query);
+            }
+        }
+    });
     
     // Update pagination on window resize
     let resizeTimer;
@@ -551,6 +825,45 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 </script>
-
 </body>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<
