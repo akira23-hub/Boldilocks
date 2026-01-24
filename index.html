@@ -44,7 +44,7 @@ body {
 .search-container {
     max-width: 1200px;
     margin: 0 auto;
-    padding: 15px 15px 5px 15px; /* Reduced bottom padding */
+    padding: 15px 15px 5px 15px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -127,17 +127,17 @@ body {
 /* SEARCH RESULTS MESSAGE */
 .search-results {
     text-align: center;
-    padding: 5px 10px; /* Reduced padding */
-    margin: 0 auto 5px auto; /* Reduced margin */
+    padding: 5px 10px;
+    margin: 0 auto 5px auto;
     max-width: 1200px;
     color: #96c93d;
     font-size: 14px;
-    min-height: 18px; /* Reduced height */
+    min-height: 18px;
 }
 
 /* CONTAINER */
 .container {
-    padding: 0 15px 15px 15px; /* Reduced top padding to 0 */
+    padding: 0 15px 15px 15px;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -183,43 +183,53 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin: 25px 0; /* Reduced from 30px */
-    padding: 8px; /* Reduced from 10px */
+    margin: 25px 0;
+    padding: 8px;
     flex-wrap: wrap;
+    gap: 5px;
 }
 
 .pagination a {
     color: white;
     text-decoration: none;
-    margin: 0 5px;
-    padding: 8px 14px;
+    margin: 0 2px;
+    padding: 8px 12px;
     border-radius: 5px;
     background: #1e3a8a;
-    transition: background 0.3s;
+    transition: all 0.3s;
     font-size: 14px;
-    min-width: 40px;
+    min-width: 36px;
     text-align: center;
+    display: inline-block;
 }
 
 .pagination a:hover {
     background: #2d4fa5;
+    transform: translateY(-1px);
 }
 
 .pagination a.active {
     background: #d32f2f;
     font-weight: bold;
+    transform: scale(1.05);
 }
 
 .pagination a.disabled {
     background: #2c3e50;
     color: #95a5a6;
     cursor: not-allowed;
+    opacity: 0.6;
 }
 
-.pagination-ellipsis {
-    color: white;
-    margin: 0 5px;
-    padding: 8px 5px;
+.pagination a.arrow {
+    background: transparent;
+    border: 2px solid #1e3a8a;
+    font-weight: bold;
+}
+
+.pagination a.arrow:hover {
+    background: rgba(30, 58, 138, 0.3);
+    border-color: #d32f2f;
 }
 
 /* MOBILE STYLES */
@@ -232,83 +242,99 @@ body {
         display: block;
         width: 100%;
         height: auto;
-        max-height: 160px;
+        max-height: 140px;
     }
     
     .search-container {
-        padding: 10px 10px 5px 10px; /* Reduced padding */
+        padding: 8px 10px 5px 10px;
     }
     
     .search-wrapper {
         flex-direction: column;
-        gap: 8px;
+        gap: 6px;
     }
     
     .search-input {
         width: 100%;
-        padding: 10px 16px;
-        font-size: 14px;
+        padding: 8px 14px;
+        font-size: 13px;
+        border-radius: 20px;
     }
     
     .search-button, .clear-button {
         width: 100%;
-        padding: 10px 20px;
-        font-size: 14px;
+        padding: 8px 16px;
+        font-size: 13px;
+        border-radius: 20px;
     }
     
     .search-results {
-        padding: 3px 8px; /* Reduced */
-        margin: 0 auto 3px auto; /* Reduced */
-        font-size: 13px; /* Reduced */
+        padding: 3px 8px;
+        margin: 0 auto 3px auto;
+        font-size: 12px;
     }
     
     .container {
-        padding: 0 10px 10px 10px; /* Reduced top padding to 0 */
+        padding: 0 8px 8px 8px;
     }
     
     .movie-grid {
-        grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-        gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(110px, 1fr));
+        gap: 8px;
         max-width: 100%;
-    }
-    
-    .movie img {
-        height: 180px;
-    }
-    
-    .pagination {
-        margin: 15px 0; /* Reduced */
-        padding: 6px; /* Reduced */
-    }
-    
-    .pagination a {
-        padding: 6px 10px;
-        margin: 0 3px;
-        font-size: 13px;
-        min-width: 35px;
-    }
-}
-
-/* SMALL MOBILE */
-@media (max-width: 400px) {
-    .banner-image.mobile {
-        max-height: 140px;
     }
     
     .movie img {
         height: 160px;
     }
     
+    .pagination {
+        margin: 15px 0;
+        padding: 6px;
+        gap: 3px;
+    }
+    
+    .pagination a {
+        padding: 6px 10px;
+        margin: 0 1px;
+        font-size: 12px;
+        min-width: 32px;
+    }
+}
+
+/* SMALL MOBILE */
+@media (max-width: 400px) {
+    .banner-image.mobile {
+        max-height: 120px;
+    }
+    
+    .search-container {
+        padding: 6px 8px 4px 8px;
+    }
+    
+    .search-input {
+        padding: 7px 12px;
+        font-size: 12px;
+    }
+    
+    .search-button, .clear-button {
+        padding: 7px 14px;
+        font-size: 12px;
+    }
+    
+    .movie img {
+        height: 140px;
+    }
+    
     .movie-grid {
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-        gap: 8px;
+        gap: 6px;
     }
     
     .pagination a {
         padding: 5px 8px;
-        margin: 0 2px;
-        font-size: 12px;
-        min-width: 30px;
+        font-size: 11px;
+        min-width: 28px;
     }
 }
 
@@ -319,7 +345,7 @@ body {
     }
     
     .search-container {
-        padding: 12px 15px 5px 15px; /* Reduced bottom padding */
+        padding: 12px 15px 5px 15px;
     }
     
     .movie-grid {
@@ -381,9 +407,9 @@ body {
 /* NO RESULTS MESSAGE */
 .no-results {
     text-align: center;
-    padding: 30px; /* Reduced from 40px */
+    padding: 30px;
     color: #ff5252;
-    font-size: 16px; /* Reduced from 18px */
+    font-size: 16px;
     grid-column: 1 / -1;
 }
 </style>
@@ -430,8 +456,6 @@ body {
 <script>
 // Movie data with alphanumeric codes, image URLs, and movie URLs
 const movies = [
-
-
     { code: 'AKDL-332', title: 'AKDL-332', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69748da259eec_Boldilocks61.jpg', alt: 'AKDL-332', url: 'https://jav.boldilocks.xyz/jav45' },
     { code: 'Vivamax', title: 'Akin Kapitbahay', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/69748062407e5_AngKapitbahay.jpg', alt: 'Ang Kapitbahay', url: 'https://play.boldilocks.xyz/angkapitbahay' },
     { code: 'MV045', title: 'Akin ang Gabi', img: 'https://d1yei2z3i6k35z.cloudfront.net/14259744/697477817a791_AkinangGabi.jpg', alt: 'Akin ang Gabi', url: 'https://play.boldilocks.xyz/akinanggabi' },
@@ -583,7 +607,7 @@ function renderMovies() {
     });
 }
 
-// Function to render pagination
+// Function to render pagination - ALWAYS shows 3 consecutive pages
 function renderPagination() {
     const pagination = document.getElementById('pagination');
     pagination.innerHTML = '';
@@ -594,13 +618,21 @@ function renderPagination() {
     
     if (totalPages <= 1) return; // Hide pagination if only 1 page
     
+    // Always show 3 consecutive pages
+    let startPage = Math.max(1, currentPage - 1);
+    let endPage = Math.min(totalPages, startPage + 2);
+    
+    // Adjust if we're at the end
+    if (endPage - startPage < 2) {
+        startPage = Math.max(1, endPage - 2);
+    }
+    
     // Previous button
-    const prevButton = document.createElement('a');
-    prevButton.href = '#';
-    prevButton.innerHTML = '&laquo;';
-    if (currentPage === 1) {
-        prevButton.classList.add('disabled');
-    } else {
+    if (currentPage > 1) {
+        const prevButton = document.createElement('a');
+        prevButton.href = '#';
+        prevButton.innerHTML = '&laquo;';
+        prevButton.classList.add('arrow');
         prevButton.onclick = (e) => {
             e.preventDefault();
             currentPage--;
@@ -608,42 +640,10 @@ function renderPagination() {
             renderPagination();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
-    }
-    pagination.appendChild(prevButton);
-    
-    // Page numbers
-    const maxVisiblePages = window.innerWidth <= 600 ? 3 : 5;
-    let startPage = Math.max(1, currentPage - Math.floor(maxVisiblePages / 2));
-    let endPage = Math.min(totalPages, startPage + maxVisiblePages - 1);
-    
-    // Adjust startPage if endPage is at max
-    if (endPage - startPage + 1 < maxVisiblePages) {
-        startPage = Math.max(1, endPage - maxVisiblePages + 1);
+        pagination.appendChild(prevButton);
     }
     
-    // First page
-    if (startPage > 1) {
-        const firstPage = document.createElement('a');
-        firstPage.href = '#';
-        firstPage.textContent = '1';
-        firstPage.onclick = (e) => {
-            e.preventDefault();
-            currentPage = 1;
-            renderMovies();
-            renderPagination();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-        pagination.appendChild(firstPage);
-        
-        if (startPage > 2) {
-            const ellipsis = document.createElement('span');
-            ellipsis.className = 'pagination-ellipsis';
-            ellipsis.textContent = '...';
-            pagination.appendChild(ellipsis);
-        }
-    }
-    
-    // Page numbers
+    // Page numbers (always 3 consecutive pages)
     for (let i = startPage; i <= endPage; i++) {
         const pageButton = document.createElement('a');
         pageButton.href = '#';
@@ -664,35 +664,12 @@ function renderPagination() {
         pagination.appendChild(pageButton);
     }
     
-    // Last page
-    if (endPage < totalPages) {
-        if (endPage < totalPages - 1) {
-            const ellipsis = document.createElement('span');
-            ellipsis.className = 'pagination-ellipsis';
-            ellipsis.textContent = '...';
-            pagination.appendChild(ellipsis);
-        }
-        
-        const lastPage = document.createElement('a');
-        lastPage.href = '#';
-        lastPage.textContent = totalPages;
-        lastPage.onclick = (e) => {
-            e.preventDefault();
-            currentPage = totalPages;
-            renderMovies();
-            renderPagination();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
-        pagination.appendChild(lastPage);
-    }
-    
     // Next button
-    const nextButton = document.createElement('a');
-    nextButton.href = '#';
-    nextButton.innerHTML = '&raquo;';
-    if (currentPage === totalPages) {
-        nextButton.classList.add('disabled');
-    } else {
+    if (currentPage < totalPages) {
+        const nextButton = document.createElement('a');
+        nextButton.href = '#';
+        nextButton.innerHTML = '&raquo;';
+        nextButton.classList.add('arrow');
         nextButton.onclick = (e) => {
             e.preventDefault();
             currentPage++;
@@ -700,8 +677,8 @@ function renderPagination() {
             renderPagination();
             window.scrollTo({ top: 0, behavior: 'smooth' });
         };
+        pagination.appendChild(nextButton);
     }
-    pagination.appendChild(nextButton);
 }
 
 // Function to search movies by code or title
@@ -821,43 +798,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<
