@@ -6,6 +6,7 @@
 <title>Video Gallery · Fixed</title>
 
 <style>
+/* Your existing CSS here - keep it exactly the same */
 body{
 background:#000000;
 font-family:Arial,sans-serif;
@@ -306,6 +307,15 @@ text-transform:uppercase;
 width:100%;
 max-width:900px;
 border-radius:6px;
+}
+
+#player iframe{
+width:100%;
+max-width:900px;
+height:506px; /* 16:9 aspect ratio for 900px width */
+border-radius:6px;
+border:none;
+display:none;
 }
 
 /* Player info section */
@@ -615,7 +625,13 @@ font-size:10px;
 <div id="player">
 <!-- Tags container -->
 <div class="tags-container" id="tagsContainer"></div>
-<video id="mainVideo" controls></video>
+
+<!-- Video player (MP4) -->
+<video id="mainVideo" controls playsinline style="display:none;"></video>
+
+<!-- Iframe player (Embed) -->
+<iframe id="mainIframe" allowfullscreen allow="autoplay; fullscreen; encrypted-media" style="display:none;"></iframe>
+
 <!-- Player info with title only -->
 <div class="player-info" id="playerInfo">
 <div class="player-title" id="playerTitle"></div>
@@ -648,63 +664,58 @@ const adLinks = [
     "https://omg10.com/4/8236017", "https://omg10.com/4/8247899", "https://omg10.com/4/8195375"
 ];
 
-// ===== VIDEOS LIST WITH IMAGE THUMBNAILS =====
+// ===== VIDEOS LIST WITH DUAL SOURCE SUPPORT =====
+// Each video can have:
+// - mp4: direct video file URL
+// - embed: fallback embed URL (used if mp4 fails or is empty)
 const videos = [
     {
-        title:"I CAN'T RESIST YOU", 
-        url:"https://zpi.cx/s4/2EeZajd.mp4", 
-        download:"https://download.boldilocks.xyz/dl1", 
+        title:"I CAN'T RESIST YOU",
+        mp4:"https://zpi.cx/s4/2EeZajd.mp4",           // MP4 source (try this first)
+        embed:"https://sendvid.com/embed/b0tura79",    // Embed fallback (used if MP4 fails)
+        download:"https://download.boldilocks.xyz/dl1",
         thumbnail:"https://veporn.com/wp-content/uploads/2026/02/after-outside-you-get-my-inside-(poster88).jpg",
         tags: ["wife", "sexy", "blonde", "cumshot", "hairy"]
     },
     {
-        title:"I WAN'T TO EXPLORE", 
-        url:"https://zpi.cx/s4/Itrwoc4.mp4", 
-        download:"https://download.boldilocks.xyz/dl2", 
+        title:"LETS PLUCK YOUR CHERRY",
+        mp4:"https://zpi.cx/s4/Itrwoc4.mp4",
+        embed:"",  // No embed, only MP4
+        download:"https://download.boldilocks.xyz/dl2",
         thumbnail:"https://veporn.com/wp-content/uploads/2026/02/lets-pluck-your-cherry-shall-we-(poster74).jpg",
         tags: ["blonde", "hot", "undressing", "shaved pussy", "brunette", "big tits"]
     },
     {
-        title:"VIRAL CLIP", 
-        url:"https://zpi.cx/s4/2EeZajd.mp4", 
-        download:"https://download.boldilocks.xyz/dl3", 
-        thumbnail:"https://via.placeholder.com/400x225/ff00a8/ffffff?text=VIRAL+CLIP",
-        tags: ["sexy", "viral", "girl"]
+        title:"I REALLY MISS YOU",
+        mp4:"https://cdn.veporn.com/im-here-to-let-the-sin-in-me.mp4",  // No MP4, only embed
+        embed:"",
+        download:"https://download.boldilocks.xyz/dl3",
+        thumbnail:"https://zpi.cx/b/7J52Vf.jpg",
+        tags: ["sexy", "viral", "girl", "shaved pussy", "Johnny Sins", "hard fuck", "big tits"]
     },
     {
-        title:"MIDNIGHT", 
-        url:"https://zpi.cx/s4/2EeZajd.mp4", 
-        download:"https://download.boldilocks.xyz/dl4", 
-        thumbnail:"https://via.placeholder.com/400x225/cc0085/ffffff?text=MIDNIGHT",
-        tags: ["wife", "night", "romantic"]
+        title:"REALLY WET",
+        mp4:"https://cdn.veporn.com/you-want-me-dry-and-yet-im-wet.mp4",
+        embed:"",
+        download:"https://download.boldilocks.xyz/dl4",
+        thumbnail:"https://veporn.com/wp-content/uploads/2026/01/you-want-me-dry-and-yet-im-wet-(poster94).jpg",
+        tags: ["big dick", "big tits", "creampie", "fetish", "hairy", "redhead"]
     },
     {
-        title:"CHERRY", 
-        url:"https://zpi.cx/s4/2EeZajd.mp4", 
-        download:"https://download.boldilocks.xyz/dl5", 
-        thumbnail:"https://via.placeholder.com/400x225/ff4da6/ffffff?text=CHERRY",
-        tags: ["blonde", "cherry", "sweet"]
+        title:"LET'S ENJOY THE MOMENT",
+        mp4:"https://cdn.veporn.com/you-are-better-at-this-than-you-thought.mp4",
+        embed:"",
+        download:"https://download.boldilocks.xyz/dl5",
+        thumbnail:"https://veporn.com/wp-content/uploads/2026/01/you-are-better-at-this-than-you-thought-(poster57).jpg",
+        tags: ["blonde", "1080p", "big tits", "brunette", "hairy", "lesbians", "orgasm", "pussy licking", "vibrator", ]
     },
     {
-        title:"NEON", 
-        url:"https://zpi.cx/s4/2EeZajd.mp4", 
-        download:"https://download.boldilocks.xyz/dl6", 
+        title:"NEON",
+        mp4:"",
+        embed:"https://sendvid.com/embed/b0tura79",
+        download:"https://download.boldilocks.xyz/dl6",
         thumbnail:"https://via.placeholder.com/400x225/ff80bf/ffffff?text=NEON",
         tags: ["neon", "party", "sexy"]
-    },
-    {
-        title:"PURPLE", 
-        url:"https://zpi.cx/s4/2EeZajd.mp4", 
-        download:"https://download.boldilocks.xyz/dl7", 
-        thumbnail:"https://via.placeholder.com/400x225/990063/ffffff?text=PURPLE",
-        tags: ["purple", "wife", "dress"]
-    },
-    {
-        title:"VELVET", 
-        url:"https://zpi.cx/s4/2EeZajd.mp4", 
-        download:"https://download.boldilocks.xyz/dl8", 
-        thumbnail:"https://via.placeholder.com/400x225/b3006b/ffffff?text=VELVET",
-        tags: ["velvet", "blonde", "luxury"]
     }
 ];
 
@@ -719,12 +730,19 @@ let filteredVideos = [...videos];
 function closePlayer(){
     document.getElementById('player').style.display = 'none';
     document.getElementById('relatedSection').style.display = 'none';
-    document.getElementById('mainVideo').pause();
+    
+    // Stop video and iframe
+    const video = document.getElementById('mainVideo');
+    const iframe = document.getElementById('mainIframe');
+    video.pause();
+    video.src = '';
+    iframe.src = '';
     
     if(currentCardId){
         document.getElementById(currentCardId)?.classList.remove('playing');
     }
     currentCardId = null;
+    currentVideo = null;
 }
 
 function toggleMenu(){
@@ -817,16 +835,21 @@ function displayRelatedVideos(relatedVideos){
         card.appendChild(thumbDiv);
         card.appendChild(titleDiv);
         
-        let videoIndex = videos.findIndex(v => v.title === video.title && v.url === video.url);
+        let videoIndex = videos.findIndex(v => v.title === video.title);
         card.onclick = () => playVideo(videoIndex);
         
         relatedGrid.appendChild(card);
     });
 }
 
-// SEARCH FUNCTION
+// SEARCH FUNCTION - closes player and shows results
 function performSearch(searchTerm){
+    // Close player first
     closePlayer();
+    
+    // Show grid and pagination
+    document.getElementById('videoGrid').classList.remove('hidden');
+    document.getElementById('pagination').classList.remove('hidden');
     
     searchTerm = searchTerm.toLowerCase().trim();
     
@@ -921,12 +944,13 @@ function createVideoCard(video, index){
     card.appendChild(thumbDiv);
     card.appendChild(titleDiv);
     
-    let videoIndex = videos.findIndex(v => v.title === video.title && v.url === video.url);
+    let videoIndex = videos.findIndex(v => v.title === video.title);
     card.onclick = () => playVideo(videoIndex);
     
     return card;
 }
 
+// ===== ENHANCED PLAY VIDEO FUNCTION WITH FALLBACK =====
 function playVideo(index){
     if(index === -1) return;
     
@@ -941,22 +965,63 @@ function playVideo(index){
     window.open(getNextAd(), '_blank');
     
     let player = document.getElementById('player');
+    let videoEl = document.getElementById('mainVideo');
+    let iframeEl = document.getElementById('mainIframe');
+    
+    // Reset both players
+    videoEl.style.display = 'none';
+    iframeEl.style.display = 'none';
+    videoEl.pause();
+    videoEl.src = '';
+    iframeEl.src = '';
+    
     player.style.display = 'block';
     
-    // Hide main grid and pagination
+    // Hide main grid and pagination when playing
     document.getElementById('videoGrid').classList.add('hidden');
     document.getElementById('pagination').classList.add('hidden');
     
     displayTags(currentVideo.tags);
-    
-    let mainVideo = document.getElementById('mainVideo');
-    mainVideo.src = currentVideo.url;
-    mainVideo.play();
-    
     document.getElementById('playerTitle').textContent = currentVideo.title;
     
-    let downloadBtn = document.getElementById('downloadBtn');
-    downloadBtn.href = currentVideo.download;
+    // Set download button
+    document.getElementById('downloadBtn').href = currentVideo.download;
+    
+    // Try MP4 first if available
+    if (currentVideo.mp4 && currentVideo.mp4.trim() !== '') {
+        console.log('Attempting to play MP4:', currentVideo.mp4);
+        videoEl.src = currentVideo.mp4;
+        videoEl.style.display = 'block';
+        
+        // If MP4 fails, fallback to embed
+        videoEl.onerror = function() {
+            console.log('MP4 failed, trying embed fallback');
+            videoEl.style.display = 'none';
+            videoEl.src = '';
+            
+            if (currentVideo.embed && currentVideo.embed.trim() !== '') {
+                iframeEl.src = currentVideo.embed;
+                iframeEl.style.display = 'block';
+            } else {
+                alert('No playable source available for this video');
+            }
+        };
+        
+        // Try to play
+        videoEl.play().catch(error => {
+            console.log('MP4 play failed:', error);
+            videoEl.onerror(); // Trigger fallback
+        });
+    }
+    // If no MP4, use embed directly
+    else if (currentVideo.embed && currentVideo.embed.trim() !== '') {
+        console.log('No MP4, using embed:', currentVideo.embed);
+        iframeEl.src = currentVideo.embed;
+        iframeEl.style.display = 'block';
+    }
+    else {
+        alert('No video source available');
+    }
     
     // Get and display EXACTLY 4 related videos
     let relatedVideos = getRelatedVideos(currentVideo);
@@ -978,7 +1043,13 @@ function goHome(){
     // Hide player
     document.getElementById('player').style.display = 'none';
     document.getElementById('relatedSection').style.display = 'none';
-    document.getElementById('mainVideo').pause();
+    
+    // Stop video and iframe
+    const video = document.getElementById('mainVideo');
+    const iframe = document.getElementById('mainIframe');
+    video.pause();
+    video.src = '';
+    iframe.src = '';
     
     // Show main grid and pagination
     document.getElementById('videoGrid').classList.remove('hidden');
