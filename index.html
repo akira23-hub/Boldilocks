@@ -4,7 +4,6 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
 <title>Video Gallery · Fixed</title>
-
 <style>
 /* Your existing CSS here - keep it exactly the same, plus the following for centering */
 
@@ -218,11 +217,6 @@ z-index:10;
         border-right:2px solid #ff00a8;
         margin:0;
         gap:15px;
-    }
-    
-    .menu-links a{
-        font-size:16px;
-        padding:8px 0;
     }
     
     .menu-links.show{
@@ -572,7 +566,6 @@ margin:0 10px;
 }
 </style>
 </head>
-
 <body>
 <div class="main-container">
 <!-- Menu overlay for mobile -->
@@ -913,6 +906,7 @@ function createVideoCard(video, index) {
   return card;
 }
 
+// Updated playVideo function:
 function playVideo(index) {
   if (index === -1) return;
 
@@ -954,14 +948,14 @@ function playVideo(index) {
   // Play MP4 if available
   if (currentVideo.mp4 && currentVideo.mp4.trim() !== '') {
     console.log('Attempting to play MP4:', currentVideo.mp4);
-    // For autoplay to work in some browsers, set muted
-    videoEl.muted = true;
+    // Remove muted to allow sound
+    // videoEl.muted = true;
     videoEl.src = currentVideo.mp4;
     videoEl.style.display = 'block';
 
     // Play the video and handle promise
     videoEl.play().then(() => {
-      // Unmute after play starts if desired
+      // Optionally, unmute here if it was muted before
       // videoEl.muted = false;
     }).catch(error => {
       console.log('MP4 play failed:', error);
@@ -969,8 +963,6 @@ function playVideo(index) {
       if (currentVideo.embed && currentVideo.embed.trim() !== '') {
         iframeEl.src = currentVideo.embed;
         iframeEl.style.display = 'block';
-      } else {
-        alert('No playable source available for this video');
       }
     });
   } else if (currentVideo.embed && currentVideo.embed.trim() !== '') {
@@ -978,7 +970,8 @@ function playVideo(index) {
     iframeEl.src = currentVideo.embed;
     iframeEl.style.display = 'block';
   } else {
-    alert('No video source available');
+    // No sources available, do nothing silently
+    // do nothing
   }
 
   // Display 4 related videos
@@ -990,93 +983,10 @@ function playVideo(index) {
   closeMenu();
 }
 
-function handleDownloadClick(e) {
-  e.preventDefault();
-  window.open(getNextAd(), '_blank');
-  setTimeout(() => (window.location.href = currentVideo.download), 100);
-}
-
-function goHome() {
-  document.getElementById('player').style.display = 'none';
-  document.getElementById('relatedSection').style.display = 'none';
-
-  const video = document.getElementById('mainVideo');
-  const iframe = document.getElementById('mainIframe');
-  video.pause();
-  video.src = '';
-  iframe.src = '';
-
-  document.getElementById('videoGrid').classList.remove('hidden');
-  document.getElementById('pagination').classList.remove('hidden');
-
-  if (currentCardId) {
-    document.getElementById(currentCardId)?.classList.remove('playing');
-  }
-  currentCardId = null;
-  currentVideo = null;
-
-  document.getElementById('searchInput').value = '';
-  document.getElementById('mobileSearchInput').value = '';
-  document.getElementById('mobileSearchContainer').classList.remove('show');
-
-  filteredVideos = [...videos];
-  currentPage = 1;
-  displayCurrentPage();
-  updatePagination();
-
-  // Remove URL hash
-  history.pushState({}, '', window.location.pathname + window.location.search);
-  window.scrollTo({ top: 0, behavior: 'smooth' });
-  closeMenu();
-}
-
-// Load video based on URL hash
-window.onload = function() {
-  const hash = decodeURIComponent(window.location.hash);
-  const match = hash.match(/#video=([^&]+)/);
-  if (match && match[1]) {
-    const title = match[1];
-    const index = videos.findIndex(v => v.title === title);
-    if (index !== -1) {
-      playVideo(index);
-      return;
-    }
-  }
-  // Default load all videos
-  filteredVideos = [...videos];
-  displayCurrentPage();
-  updatePagination();
-
-  document.querySelector('.logo-img').onclick = goHome;
+// Initialize the homepage with videos on page load
+window.onload = () => {
+  performSearch('');
 };
-
-// ... rest of the JavaScript code remains the same ...
-// (e.g., toggleMenu, changePage, createVideoCard, displayCurrentPage, etc.)
-function handleMenuClick(menu) {
-  alert(menu.charAt(0).toUpperCase() + menu.slice(1) + ' page - add your content here');
-}
-
-window.addEventListener('resize', function () {
-  let newItemsPerPage = window.innerWidth <= 768 ? 10 : 12;
-  if (newItemsPerPage !== itemsPerPage) {
-    itemsPerPage = newItemsPerPage;
-    currentPage = 1;
-    displayCurrentPage();
-    updatePagination();
-  }
-});
-
-document.getElementById('searchInput').addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    searchVideos();
-  }
-});
-
-document.getElementById('mobileSearchInput').addEventListener('keypress', function (e) {
-  if (e.key === 'Enter') {
-    mobileSearch();
-  }
-});
 </script>
 </body>
 </html>
