@@ -367,10 +367,19 @@ padding-left:10px;
 
 .related-grid{
 display:grid;
-grid-template-columns:repeat(3, 1fr);
+grid-template-columns:repeat(4, 1fr);
 gap:15px;
 }
 
+/* Tablet */
+@media (max-width: 1000px) {
+    .related-grid{
+        grid-template-columns:repeat(3, 1fr);
+        gap:15px;
+    }
+}
+
+/* Mobile - 2 columns */
 @media (max-width: 768px) {
     .related-grid{
         grid-template-columns:repeat(2, 1fr);
@@ -378,9 +387,10 @@ gap:15px;
     }
 }
 
+/* Small mobile - still 2 columns */
 @media (max-width: 480px) {
     .related-grid{
-        grid-template-columns:repeat(1, 1fr);
+        grid-template-columns:repeat(2, 1fr);
         gap:10px;
     }
 }
@@ -697,32 +707,32 @@ const adLinks = [
     "https://omg10.com/4/8236017", "https://omg10.com/4/8247899", "https://omg10.com/4/8195375"
 ];
 
-// ===== VIDEOS LIST WITH PLAY COUNTS =====
+// ===== VIDEOS LIST WITH PLAY COUNTS AND MINUTES/SECONDS SEEK TIMES =====
 const videos = [
-    {title:"HOT DANCE", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n1", seekTime: 5, tags: ["wife", "sexy", "dance"], plays: 0},
-    {title:"TRENDING", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n2", seekTime: 12, tags: ["blonde", "hot", "trending"], plays: 0},
-    {title:"VIRAL CLIP", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n3", seekTime: 8, tags: ["sexy", "viral", "girl"], plays: 0},
-    {title:"MIDNIGHT", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n4", seekTime: 15, tags: ["wife", "night", "romantic"], plays: 0},
-    {title:"CHERRY", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n5", seekTime: 20, tags: ["blonde", "cherry", "sweet"], plays: 0},
-    {title:"NEON", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n6", seekTime: 3, tags: ["neon", "party", "sexy"], plays: 0},
-    {title:"PURPLE", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n7", seekTime: 10, tags: ["purple", "wife", "dress"], plays: 0},
-    {title:"VELVET", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n8", seekTime: 7, tags: ["velvet", "blonde", "luxury"], plays: 0},
-    {title:"CRIMSON", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n9", seekTime: 18, tags: ["crimson", "sexy", "red"], plays: 0},
-    {title:"BLAZE", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n10", seekTime: 25, tags: ["blaze", "hot", "wife"], plays: 0},
-    {title:"DANCE", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n1", seekTime: 5, tags: ["wife", "sexy", "dance"], plays: 0},
-    {title:"HOT", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n2", seekTime: 12, tags: ["blonde", "hot", "trending"], plays: 0},
-    {title:"PARTY", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n3", seekTime: 8, tags: ["party", "sexy", "girl"], plays: 0},
-    {title:"NIGHT", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n4", seekTime: 15, tags: ["night", "romantic"], plays: 0},
-    {title:"SWEET", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n5", seekTime: 20, tags: ["sweet", "cherry"], plays: 0},
-    {title:"PARTY2", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n6", seekTime: 3, tags: ["party", "neon"], plays: 0},
-    {title:"DRESS", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n7", seekTime: 10, tags: ["dress", "purple"], plays: 0},
-    {title:"LUXURY", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n8", seekTime: 7, tags: ["luxury", "velvet"], plays: 0},
-    {title:"RED", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n9", seekTime: 18, tags: ["red", "crimson"], plays: 0},
-    {title:"WIFE2", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n10", seekTime: 25, tags: ["wife", "hot"], plays: 0},
-    {title:"DANCE2", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n1", seekTime: 5, tags: ["dance", "sexy"], plays: 0},
-    {title:"HOT2", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n2", seekTime: 12, tags: ["hot", "blonde"], plays: 0},
-    {title:"GIRL", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n3", seekTime: 8, tags: ["girl", "viral"], plays: 0},
-    {title:"ROMANTIC", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n4", seekTime: 15, tags: ["romantic", "night"], plays: 0}
+    {title:"I CAN'T RESIST YOU", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"http://download.boldilocks.xyz/dl1", seekTime: 265, tags: ["wife", "sexy", "blonde", "cumshot", "hairy"], plays: 0}, // 1:05
+    {title:"TRENDING", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n2", seekTime: 92, tags: ["blonde", "hot", "trending"], plays: 0}, // 1:32
+    {title:"VIRAL CLIP", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n3", seekTime: 128, tags: ["sexy", "viral", "girl"], plays: 0}, // 2:08
+    {title:"MIDNIGHT", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n4", seekTime: 185, tags: ["wife", "night", "romantic"], plays: 0}, // 3:05
+    {title:"CHERRY", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n5", seekTime: 220, tags: ["blonde", "cherry", "sweet"], plays: 0}, // 3:40
+    {title:"NEON", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n6", seekTime: 33, tags: ["neon", "party", "sexy"], plays: 0}, // 0:33
+    {title:"PURPLE", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n7", seekTime: 75, tags: ["purple", "wife", "dress"], plays: 0}, // 1:15
+    {title:"VELVET", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n8", seekTime: 142, tags: ["velvet", "blonde", "luxury"], plays: 0}, // 2:22
+    {title:"CRIMSON", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n9", seekTime: 198, tags: ["crimson", "sexy", "red"], plays: 0}, // 3:18
+    {title:"BLAZE", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n10", seekTime: 265, tags: ["blaze", "hot", "wife"], plays: 0}, // 4:25
+    {title:"DANCE", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n1", seekTime: 45, tags: ["wife", "sexy", "dance"], plays: 0}, // 0:45
+    {title:"HOT", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n2", seekTime: 88, tags: ["blonde", "hot", "trending"], plays: 0}, // 1:28
+    {title:"PARTY", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n3", seekTime: 115, tags: ["party", "sexy", "girl"], plays: 0}, // 1:55
+    {title:"NIGHT", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n4", seekTime: 165, tags: ["night", "romantic"], plays: 0}, // 2:45
+    {title:"SWEET", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n5", seekTime: 205, tags: ["sweet", "cherry"], plays: 0}, // 3:25
+    {title:"PARTY2", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n6", seekTime: 55, tags: ["party", "neon"], plays: 0}, // 0:55
+    {title:"DRESS", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n7", seekTime: 95, tags: ["dress", "purple"], plays: 0}, // 1:35
+    {title:"LUXURY", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n8", seekTime: 155, tags: ["luxury", "velvet"], plays: 0}, // 2:35
+    {title:"RED", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n9", seekTime: 188, tags: ["red", "crimson"], plays: 0}, // 3:08
+    {title:"WIFE2", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n10", seekTime: 235, tags: ["wife", "hot"], plays: 0}, // 3:55
+    {title:"DANCE2", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n1", seekTime: 38, tags: ["dance", "sexy"], plays: 0}, // 0:38
+    {title:"HOT2", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n2", seekTime: 82, tags: ["hot", "blonde"], plays: 0}, // 1:22
+    {title:"GIRL", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n3", seekTime: 125, tags: ["girl", "viral"], plays: 0}, // 2:05
+    {title:"ROMANTIC", url:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://nswf-hub.github.io/download/n4", seekTime: 178, tags: ["romantic", "night"], plays: 0} // 2:58
 ];
 
 // Load play counts from localStorage
@@ -759,6 +769,14 @@ function incrementPlayCount(index){
             }
         }
     }
+}
+
+// Format seconds to MM:SS
+function formatTime(seconds){
+    if(!seconds || seconds < 0) return "00:00";
+    let mins = Math.floor(seconds / 60);
+    let secs = Math.floor(seconds % 60);
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
 }
 
 let adCounter = localStorage.getItem('adCounter') || 0;
@@ -816,8 +834,8 @@ function displayTags(tags){
     }
 }
 
-// Function to get 6 random related videos based on tags
-function getRelatedVideos(currentVideo, count = 6){
+// Function to get 4 random related videos based on tags (for mobile)
+function getRelatedVideos(currentVideo, count = 4){
     if(!currentVideo) return [];
     
     // Get videos that share at least one tag with current video
@@ -1071,8 +1089,8 @@ function playVideo(index){
     let downloadBtn = document.getElementById('downloadBtn');
     downloadBtn.href = currentVideo.download;
     
-    // Get and display related videos (only 6)
-    let relatedVideos = getRelatedVideos(currentVideo, 6);
+    // Get and display related videos (only 4)
+    let relatedVideos = getRelatedVideos(currentVideo, 4);
     displayRelatedVideos(relatedVideos);
     document.getElementById('relatedSection').style.display = 'block';
     
