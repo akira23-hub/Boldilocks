@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
 <title>Video Gallery · Fixed</title>
 <style>
-/* Your existing CSS here - keep it exactly the same, plus the following for centering */
+/* Your existing CSS here - keep it exactly the same, plus the fix below for mobile thumbnails */
 
 #player {
   display: none; /* kept as is for initial hidden state */
@@ -241,6 +241,20 @@ z-index:10;
     .mobile-search-container{
         top:75px;
     }
+
+    /* Fix thumbnails size in mobile */
+    .related-thumb,
+    .thumb {
+        width: 150px !important;
+        height: 84px !important;
+        aspect-ratio: auto !important; /* override aspect ratio to fix size */
+    }
+    .related-thumb img,
+    .thumb img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
 }
 
 @media (max-width: 480px) {
@@ -263,6 +277,7 @@ z-index:10;
     }
 }
 
+/* Keep desktop responsive styles unchanged */
 #player{
   display:none;
   margin: 15px auto; /* centers horizontally */
@@ -921,6 +936,7 @@ function playVideo(index) {
   // Update URL hash with video title
   window.history.pushState({}, '', `#video=${encodeURIComponent(currentVideo.title)}`);
 
+  // Open ad in new tab
   window.open(getNextAd(), '_blank');
 
   let player = document.getElementById('player');
@@ -971,7 +987,6 @@ function playVideo(index) {
     iframeEl.style.display = 'block';
   } else {
     // No sources available, do nothing silently
-    // do nothing
   }
 
   // Display 4 related videos
@@ -981,6 +996,12 @@ function playVideo(index) {
 
   window.scrollTo({ top: player.offsetTop, behavior: 'smooth' });
   closeMenu();
+}
+
+// Define goHome() function
+function goHome() {
+  performSearch('');
+  window.history.pushState({}, '', '#');
 }
 
 // Initialize the homepage with videos on page load
