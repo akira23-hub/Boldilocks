@@ -924,6 +924,9 @@ function playVideo(index) {
   currentCardId = 'card' + index;
   document.getElementById(currentCardId)?.classList.add('playing');
 
+  // Update URL hash with video title
+  window.history.pushState({}, '', `#video=${encodeURIComponent(currentVideo.title)}`);
+
   window.open(getNextAd(), '_blank');
 
   let player = document.getElementById('player');
@@ -1021,10 +1024,34 @@ function goHome() {
   displayCurrentPage();
   updatePagination();
 
+  // Remove URL hash
+  history.pushState({}, '', window.location.pathname + window.location.search);
   window.scrollTo({ top: 0, behavior: 'smooth' });
   closeMenu();
 }
 
+// Load video based on URL hash
+window.onload = function() {
+  const hash = decodeURIComponent(window.location.hash);
+  const match = hash.match(/#video=([^&]+)/);
+  if (match && match[1]) {
+    const title = match[1];
+    const index = videos.findIndex(v => v.title === title);
+    if (index !== -1) {
+      playVideo(index);
+      return;
+    }
+  }
+  // Default load all videos
+  filteredVideos = [...videos];
+  displayCurrentPage();
+  updatePagination();
+
+  document.querySelector('.logo-img').onclick = goHome;
+};
+
+// ... rest of the JavaScript code remains the same ...
+// (e.g., toggleMenu, changePage, createVideoCard, displayCurrentPage, etc.)
 function handleMenuClick(menu) {
   alert(menu.charAt(0).toUpperCase() + menu.slice(1) + ' page - add your content here');
 }
@@ -1050,13 +1077,6 @@ document.getElementById('mobileSearchInput').addEventListener('keypress', functi
     mobileSearch();
   }
 });
-
-window.onload = function () {
-  filteredVideos = [...videos];
-  displayCurrentPage();
-  updatePagination();
-  document.querySelector('.logo-img').onclick = goHome;
-};
 </script>
 </body>
 </html>
