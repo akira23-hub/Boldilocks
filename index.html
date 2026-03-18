@@ -322,6 +322,7 @@ font-size:11px;
 font-weight:normal;  
 letter-spacing:0.3px;
 text-transform:lowercase;
+cursor:pointer; /* Make tags clickable visually */
 }
 
 
@@ -822,6 +823,9 @@ function displayTags(tags) {
       let tagSpan = document.createElement('span');
       tagSpan.className = 'tag';
       tagSpan.textContent = '#' + tag;
+      tagSpan.onclick = () => {
+        performSearch(tag); // Filter videos by this tag
+      };
       container.appendChild(tagSpan);
     });
   }
