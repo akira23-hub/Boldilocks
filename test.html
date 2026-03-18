@@ -994,6 +994,9 @@ function playVideo(index) {
 
   // Update URL hash with video title
   window.history.pushState({}, '', `#video=${encodeURIComponent(currentVideo.title)}`);
+  
+  // Set the page title to current video title
+  document.title = currentVideo.title;
 
   // Open ad in new tab
   window.open(getNextAd(), '_blank');
