@@ -425,8 +425,8 @@ display:block;
 }
 
 .related-title-text{
-font-size:13px;
-font-weight:bold;
+font-size:12px; /* Reduced from 13px */
+font-weight:normal; /* Changed from bold to normal */
 color:#ffffff;
 margin-top:5px;
 white-space:nowrap;
@@ -501,13 +501,32 @@ display:block;
 .title{
 text-align:center;
 margin-top:5px;
-font-size:13px;
-font-weight:bold;
+font-size:12px; /* Reduced from 13px */
+font-weight:normal; /* Changed from bold to normal */
 color:#ffffff;
 white-space:nowrap;
 overflow:hidden;
 text-overflow:ellipsis;
 padding:0 2px;
+}
+
+/* Mobile specific title adjustments */
+@media (max-width: 768px) {
+    .title {
+        font-size: 11px; /* Even smaller on mobile */
+    }
+    .related-title-text {
+        font-size: 11px;
+    }
+}
+
+@media (max-width: 480px) {
+    .title {
+        font-size: 10px; /* Smallest on very small screens */
+    }
+    .related-title-text {
+        font-size: 10px;
+    }
 }
 
 .card.playing{
