@@ -13,9 +13,10 @@ body { background: #000000; font-family: Arial, sans-serif; padding: 10px; color
 .menu-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 2px solid #ff00a8; margin-bottom: 15px; position: relative; min-height: 60px; }
 .logo-img { height: 60px; cursor: pointer; z-index: 10; }
 
-/* Desktop Search & Links */
 .menu-links { display: flex; gap: 25px; }
 .menu-links a { color: #ffffff; text-decoration: none; font-size: 16px; font-weight: bold; cursor: pointer; }
+.menu-links a:hover { color: #ff00a8; }
+
 .search-container { display: flex; align-items: center; }
 #searchInput { padding: 8px 15px; border-radius: 20px; border: 2px solid #ff00a8; background: #222; color: white; width: 160px; outline: none; }
 
@@ -35,8 +36,7 @@ body { background: #000000; font-family: Arial, sans-serif; padding: 10px; color
 #player video { width: 100%; height: 100%; border-radius: 6px; object-fit: cover; }
 .play-overlay-btn { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: rgba(255, 0, 168, 0.9); color: white; border: none; border-radius: 50%; width: 70px; height: 70px; font-size: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 20; padding-left: 5px; }
 
-/* Download & Tags */
-.download-btn { display: inline-block; margin-top: 12px; padding: 10px 25px; background: #ff00a8; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
+/* Tags */
 .tags-container { margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
 .tag { background: #ff00a8; color: #ffffff; padding: 5px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; font-weight: bold; }
 
@@ -69,15 +69,18 @@ body { background: #000000; font-family: Arial, sans-serif; padding: 10px; color
 <div class="main-container">
     <div class="menu-bar">
         <div class="hamburger" onclick="alert('Menu')">☰</div>
-        <img src="https://zpi.cx/b/uiDMr.png" class="logo-img" onclick="window.location.hash = ''">
+        <img src="https://zpi.cx/b/uiDMr.png" class="logo-img" onclick="goHome()">
+        
         <div class="menu-links">
-            <a onclick="window.location.hash = ''">Home</a>
+            <a onclick="goHome()">Home</a>
             <a href="#">Trending</a>
         </div>
+        
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search..." />
             <button style="background:#ff00a8; border:none; color:white; padding:8px; border-radius:20px; margin-left:5px; cursor:pointer;" onclick="desktopSearch()">🔍</button>
         </div>
+        
         <div class="mobile-search-trigger" onclick="toggleMobileSearch()">🔍</div>
         <div class="mobile-search-bar" id="mobileSearchBar">
             <input type="text" id="mobileSearchInput" placeholder="Search videos...">
@@ -92,7 +95,7 @@ body { background: #000000; font-family: Arial, sans-serif; padding: 10px; color
             <video id="mainVideo" controls playsinline oncontextmenu="return false;" controlslist="nodownload"></video>
         </div>
         <h2 id="playerTitle" style="font-size:18px;"></h2>
-        <div id="downloadBtn" class="download-btn" onclick="handleDownloadClick()">⬇ DOWNLOAD</div>
+        <div id="downloadBtn" class="download-btn" onclick="handleDownloadClick()" style="display:inline-block; margin-top: 12px; padding: 10px 25px; background: #ff00a8; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; cursor: pointer;">⬇ DOWNLOAD</div>
     </div>
 
     <div id="relatedSection" style="display:none; margin-top: 30px;">
@@ -110,18 +113,17 @@ body { background: #000000; font-family: Arial, sans-serif; padding: 10px; color
 </div>
 
 <script>
+// (Keep your adLinks and videos arrays here as they were before)
 const adLinks = ["https://omg10.com/4/8251888", "https://omg10.com/4/7512585", "https://omg10.com/4/8257954", "https://omg10.com/4/1415254", "https://omg10.com/4/7512545", "https://omg10.com/4/8198889", "https://omg10.com/4/8236017", "https://omg10.com/4/8247899", "https://omg10.com/4/8195375"];
-
-// Expanded video data with more tags
 const videos = [
-    { id: 0, title:"I CAN'T RESIST YOU", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://download.boldilocks.xyz/dl1", thumbnail:"https://veporn.com/wp-content/uploads/2026/02/after-outside-you-get-my-inside-(poster88).jpg", tags: ["wife", "sexy", "blonde", "lingerie", "outdoor", "hot"] },
-    { id: 1, title:"LETS PLUCK YOUR CHERRY", mp4:"https://zpi.cx/s4/Itrwoc4.mp4", download:"https://download.boldilocks.xyz/dl2", thumbnail:"https://veporn.com/wp-content/uploads/2026/02/lets-pluck-your-cherry-shall-we-(poster74).jpg", tags: ["blonde", "hot", "brunette", "virgin", "shaved"] },
-    { id: 2, title:"I REALLY MISS YOU", mp4:"https://cdn.veporn.com/im-here-to-let-the-sin-in-me.mp4", download:"https://download.boldilocks.xyz/dl3", thumbnail:"https://zpi.cx/b/7J52Vf.jpg", tags: ["shaved", "sins", "blowjob", "POV", "creampie"] },
-    { id: 3, title:"REALLY WET", mp4:"https://cdn.veporn.com/you-want-me-dry-and-yet-im-wet.mp4", download:"https://download.boldilocks.xyz/dl4", thumbnail:"https://veporn.com/wp-content/uploads/2026/01/you-want-me-dry-and-yet-im-wet-(poster94).jpg", tags: ["creampie", "big dick", "wet pussy", "shower"] },
-    { id: 4, title:"LET'S ENJOY THE MOMENT", mp4:"https://cdn.veporn.com/you-are-better-at-this-than-you-thought.mp4", download:"https://download.boldilocks.xyz/dl5", thumbnail:"https://veporn.com/wp-content/uploads/2026/01/you-are-better-at-this-than-you-thought-(poster57).jpg", tags: ["lesbians", "vibrator", "girl on girl", "toy"] },
-    { id: 5, title:"STEP MOM IS IN HEAT", mp4:"https://cdn.save.moe/s12/ru3OE6W.mp4", download:"https://download.boldilocks.xyz/dl6", thumbnail:"https://zpi.cx/b/c2d8b.jpg", tags: ["mom", "stepmom", "family", "taboo", "mature"] },
-    { id: 6, title:"CURE FOR MIGRAINES", mp4:"https://cdn.veporn.com/an-old-cure-for-migraines.mp4", download:"https://download.boldilocks.xyz/dl7", thumbnail:"https://veporn.com/wp-content/uploads/2026/03/an-old-cure-for-migraines-(poster7).jpg", tags: ["doctor", "office", "nurse", "medical", "cumshot"] },
-    { id: 7, title:"PUSSY POUNDED & CREAMPIED", mp4:"https://cdn.save.moe/s4/ldZJGb.mp4", download:"https://download.boldilocks.xyz/dl8", thumbnail:"https://zpi.cx/b/LKv1NiS.jpg", tags: ["hardsex", "pussy", "creampie", "rough", "pounding"] }
+    { id: 0, title:"I CAN'T RESIST YOU", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://download.boldilocks.xyz/dl1", thumbnail:"https://veporn.com/wp-content/uploads/2026/02/after-outside-you-get-my-inside-(poster88).jpg", tags: ["wife", "sexy", "blonde", "lingerie", "outdoor"] },
+    { id: 1, title:"LETS PLUCK YOUR CHERRY", mp4:"https://zpi.cx/s4/Itrwoc4.mp4", download:"https://download.boldilocks.xyz/dl2", thumbnail:"https://veporn.com/wp-content/uploads/2026/02/lets-pluck-your-cherry-shall-we-(poster74).jpg", tags: ["blonde", "hot", "brunette", "virgin"] },
+    { id: 2, title:"I REALLY MISS YOU", mp4:"https://cdn.veporn.com/im-here-to-let-the-sin-in-me.mp4", download:"https://download.boldilocks.xyz/dl3", thumbnail:"https://zpi.cx/b/7J52Vf.jpg", tags: ["shaved", "sins", "blowjob", "POV"] },
+    { id: 3, title:"REALLY WET", mp4:"https://cdn.veporn.com/you-want-me-dry-and-yet-im-wet.mp4", download:"https://download.boldilocks.xyz/dl4", thumbnail:"https://veporn.com/wp-content/uploads/2026/01/you-want-me-dry-and-yet-im-wet-(poster94).jpg", tags: ["creampie", "big dick", "wet pussy"] },
+    { id: 4, title:"LET'S ENJOY THE MOMENT", mp4:"https://cdn.veporn.com/you-are-better-at-this-than-you-thought.mp4", download:"https://download.boldilocks.xyz/dl5", thumbnail:"https://veporn.com/wp-content/uploads/2026/01/you-are-better-at-this-than-you-thought-(poster57).jpg", tags: ["lesbians", "vibrator", "girl on girl"] },
+    { id: 5, title:"STEP MOM IS IN HEAT", mp4:"https://cdn.save.moe/s12/ru3OE6W.mp4", download:"https://download.boldilocks.xyz/dl6", thumbnail:"https://zpi.cx/b/c2d8b.jpg", tags: ["mom", "stepmom", "taboo"] },
+    { id: 6, title:"CURE FOR MIGRAINES", mp4:"https://cdn.veporn.com/an-old-cure-for-migraines.mp4", download:"https://download.boldilocks.xyz/dl7", thumbnail:"https://veporn.com/wp-content/uploads/2026/03/an-old-cure-for-migraines-(poster7).jpg", tags: ["doctor", "nurse", "cumshot"] },
+    { id: 7, title:"PUSSY POUNDED & CREAMPIED", mp4:"https://cdn.save.moe/s4/ldZJGb.mp4", download:"https://download.boldilocks.xyz/dl8", thumbnail:"https://zpi.cx/b/LKv1NiS.jpg", tags: ["hardsex", "pussy", "creampie"] }
 ];
 
 let adCounter = localStorage.getItem('adCounter') || 0;
@@ -135,7 +137,7 @@ function openAdTab() {
     localStorage.setItem('adCounter', adCounter);
 }
 
-// ROUTING
+// NAVIGATION & ROUTING
 window.addEventListener('hashchange', handleRoute);
 
 function handleRoute() {
@@ -148,9 +150,19 @@ function handleRoute() {
     }
 }
 
+// FIXED: goHome now resets the filters properly
+function goHome() {
+    filteredVideos = [...videos];
+    currentPage = 1;
+    document.getElementById('searchInput').value = '';
+    document.getElementById('mobileSearchInput').value = '';
+    window.location.hash = ''; 
+    showHomePage();
+}
+
 function loadVideoPage(id) {
     currentVideoData = videos.find(v => v.id === id);
-    if (!currentVideoData) return showHomePage();
+    if (!currentVideoData) return goHome();
 
     document.getElementById('player').style.display = 'block';
     document.getElementById('videoGrid').classList.add('hidden');
@@ -175,20 +187,20 @@ function showHomePage() {
     renderGrid();
 }
 
-function triggerActualPlay() {
-    openAdTab();
-    document.getElementById('startPlayBtn').style.display = 'none';
-    const videoEl = document.getElementById('mainVideo');
-    videoEl.src = currentVideoData.mp4;
-    videoEl.play();
+function performSearch(t) { 
+    filteredVideos = videos.filter(v => 
+        v.title.toLowerCase().includes(t.toLowerCase()) || 
+        v.tags.some(tag => tag.toLowerCase().includes(t.toLowerCase()))
+    ); 
+    currentPage=1; 
+    window.location.hash = ''; // Back to home grid
+    renderGrid(); 
 }
 
-// Search & Pagination
-function getItemsPerPage() { return window.innerWidth <= 768 ? 8 : 12; }
 function renderGrid() {
     const grid = document.getElementById('videoGrid');
     grid.innerHTML = '';
-    const itemsPerPage = getItemsPerPage();
+    const itemsPerPage = window.innerWidth <= 768 ? 8 : 12;
     const start = (currentPage - 1) * itemsPerPage;
     const paginatedItems = filteredVideos.slice(start, start + itemsPerPage);
     paginatedItems.forEach(v => grid.appendChild(createVideoCard(v)));
@@ -201,36 +213,27 @@ function createVideoCard(video) {
     let div = document.createElement('div');
     div.className = 'card';
     div.innerHTML = `<div class="thumb"><img src="${video.thumbnail}"></div><div class="title">${video.title}</div>`;
-    div.onclick = () => {
-        openAdTab();
-        window.location.hash = `video/${video.id}`;
-    };
+    div.onclick = () => { openAdTab(); window.location.hash = `video/${video.id}`; };
     return div;
 }
 
-function performSearch(t) { 
-    filteredVideos = videos.filter(v => 
-        v.title.toLowerCase().includes(t.toLowerCase()) || 
-        v.tags.some(tag => tag.toLowerCase().includes(t.toLowerCase()))
-    ); 
-    currentPage=1; 
-    renderGrid(); 
-    window.location.hash = ''; // Return to home grid to see results
+function triggerActualPlay() {
+    openAdTab();
+    document.getElementById('startPlayBtn').style.display = 'none';
+    const videoEl = document.getElementById('mainVideo');
+    videoEl.src = currentVideoData.mp4;
+    videoEl.play();
 }
 
 function displayTags(tags) {
     const container = document.getElementById('tagsContainer');
-    container.innerHTML = ''; // Clear everything first
+    container.innerHTML = '';
     if (!tags) return;
-    
     tags.forEach(tagName => {
         const span = document.createElement('span');
         span.className = 'tag';
         span.textContent = '#' + tagName.toUpperCase();
-        span.onclick = (e) => {
-            e.stopPropagation();
-            performSearch(tagName);
-        };
+        span.onclick = (e) => { e.stopPropagation(); performSearch(tagName); };
         container.appendChild(span);
     });
 }
