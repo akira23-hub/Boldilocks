@@ -773,22 +773,6 @@ const videos = [
     thumbnail:"https://zpi.cx/b/LKv1NiS.jpg",
     tags: ["big tits", "creampie", "hard sex", "pussy pounded", "shaved pussy", "couche sex"]
   }
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
 ];
 
 let adCounter = localStorage.getItem('adCounter') || 0;
@@ -1082,6 +1066,15 @@ function goHome() {
 // Initialize the homepage with videos on page load
 window.onload = () => {
   performSearch('');
+  // Handle URL hash for specific video
+  const hash = window.location.hash;
+  if (hash.startsWith('#video=')) {
+    const videoTitle = decodeURIComponent(hash.replace('#video=', ''));
+    const index = videos.findIndex(v => v.title === videoTitle);
+    if (index !== -1) {
+      playVideo(index);
+    }
+  }
 };
 </script>
 </div>
