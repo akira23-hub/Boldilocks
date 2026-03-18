@@ -255,6 +255,12 @@ z-index:10;
         height: 100%;
         object-fit: cover;
     }
+    
+    /* Reduce tags font size on mobile */
+    .tag {
+        font-size: 9px;
+        padding: 3px 8px;
+    }
 }
 
 @media (max-width: 480px) {
@@ -283,6 +289,11 @@ z-index:10;
     .title {
         font-size: 11px;
     }
+    /* Even smaller tags on very small screens */
+    .tag {
+        font-size: 8px;
+        padding: 2px 6px;
+    }
 }
 
 /* Keep desktop responsive styles unchanged */
@@ -308,10 +319,11 @@ color:#ffffff;
 padding:4px 10px;
 border-radius:20px;
 font-size:11px;
-font-weight:bold;
+font-weight:normal;  
 letter-spacing:0.3px;
-text-transform:uppercase;
+text-transform:lowercase;
 }
+
 
 #player video{
 width:100%;
