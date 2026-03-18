@@ -628,8 +628,8 @@ margin:0 10px;
 <!-- Tags container -->
 <div class="tags-container" id="tagsContainer"></div>
 
-<!-- Video player (MP4) -->
-<video id="mainVideo" controls playsinline style="display:none;"></video>
+<!-- Video player (MP4) with disabled download and right-click -->
+<video id="mainVideo" controls playsinline style="display:none;" oncontextmenu="return false;" controlslist="nodownload"></video>
 
 <!-- Iframe player (Embed) -->
 <iframe
