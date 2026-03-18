@@ -13,25 +13,21 @@ body { background: #000000; font-family: Arial, sans-serif; padding: 10px; color
 .menu-bar { display: flex; align-items: center; justify-content: space-between; padding: 10px 0; border-bottom: 2px solid #ff00a8; margin-bottom: 15px; position: relative; min-height: 60px; }
 .logo-img { height: 60px; cursor: pointer; z-index: 10; }
 
-/* Desktop Links */
+/* Desktop Search & Links */
 .menu-links { display: flex; gap: 25px; }
-.menu-links a { color: #ffffff; text-decoration: none; font-size: 16px; font-weight: bold; }
-.menu-links a:hover { color: #ff00a8; }
-
-/* Desktop Search */
+.menu-links a { color: #ffffff; text-decoration: none; font-size: 16px; font-weight: bold; cursor: pointer; }
 .search-container { display: flex; align-items: center; }
 #searchInput { padding: 8px 15px; border-radius: 20px; border: 2px solid #ff00a8; background: #222; color: white; width: 160px; outline: none; }
-#searchBtn { background: #ff00a8; color: white; border: none; border-radius: 20px; padding: 8px 15px; margin-left: 5px; cursor: pointer; }
 
 /* Mobile Menu Icons */
 .hamburger { display: none; font-size: 28px; color: #ff00a8; cursor: pointer; }
 .mobile-search-trigger { display: none; font-size: 22px; color: #ff00a8; cursor: pointer; }
 
-/* Mobile Search Bar */
+/* Mobile Search Bar Overlay */
 .mobile-search-bar { display: none; position: absolute; top: 65px; left: 0; right: 0; background: #111; padding: 10px; border: 1px solid #ff00a8; z-index: 100; }
 .mobile-search-bar.active { display: flex; }
 .mobile-search-bar input { flex: 1; padding: 12px; background: #222; border: none; color: white; border-radius: 5px 0 0 5px; }
-.mobile-search-bar button { background: #ff00a8; border: none; color: white; padding: 12px; border-radius: 0 5px 5px 0; }
+.mobile-search-bar button { background: #ff00a8; border: none; color: white; padding: 12px; border-radius: 0 5px 5px 0; font-weight: bold; }
 
 /* Player Area */
 #player { display: none; margin: 15px auto; text-align: center; max-width: 900px; }
@@ -41,8 +37,8 @@ body { background: #000000; font-family: Arial, sans-serif; padding: 10px; color
 
 /* Download & Tags */
 .download-btn { display: inline-block; margin-top: 12px; padding: 10px 25px; background: #ff00a8; color: white; text-decoration: none; border-radius: 4px; font-weight: bold; cursor: pointer; }
-.tags-container { margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 5px; justify-content: center; }
-.tag { background: #ff00a8; color: #ffffff; padding: 4px 10px; border-radius: 20px; font-size: 11px; cursor: pointer; }
+.tags-container { margin-bottom: 12px; display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.tag { background: #ff00a8; color: #ffffff; padding: 5px 12px; border-radius: 20px; font-size: 12px; cursor: pointer; font-weight: bold; }
 
 /* Grid */
 .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 20px; }
@@ -58,7 +54,7 @@ body { background: #000000; font-family: Arial, sans-serif; padding: 10px; color
 .page-btn { background: #222; color: #ff00a8; border: 2px solid #ff00a8; padding: 8px 18px; border-radius: 30px; cursor: pointer; font-weight: bold; }
 .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-/* Mobile */
+/* Mobile Responsive */
 @media (max-width: 768px) {
     .menu-links, .search-container { display: none; }
     .hamburger { display: block; }
@@ -74,20 +70,17 @@ body { background: #000000; font-family: Arial, sans-serif; padding: 10px; color
     <div class="menu-bar">
         <div class="hamburger" onclick="alert('Menu')">☰</div>
         <img src="https://zpi.cx/b/uiDMr.png" class="logo-img" onclick="window.location.hash = ''">
-
         <div class="menu-links">
-            <a href="#">Home</a>
+            <a onclick="window.location.hash = ''">Home</a>
             <a href="#">Trending</a>
         </div>
-
         <div class="search-container">
             <input type="text" id="searchInput" placeholder="Search..." />
-            <button onclick="desktopSearch()">🔍</button>
+            <button style="background:#ff00a8; border:none; color:white; padding:8px; border-radius:20px; margin-left:5px; cursor:pointer;" onclick="desktopSearch()">🔍</button>
         </div>
-
         <div class="mobile-search-trigger" onclick="toggleMobileSearch()">🔍</div>
         <div class="mobile-search-bar" id="mobileSearchBar">
-            <input type="text" id="mobileSearchInput" placeholder="Search...">
+            <input type="text" id="mobileSearchInput" placeholder="Search videos...">
             <button onclick="mobileSearch()">Go</button>
         </div>
     </div>
@@ -118,15 +111,17 @@ body { background: #000000; font-family: Arial, sans-serif; padding: 10px; color
 
 <script>
 const adLinks = ["https://omg10.com/4/8251888", "https://omg10.com/4/7512585", "https://omg10.com/4/8257954", "https://omg10.com/4/1415254", "https://omg10.com/4/7512545", "https://omg10.com/4/8198889", "https://omg10.com/4/8236017", "https://omg10.com/4/8247899", "https://omg10.com/4/8195375"];
+
+// Expanded video data with more tags
 const videos = [
-    { id: 0, title:"I CAN'T RESIST YOU", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://download.boldilocks.xyz/dl1", thumbnail:"https://veporn.com/wp-content/uploads/2026/02/after-outside-you-get-my-inside-(poster88).jpg", tags: ["wife", "sexy"] },
-    { id: 1, title:"LETS PLUCK YOUR CHERRY", mp4:"https://zpi.cx/s4/Itrwoc4.mp4", download:"https://download.boldilocks.xyz/dl2", thumbnail:"https://veporn.com/wp-content/uploads/2026/02/lets-pluck-your-cherry-shall-we-(poster74).jpg", tags: ["blonde", "hot"] },
-    { id: 2, title:"I REALLY MISS YOU", mp4:"https://cdn.veporn.com/im-here-to-let-the-sin-in-me.mp4", download:"https://download.boldilocks.xyz/dl3", thumbnail:"https://zpi.cx/b/7J52Vf.jpg", tags: ["shaved", "sins"] },
-    { id: 3, title:"REALLY WET", mp4:"https://cdn.veporn.com/you-want-me-dry-and-yet-im-wet.mp4", download:"https://download.boldilocks.xyz/dl4", thumbnail:"https://veporn.com/wp-content/uploads/2026/01/you-want-me-dry-and-yet-im-wet-(poster94).jpg", tags: ["creampie"] },
-    { id: 4, title:"LET'S ENJOY THE MOMENT", mp4:"https://cdn.veporn.com/you-are-better-at-this-than-you-thought.mp4", download:"https://download.boldilocks.xyz/dl5", thumbnail:"https://veporn.com/wp-content/uploads/2026/01/you-are-better-at-this-than-you-thought-(poster57).jpg", tags: ["lesbians"] },
-    { id: 5, title:"STEP MOM IS IN HEAT", mp4:"https://cdn.save.moe/s12/ru3OE6W.mp4", download:"https://download.boldilocks.xyz/dl6", thumbnail:"https://zpi.cx/b/c2d8b.jpg", tags: ["mom", "stepmom"] },
-    { id: 6, title:"CURE FOR MIGRAINES", mp4:"https://cdn.veporn.com/an-old-cure-for-migraines.mp4", download:"https://download.boldilocks.xyz/dl7", thumbnail:"https://veporn.com/wp-content/uploads/2026/03/an-old-cure-for-migraines-(poster7).jpg", tags: ["doctor"] },
-    { id: 7, title:"PUSSY POUNDED & CREAMPIED", mp4:"https://cdn.save.moe/s4/ldZJGb.mp4", download:"https://download.boldilocks.xyz/dl8", thumbnail:"https://zpi.cx/b/LKv1NiS.jpg", tags: ["hardsex"] }
+    { id: 0, title:"I CAN'T RESIST YOU", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://download.boldilocks.xyz/dl1", thumbnail:"https://veporn.com/wp-content/uploads/2026/02/after-outside-you-get-my-inside-(poster88).jpg", tags: ["wife", "sexy", "blonde", "lingerie", "outdoor", "hot"] },
+    { id: 1, title:"LETS PLUCK YOUR CHERRY", mp4:"https://zpi.cx/s4/Itrwoc4.mp4", download:"https://download.boldilocks.xyz/dl2", thumbnail:"https://veporn.com/wp-content/uploads/2026/02/lets-pluck-your-cherry-shall-we-(poster74).jpg", tags: ["blonde", "hot", "brunette", "virgin", "shaved"] },
+    { id: 2, title:"I REALLY MISS YOU", mp4:"https://cdn.veporn.com/im-here-to-let-the-sin-in-me.mp4", download:"https://download.boldilocks.xyz/dl3", thumbnail:"https://zpi.cx/b/7J52Vf.jpg", tags: ["shaved", "sins", "blowjob", "POV", "creampie"] },
+    { id: 3, title:"REALLY WET", mp4:"https://cdn.veporn.com/you-want-me-dry-and-yet-im-wet.mp4", download:"https://download.boldilocks.xyz/dl4", thumbnail:"https://veporn.com/wp-content/uploads/2026/01/you-want-me-dry-and-yet-im-wet-(poster94).jpg", tags: ["creampie", "big dick", "wet pussy", "shower"] },
+    { id: 4, title:"LET'S ENJOY THE MOMENT", mp4:"https://cdn.veporn.com/you-are-better-at-this-than-you-thought.mp4", download:"https://download.boldilocks.xyz/dl5", thumbnail:"https://veporn.com/wp-content/uploads/2026/01/you-are-better-at-this-than-you-thought-(poster57).jpg", tags: ["lesbians", "vibrator", "girl on girl", "toy"] },
+    { id: 5, title:"STEP MOM IS IN HEAT", mp4:"https://cdn.save.moe/s12/ru3OE6W.mp4", download:"https://download.boldilocks.xyz/dl6", thumbnail:"https://zpi.cx/b/c2d8b.jpg", tags: ["mom", "stepmom", "family", "taboo", "mature"] },
+    { id: 6, title:"CURE FOR MIGRAINES", mp4:"https://cdn.veporn.com/an-old-cure-for-migraines.mp4", download:"https://download.boldilocks.xyz/dl7", thumbnail:"https://veporn.com/wp-content/uploads/2026/03/an-old-cure-for-migraines-(poster7).jpg", tags: ["doctor", "office", "nurse", "medical", "cumshot"] },
+    { id: 7, title:"PUSSY POUNDED & CREAMPIED", mp4:"https://cdn.save.moe/s4/ldZJGb.mp4", download:"https://download.boldilocks.xyz/dl8", thumbnail:"https://zpi.cx/b/LKv1NiS.jpg", tags: ["hardsex", "pussy", "creampie", "rough", "pounding"] }
 ];
 
 let adCounter = localStorage.getItem('adCounter') || 0;
@@ -140,7 +135,7 @@ function openAdTab() {
     localStorage.setItem('adCounter', adCounter);
 }
 
-// ROUTING LOGIC
+// ROUTING
 window.addEventListener('hashchange', handleRoute);
 
 function handleRoute() {
@@ -188,7 +183,7 @@ function triggerActualPlay() {
     videoEl.play();
 }
 
-// Pagination & Search
+// Search & Pagination
 function getItemsPerPage() { return window.innerWidth <= 768 ? 8 : 12; }
 function renderGrid() {
     const grid = document.getElementById('videoGrid');
@@ -213,24 +208,45 @@ function createVideoCard(video) {
     return div;
 }
 
-// Helpers
-function handleDownloadClick() { openAdTab(); window.location.href = currentVideoData.download; }
-function toggleMobileSearch() { document.getElementById('mobileSearchBar').classList.toggle('active'); }
-function desktopSearch() { performSearch(document.getElementById('searchInput').value); }
-function mobileSearch() { performSearch(document.getElementById('mobileSearchInput').value); toggleMobileSearch(); }
-function changePage(step) { currentPage += step; renderGrid(); window.scrollTo({ top: 0 }); }
-function performSearch(t) { filteredVideos = videos.filter(v => v.title.toLowerCase().includes(t.toLowerCase())); currentPage=1; renderGrid(); }
-function displayTags(tags) {
-    let c = document.getElementById('tagsContainer'); c.innerHTML = '';
-    tags.forEach(t => { let s = document.createElement('span'); s.className='tag'; s.textContent='#'+t; s.onclick=()=>performSearch(t); c.appendChild(s); });
+function performSearch(t) { 
+    filteredVideos = videos.filter(v => 
+        v.title.toLowerCase().includes(t.toLowerCase()) || 
+        v.tags.some(tag => tag.toLowerCase().includes(t.toLowerCase()))
+    ); 
+    currentPage=1; 
+    renderGrid(); 
+    window.location.hash = ''; // Return to home grid to see results
 }
+
+function displayTags(tags) {
+    const container = document.getElementById('tagsContainer');
+    container.innerHTML = ''; // Clear everything first
+    if (!tags) return;
+    
+    tags.forEach(tagName => {
+        const span = document.createElement('span');
+        span.className = 'tag';
+        span.textContent = '#' + tagName.toUpperCase();
+        span.onclick = (e) => {
+            e.stopPropagation();
+            performSearch(tagName);
+        };
+        container.appendChild(span);
+    });
+}
+
 function displayRelated(curr) {
     let g = document.getElementById('relatedGrid'); g.innerHTML = '';
     videos.filter(v => v.id !== curr.id).slice(0, 4).forEach(v => g.appendChild(createVideoCard(v)));
     document.getElementById('relatedSection').style.display = 'block';
 }
 
-// Init
+function handleDownloadClick() { openAdTab(); window.location.href = currentVideoData.download; }
+function toggleMobileSearch() { document.getElementById('mobileSearchBar').classList.toggle('active'); }
+function desktopSearch() { performSearch(document.getElementById('searchInput').value); }
+function mobileSearch() { performSearch(document.getElementById('mobileSearchInput').value); toggleMobileSearch(); }
+function changePage(step) { currentPage += step; renderGrid(); window.scrollTo({ top: 0 }); }
+
 window.onload = handleRoute;
 window.onresize = renderGrid;
 </script>
