@@ -58,6 +58,7 @@
             width: 80px; height: 80px; font-size: 30px; cursor: pointer; z-index: 10;
         }
 
+        /* Download Button */
         .download-btn {
             display: inline-block; padding: 12px 30px; background: var(--primary); 
             color: white; border-radius: 4px; cursor: pointer; font-weight: bold; 
@@ -154,7 +155,7 @@ function handleDownloadClick() {
     }
 }
 
-/* 4. FULL CONTENT LIST WITH RESTORED TAGS */
+/* 4. FULL CONTENT LIST */
 const videos = [
     { id: 0, title:"I can't resist you", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://download.boldilocks.xyz/dl1", thumbnail:"https://zpi.cx/b/hOW88T.jpg", tags: ["wife", "sexy", "hot wife"] },
     { id: 1, title:"Lets pluck your cherry", mp4:"https://zpi.cx/s4/Itrwoc4.mp4", download:"https://download.boldilocks.xyz/dl2", thumbnail:"https://zpi.cx/b/fGSLT5U.png", tags: ["blonde", "hot", "defloration"] },
@@ -208,13 +209,12 @@ function handleRoute() {
             document.getElementById('playerTitle').textContent = video.title;
             document.getElementById('startPlayBtn').style.display = 'block';
 
-            // --- THUMBNAIL/POSTER FIX ---
             if (video.mp4) {
                 mainVideo.style.display = 'block';
                 mainIframe.style.display = 'none';
                 mainVideo.src = ""; 
-                mainVideo.poster = video.thumbnail; // Shows your thumbnail
-                mainVideo.load(); // Refreshes player to show the poster
+                mainVideo.poster = video.thumbnail; 
+                mainVideo.load();
             } else {
                 mainVideo.style.display = 'none';
                 mainIframe.style.display = 'block';
@@ -253,7 +253,8 @@ function triggerActualPlay() {
 
 function performSearch(q) {
     filteredVideos = videos.filter(v => v.title.toLowerCase().includes(q.toLowerCase()) || v.tags.join('').toLowerCase().includes(q.toLowerCase()));
-    currentPage = 1; window.location.hash = ""; handleRoute();
+    currentPage = 1; 
+    goHome(); 
 }
 
 function changePage(step) { currentPage += step; window.scrollTo(0,0); renderGrid('videoGrid', filteredVideos, true); }
@@ -261,7 +262,20 @@ function toggleMobileMenu() { document.getElementById('mobileMenuOverlay').class
 function toggleMobileSearch() { document.getElementById('mobileSearchWrapper').classList.toggle('active'); }
 function desktopSearch() { performSearch(document.getElementById('searchInput').value); }
 function mobileSearch() { performSearch(document.getElementById('mobileSearchInput').value); toggleMobileSearch(); }
-function goHome() { filteredVideos = [...videos]; currentPage = 1; window.location.hash = ""; }
+
+function goHome() { 
+    if (window.location.hash === "") filteredVideos = [...videos]; 
+    currentPage = 1; 
+    if (window.location.hash !== "") {
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+    }
+    document.getElementById('player').style.display = 'none';
+    document.getElementById('videoGrid').style.display = 'grid';
+    document.getElementById('pagination').style.display = 'flex';
+    const v = document.getElementById('mainVideo');
+    v.pause(); v.src = "";
+    renderGrid('videoGrid', filteredVideos, true);
+}
 
 window.addEventListener('hashchange', handleRoute);
 window.onload = handleRoute;
