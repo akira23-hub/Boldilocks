@@ -13,154 +13,83 @@
             --text-dim: #aaaaaa;
             --transition: 0.3s ease-in-out;
         }
-
         body { 
             background: var(--bg-dark); 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+            font-family: 'Segoe UI', sans-serif; 
             color: var(--text-main); 
             margin: 0; 
             padding-bottom: 50px; 
             overflow-x: hidden;
         }
-
         .main-container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
-
-        /* --- Header & Navigation --- */
+        
+        /* Header & Nav */
         .menu-bar { 
-            display: flex; 
-            align-items: center; 
-            justify-content: space-between; 
-            padding: 15px 0; 
-            border-bottom: 1px solid #222; 
-            margin-bottom: 20px; 
-            position: relative;
-            z-index: 1000;
+            display: flex; align-items: center; justify-content: space-between; 
+            padding: 15px 0; border-bottom: 1px solid #222; margin-bottom: 20px; 
         }
-        
-        .logo-img { height: 60px; width: auto; cursor: pointer; transition: var(--transition); }
-        
+        .logo-img { height: 60px; cursor: pointer; }
         .menu-links { display: flex; gap: 25px; align-items: center; }
-        .menu-links a { color: var(--text-dim); text-decoration: none; font-size: 15px; font-weight: 600; cursor: pointer; transition: var(--transition); }
-        .menu-links a:hover { color: var(--primary); }
+        .menu-links a { color: var(--text-dim); text-decoration: none; font-size: 15px; font-weight: 600; cursor: pointer; }
+        .search-container { background: #1a1a1a; border: 1px solid #333; border-radius: 20px; padding: 5px 15px; display: flex; }
+        #searchInput { background: transparent; border: none; color: white; outline: none; width: 150px; }
 
-        .search-container { 
-            background: #1a1a1a; 
-            border: 1px solid #333; 
-            border-radius: 20px; 
-            padding: 5px 15px; 
-            display: flex; 
-            align-items: center; 
-        }
-        #searchInput { background: transparent; border: none; color: white; outline: none; padding: 5px; width: 150px; font-size: 14px; }
-
-        .mobile-actions { display: none; gap: 15px; align-items: center; }
+        /* Mobile Controls */
+        .mobile-actions { display: none; gap: 15px; }
         .icon-btn { font-size: 24px; cursor: pointer; color: var(--primary); }
-
-        /* Mobile Menu Overlay */
+        #mobileSearchWrapper { display: none; background: #1a1a1a; padding: 10px; border-bottom: 2px solid var(--primary); }
+        #mobileSearchWrapper.active { display: block; }
         #mobileMenuOverlay {
             position: fixed; top: 0; right: -100%; width: 100%; height: 100%;
-            background: rgba(15, 15, 15, 0.98);
-            z-index: 9999; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; gap: 30px;
-            transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: rgba(15, 15, 15, 0.98); z-index: 9999; display: flex; 
+            flex-direction: column; align-items: center; justify-content: center; gap: 30px;
+            transition: 0.4s;
         }
         #mobileMenuOverlay.active { right: 0; }
-        #mobileMenuOverlay a { font-size: 28px; color: white; text-decoration: none; font-weight: bold; cursor: pointer; }
-        .close-menu { position: absolute; top: 20px; right: 20px; font-size: 40px; color: var(--primary); }
+        #mobileMenuOverlay a { font-size: 28px; color: white; text-decoration: none; font-weight: bold; }
 
-        #mobileSearchWrapper {
-            display: none; position: absolute; top: 100%; left: 0; width: 100%;
-            background: #1a1a1a; padding: 12px; box-sizing: border-box;
-            border-bottom: 2px solid var(--primary); z-index: 100;
-        }
-        #mobileSearchWrapper.active { display: block; }
-        #mobileSearchInput { width: 100%; padding: 12px; background: #222; border: 1px solid #444; color: white; border-radius: 5px; outline: none; }
-
-        /* --- Video Section --- */
-        #player { display: none; margin-bottom: 40px; animation: fadeIn 0.4s ease-in-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-
-        .video-wrapper { 
-            position: relative; width: 100%; aspect-ratio: 16/9; 
-            background: #000; border-radius: 0;
-            overflow: hidden; 
-            box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-        }
-        #mainVideo, #mainIframe { width: 100%; height: 100%; border: none; object-fit: contain; background: #000; }
-
+        /* Player */
+        #player { display: none; margin-bottom: 40px; }
+        .video-wrapper { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+        #mainVideo, #mainIframe { width: 100%; height: 100%; border: none; background: #000; }
         .play-overlay-btn { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             background: var(--primary); color: white; border: none; border-radius: 50%; 
             width: 80px; height: 80px; font-size: 30px; cursor: pointer; z-index: 10;
-            display: flex; align-items: center; justify-content: center; padding-left: 5px;
-            transition: transform 0.2s;
         }
-        .play-overlay-btn:active { transform: translate(-50%, -50%) scale(0.9); }
 
         .download-btn {
             display: inline-block; padding: 12px 30px; background: var(--primary); 
             color: white; border-radius: 4px; cursor: pointer; font-weight: bold; 
-            margin: 15px 5px; transition: opacity 0.2s;
+            margin: 15px 5px; text-decoration: none;
         }
 
-        /* --- Grid & Cards --- */
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; margin-top: 10px; }
-        .grid.hidden { display: none; }
-        .card { cursor: pointer; transition: transform var(--transition); }
-        
-        .thumb { 
-            width: 100%; aspect-ratio: 16/9; border-radius: 0; overflow: hidden; 
-            background: #222; margin-bottom: 6px; border: 1px solid #222; 
-        }
+        /* Grid & Tags */
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
+        .card { cursor: pointer; }
+        .thumb { width: 100%; aspect-ratio: 16/9; background: #222; margin-bottom: 6px; }
         .thumb img { width: 100%; height: 100%; object-fit: cover; }
-        
-        .title { 
-            font-size: 14px; font-weight: 500; color: #eee; line-height: 1.3; 
-            display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; 
-            overflow: hidden; height: 36px; 
-        }
+        .title { font-size: 14px; color: #eee; height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+        .tag { display: inline-block; background: #252525; color: var(--text-dim); padding: 6px 14px; border-radius: 4px; font-size: 13px; margin: 5px 5px 0 0; cursor: pointer; border: 1px solid #333; }
 
-        .tag { display: inline-block; background: #252525; color: var(--text-dim); padding: 6px 14px; border-radius: 4px; font-size: 13px; margin: 5px 8px 5px 0; cursor: pointer; border: 1px solid #333; }
-        .related-label { color: var(--primary); font-weight: bold; margin: 30px 0 15px 0; font-size: 18px; border-left: 4px solid var(--primary); padding-left: 12px; }
-
-        /* --- Pagination --- */
+        /* Pagination */
         .pagination { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 40px 0; }
-        .page-btn { background: #1a1a1a; color: white; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; cursor: pointer; font-weight: 600; }
+        .page-btn { background: #1a1a1a; color: white; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; cursor: pointer; }
         .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
 
-        /* --- RESPONSIVE MOBILE FIXES --- */
         @media (max-width: 768px) {
-            .main-container { padding: 0 8px; }
             .menu-links, .search-container { display: none; }
             .mobile-actions { display: flex; }
-            .logo-img { height: 40px; }
-            .grid { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 5px; }
-            .title { font-size: 12px; height: 32px; padding: 0 2px; }
-            
-            /* REDUCED BUTTONS FOR MOBILE */
-            .play-overlay-btn { 
-                width: 50px; 
-                height: 50px; 
-                font-size: 18px; 
-                padding-left: 3px;
-            }
-            .download-btn { 
-                padding: 8px 20px; 
-                font-size: 13px; 
-                margin: 10px 5px;
-            }
-
-            .thumb { border: none; margin-bottom: 4px; }
+            .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
         }
     </style>
 </head>
 <body>
 
 <div id="mobileMenuOverlay">
-    <div class="close-menu" onclick="toggleMobileMenu()">×</div>
+    <div onclick="toggleMobileMenu()" style="position:absolute; top:20px; right:20px; font-size:40px; color:var(--primary);">×</div>
     <a onclick="goHome(); toggleMobileMenu()">Home</a>
     <a href="#">Trending</a>
-    <a href="#">Categories</a>
 </div>
 
 <div class="main-container">
@@ -168,7 +97,6 @@
         <img src="https://zpi.cx/b/PS3BgJ5.png" class="logo-img" onclick="goHome()">
         <div class="menu-links">
             <a onclick="goHome()">Home</a>
-            <a href="#">Trending</a>
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search..." onkeydown="if(event.key==='Enter') desktopSearch()">
             </div>
@@ -178,27 +106,26 @@
             <div class="icon-btn" onclick="toggleMobileMenu()">☰</div>
         </div>
         <div id="mobileSearchWrapper">
-            <input type="text" id="mobileSearchInput" placeholder="Search videos..." onkeydown="if(event.key==='Enter') mobileSearch()">
+            <input type="text" id="mobileSearchInput" placeholder="Search..." onkeydown="if(event.key==='Enter') mobileSearch()" style="width:100%; padding:10px; background:#222; border:none; color:white;">
         </div>
     </div>
 
     <div id="player">
         <div class="video-wrapper">
             <button id="startPlayBtn" class="play-overlay-btn" onclick="triggerActualPlay()">▶</button>
-            <video id="mainVideo" controls playsinline controlslist="nodownload"></video>
-            <iframe id="mainIframe" allowfullscreen></iframe>
+            <video id="mainVideo" controls playsinline></video>
+            <iframe id="mainIframe" style="display:none" allowfullscreen></iframe>
         </div>
-        <h1 id="playerTitle" style="font-size: 20px; margin-top: 15px; color: #fff; padding: 0 5px;"></h1>
-        <div id="tagsContainer" style="padding: 0 5px;"></div>
-        <div class="download-btn" onclick="handleDownloadClick()">⬇ DOWNLOAD</div>
-        <div id="relatedSection">
-            <div class="related-label">Related Videos</div>
-            <div id="relatedGrid" class="grid"></div>
-        </div>
+        <h1 id="playerTitle" style="font-size: 20px; margin-top: 15px;"></h1>
+        <div id="tagsContainer"></div>
+        
+        <div id="downloadBtn" class="download-btn" onclick="handleDownloadClick()">⬇ DOWNLOAD</div>
+
+        <div style="color:var(--primary); font-weight:bold; margin-top:30px; margin-bottom:15px;">Related Videos</div>
+        <div id="relatedGrid" class="grid"></div>
     </div>
 
     <div id="videoGrid" class="grid"></div>
-
     <div id="pagination" class="pagination">
         <button class="page-btn" id="prevBtn" onclick="changePage(-1)">Prev</button>
         <span id="pageNumber">Page 1</span>
@@ -207,41 +134,48 @@
 </div>
 
 <script>
-/* AD LOGIC */
+/* 1. MONETAG LINKS */
 const adLinks = ["https://omg10.com/4/8251888", "https://omg10.com/4/7512585", "https://omg10.com/4/8257954", "https://omg10.com/4/1415254", "https://omg10.com/4/7512545", "https://omg10.com/4/8198889", "https://omg10.com/4/8236017", "https://omg10.com/4/8247899", "https://omg10.com/4/8195375"];
-let adCounter = localStorage.getItem('adCounter') || 0;
+let adCounter = 0;
+
+/* 2. DYNAMIC DOWNLOAD VARIABLE */
+let DOWNLOAD_PAGE = ""; 
 
 function openAdTab() {
     window.open(adLinks[adCounter % adLinks.length], '_blank');
-    adCounter = (Number(adCounter) + 1) % adLinks.length;
-    localStorage.setItem('adCounter', adCounter);
+    adCounter++;
 }
 
-/* DATA */
+/* 3. DOWNLOAD CLICK LOGIC */
+function handleDownloadClick() {
+    if (DOWNLOAD_PAGE !== "") {
+        openAdTab(); 
+        window.location.href = DOWNLOAD_PAGE; 
+    }
+}
+
+/* 4. FULL CONTENT LIST WITH RESTORED TAGS */
 const videos = [
-    { id: 0, title:"I can't resist you", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"http://download.boldilocks.xyz/dl1", thumbnail:"https://zpi.cx/b/hOW88T.jpg", tags: ["wife", "sexy","hot wife"] },
-    { id: 1, title:"Lets pluck your cherry", mp4:"https://zpi.cx/s4/Itrwoc4.mp4", download:"http://download.boldilocks.xyz/dl2", thumbnail:"https://zpi.cx/b/fGSLT5U.png", tags: ["blonde", "hot", "defloration"] },
-    { id: 2, title:"I really miss you", mp4:"https://cdn.veporn.com/im-here-to-let-the-sin-in-me.mp4", download:"http://download.boldilocks.xyz/dl3", thumbnail:"https://zpi.cx/b/7z07poS.png", tags: ["shaved", "sins"] },
-    { id: 3, title:"Really wet", mp4:"https://cdn.veporn.com/you-want-me-dry-and-yet-im-wet.mp4", download:"http://download.boldilocks.xyz/dl4", thumbnail:"https://zpi.cx/b/IABMG.png", tags: ["creampie", "wet"] },
-    { id: 4, title:"Let's enjoy the moment", mp4:"https://cdn.veporn.com/you-are-better-at-this-than-you-thought.mp4", download:"http://download.boldilocks.xyz/dl5", thumbnail:"https://zpi.cx/b/56F4bA4.png", tags: ["lesbians"] },
-    { id: 5, title:"Step Mom is in heat", mp4:"https://cdn.save.moe/s12/ru3OE6W.mp4", download:"http://download.boldilocks.xyz/dl1dl6", thumbnail:"https://zpi.cx/b/c2d8b.jpg", tags: ["mom", "stepmom"] },
-    { id: 6, title:"Cure for migraines", mp4:"https://cdn.veporn.com/an-old-cure-for-migraines.mp4", download:"http://download.boldilocks.xyz/dl1dl7", thumbnail:"https://zpi.cx/b/SQGSD6.png", tags: ["doctor", "nurse"] },
-    { id: 7, title:"Pussy Pounded & Creampied", mp4:"https://cdn.save.moe/s4/ldZJGb.mp4", download:"http://download.boldilocks.xyz/dl1dl8", thumbnail:"https://zpi.cx/b/LKv1NiS.jpg", tags: ["hardsex", "creampie"] },
-    { id: 8, title:"Celine Umali Pinay", mp4:"", embed:"https://sendvid.com/embed/b0tura79", download:"http://download.boldilocks.xyz/dl1dl9", thumbnail:"https://zpi.cx/b/11Fzu.jpg", tags: ["pinay", "asia"] }
+    { id: 0, title:"I can't resist you", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://download.boldilocks.xyz/dl1", thumbnail:"https://zpi.cx/b/hOW88T.jpg", tags: ["wife", "sexy", "hot wife"] },
+    { id: 1, title:"Lets pluck your cherry", mp4:"https://zpi.cx/s4/Itrwoc4.mp4", download:"https://download.boldilocks.xyz/dl2", thumbnail:"https://zpi.cx/b/fGSLT5U.png", tags: ["blonde", "hot", "defloration"] },
+    { id: 2, title:"I really miss you", mp4:"https://cdn.veporn.com/im-here-to-let-the-sin-in-me.mp4", download:"https://download.boldilocks.xyz/dl3", thumbnail:"https://zpi.cx/b/7z07poS.png", tags: ["shaved", "sins"] },
+    { id: 3, title:"Really wet", mp4:"https://cdn.veporn.com/you-want-me-dry-and-yet-im-wet.mp4", download:"https://download.boldilocks.xyz/dl4", thumbnail:"https://zpi.cx/b/IABMG.png", tags: ["creampie", "wet"] },
+    { id: 4, title:"Let's enjoy the moment", mp4:"https://cdn.veporn.com/you-are-better-at-this-than-you-thought.mp4", download:"https://download.boldilocks.xyz/dl5", thumbnail:"https://zpi.cx/b/56F4bA4.png", tags: ["lesbians"] },
+    { id: 5, title:"Step Mom is in heat", mp4:"https://cdn.save.moe/s12/ru3OE6W.mp4", download:"https://download.boldilocks.xyz/dl6", thumbnail:"https://zpi.cx/b/c2d8b.jpg", tags: ["mom", "stepmom"] },
+    { id: 6, title:"Cure for migraines", mp4:"https://cdn.veporn.com/an-old-cure-for-migraines.mp4", download:"https://download.boldilocks.xyz/dl7", thumbnail:"https://zpi.cx/b/SQGSD6.png", tags: ["doctor", "nurse"] },
+    { id: 7, title:"Pussy Pounded & Creampied", mp4:"https://cdn.save.moe/s4/ldZJGb.mp4", download:"https://download.boldilocks.xyz/dl8", thumbnail:"https://zpi.cx/b/LKv1NiS.jpg", tags: ["hardsex", "creampie"] },
+    { id: 8, title:"Celine Umali Pinay", embed:"https://sendvid.com/embed/b0tura79", download:"https://download.boldilocks.xyz/dl9", thumbnail:"https://zpi.cx/b/11Fzu.jpg", tags: ["pinay", "asia"] }
 ];
 
 let filteredVideos = [...videos];
-let currentVideoData = null;
 let currentPage = 1;
-
-function getLimit() { return window.innerWidth <= 768 ? 8 : 12; }
 
 function renderGrid(targetId, list, paginate = false) {
     const grid = document.getElementById(targetId);
     grid.innerHTML = '';
     let displayList = list;
     if (paginate) {
-        const limit = getLimit();
+        const limit = window.innerWidth <= 768 ? 6 : 8;
         const start = (currentPage - 1) * limit;
         const end = start + limit;
         displayList = list.slice(start, end);
@@ -252,77 +186,74 @@ function renderGrid(targetId, list, paginate = false) {
     displayList.forEach(v => {
         let card = document.createElement('div');
         card.className = 'card';
-        card.innerHTML = `<div class="thumb"><img src="${v.thumbnail}" loading="lazy"></div><div class="title">${v.title}</div>`;
+        card.innerHTML = `<div class="thumb"><img src="${v.thumbnail}"></div><div class="title">${v.title}</div>`;
         card.onclick = () => { openAdTab(); window.location.hash = `#video/${v.id}`; };
         grid.appendChild(card);
     });
 }
 
-function changePage(step) { currentPage += step; window.scrollTo(0,0); renderGrid('videoGrid', filteredVideos, true); }
-
 function handleRoute() {
     const hash = window.location.hash;
     if (hash.startsWith('#video/')) {
         const id = parseInt(hash.split('/')[1]);
-        currentVideoData = videos.find(v => v.id === id);
-        if (currentVideoData) loadPlayer();
-    } else { showHome(); }
-}
-
-function loadPlayer() {
-    document.getElementById('videoGrid').classList.add('hidden');
-    document.getElementById('pagination').style.display = 'none';
-    document.getElementById('player').style.display = 'block';
-    document.getElementById('playerTitle').textContent = currentVideoData.title;
-    document.getElementById('mainVideo').poster = currentVideoData.thumbnail;
-    document.getElementById('mainVideo').src = "";
-    document.getElementById('mainIframe').src = "";
-    document.getElementById('startPlayBtn').style.display = 'flex';
-    const tagsDiv = document.getElementById('tagsContainer');
-    tagsDiv.innerHTML = '';
-    currentVideoData.tags.forEach(t => {
-        const span = document.createElement('span'); span.className = 'tag'; span.textContent = '#' + t;
-        span.onclick = () => performSearch(t); tagsDiv.appendChild(span);
-    });
-    renderGrid('relatedGrid', videos.filter(v => v.id !== currentVideoData.id).slice(0, 4));
-    window.scrollTo(0,0);
-}
-
-function showHome() {
-    document.getElementById('player').style.display = 'none';
-    document.getElementById('videoGrid').classList.remove('hidden');
-    document.getElementById('pagination').style.display = 'flex';
-    renderGrid('videoGrid', filteredVideos, true);
+        const video = videos.find(v => v.id === id);
+        if (video) {
+            DOWNLOAD_PAGE = video.download; 
+            document.getElementById('videoGrid').style.display = 'none';
+            document.getElementById('pagination').style.display = 'none';
+            document.getElementById('player').style.display = 'block';
+            document.getElementById('playerTitle').textContent = video.title;
+            document.getElementById('startPlayBtn').style.display = 'block';
+            document.getElementById('mainVideo').src = "";
+            document.getElementById('mainIframe').src = "";
+            
+            const tagsDiv = document.getElementById('tagsContainer');
+            tagsDiv.innerHTML = '';
+            video.tags?.forEach(t => {
+                const s = document.createElement('span'); s.className='tag'; s.innerText='#'+t;
+                s.onclick = () => performSearch(t); tagsDiv.appendChild(s);
+            });
+            renderGrid('relatedGrid', videos.filter(v => v.id !== id).slice(0, 4));
+            window.scrollTo(0,0);
+        }
+    } else {
+        document.getElementById('player').style.display = 'none';
+        document.getElementById('videoGrid').style.display = 'grid';
+        document.getElementById('pagination').style.display = 'flex';
+        renderGrid('videoGrid', filteredVideos, true);
+    }
 }
 
 function triggerActualPlay() {
     openAdTab();
     document.getElementById('startPlayBtn').style.display = 'none';
-    if (currentVideoData.mp4) {
+    const id = parseInt(window.location.hash.split('/')[1]);
+    const video = videos.find(v => v.id === id);
+    if (video.mp4) {
         document.getElementById('mainVideo').style.display = 'block';
-        document.getElementById('mainVideo').src = currentVideoData.mp4;
+        document.getElementById('mainIframe').style.display = 'none';
+        document.getElementById('mainVideo').src = video.mp4;
         document.getElementById('mainVideo').play();
     } else {
+        document.getElementById('mainVideo').style.display = 'none';
         document.getElementById('mainIframe').style.display = 'block';
-        document.getElementById('mainIframe').src = currentVideoData.embed;
+        document.getElementById('mainIframe').src = video.embed;
     }
 }
 
 function performSearch(q) {
-    filteredVideos = videos.filter(v => v.title.toLowerCase().includes(q.toLowerCase()) || v.tags.includes(q.toLowerCase()));
-    currentPage = 1; window.location.hash = ""; renderGrid('videoGrid', filteredVideos, true);
+    filteredVideos = videos.filter(v => v.title.toLowerCase().includes(q.toLowerCase()) || v.tags.join('').toLowerCase().includes(q.toLowerCase()));
+    currentPage = 1; window.location.hash = ""; handleRoute();
 }
 
+function changePage(step) { currentPage += step; window.scrollTo(0,0); renderGrid('videoGrid', filteredVideos, true); }
 function toggleMobileMenu() { document.getElementById('mobileMenuOverlay').classList.toggle('active'); }
 function toggleMobileSearch() { document.getElementById('mobileSearchWrapper').classList.toggle('active'); }
 function desktopSearch() { performSearch(document.getElementById('searchInput').value); }
 function mobileSearch() { performSearch(document.getElementById('mobileSearchInput').value); toggleMobileSearch(); }
-
-function goHome() { filteredVideos = [...videos]; currentPage = 1; window.location.hash = ""; showHome(); }
-function handleDownloadClick() { openAdTab(); window.open(currentVideoData.download, '_blank'); }
+function goHome() { filteredVideos = [...videos]; currentPage = 1; window.location.hash = ""; }
 
 window.addEventListener('hashchange', handleRoute);
-window.addEventListener('resize', () => { if(!window.location.hash.includes('video')) renderGrid('videoGrid', filteredVideos, true); });
 window.onload = handleRoute;
 </script>
 </body>
