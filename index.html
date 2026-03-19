@@ -11,7 +11,6 @@
             --bg-card: #1a1a1a;
             --text-main: #ffffff;
             --text-dim: #aaaaaa;
-            --transition: 0.3s ease-in-out;
         }
         body { 
             background: var(--bg-dark); 
@@ -50,7 +49,11 @@
 
         /* Player */
         #player { display: none; margin-bottom: 40px; }
-        .video-wrapper { position: relative; width: 100%; aspect-ratio: 16/9; background: #000; box-shadow: 0 10px 40px rgba(0,0,0,0.6); }
+        .video-wrapper { 
+            position: relative; width: 100%; aspect-ratio: 16/9; background: #000; 
+            box-shadow: 0 10px 40px rgba(0,0,0,0.6); 
+            background-size: cover; background-position: center;
+        }
         #mainVideo, #mainIframe { width: 100%; height: 100%; border: none; background: #000; }
         .play-overlay-btn { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
@@ -58,22 +61,20 @@
             width: 80px; height: 80px; font-size: 30px; cursor: pointer; z-index: 10;
         }
 
-        /* Download Button */
         .download-btn {
             display: inline-block; padding: 12px 30px; background: var(--primary); 
             color: white; border-radius: 4px; cursor: pointer; font-weight: bold; 
             margin: 15px 5px; text-decoration: none;
         }
 
-        /* Grid & Tags */
+        /* Grid */
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
         .card { cursor: pointer; }
-        .thumb { width: 100%; aspect-ratio: 16/9; background: #222; margin-bottom: 6px; }
-        .thumb img { width: 100%; height: 100%; object-fit: cover; }
+        .thumb { width: 100%; aspect-ratio: 16/9; background: #222; margin-bottom: 6px; overflow: hidden; }
+        .thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .title { font-size: 14px; color: #eee; height: 36px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
         .tag { display: inline-block; background: #252525; color: var(--text-dim); padding: 6px 14px; border-radius: 4px; font-size: 13px; margin: 5px 5px 0 0; cursor: pointer; border: 1px solid #333; }
 
-        /* Pagination */
         .pagination { display: flex; justify-content: center; align-items: center; gap: 20px; margin: 40px 0; }
         .page-btn { background: #1a1a1a; color: white; border: 1px solid #333; padding: 10px 25px; border-radius: 4px; cursor: pointer; }
         .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
@@ -112,16 +113,14 @@
     </div>
 
     <div id="player">
-        <div class="video-wrapper">
+        <div class="video-wrapper" id="playerWrapper">
             <button id="startPlayBtn" class="play-overlay-btn" onclick="triggerActualPlay()">▶</button>
             <video id="mainVideo" controls playsinline></video>
             <iframe id="mainIframe" style="display:none" allowfullscreen></iframe>
         </div>
         <h1 id="playerTitle" style="font-size: 20px; margin-top: 15px;"></h1>
         <div id="tagsContainer"></div>
-        
         <div id="downloadBtn" class="download-btn" onclick="handleDownloadClick()">⬇ DOWNLOAD</div>
-
         <div style="color:var(--primary); font-weight:bold; margin-top:30px; margin-bottom:15px;">Related Videos</div>
         <div id="relatedGrid" class="grid"></div>
     </div>
@@ -135,11 +134,8 @@
 </div>
 
 <script>
-/* 1. MONETAG LINKS */
 const adLinks = ["https://omg10.com/4/8251888", "https://omg10.com/4/7512585", "https://omg10.com/4/8257954", "https://omg10.com/4/1415254", "https://omg10.com/4/7512545", "https://omg10.com/4/8198889", "https://omg10.com/4/8236017", "https://omg10.com/4/8247899", "https://omg10.com/4/8195375"];
 let adCounter = 0;
-
-/* 2. DYNAMIC DOWNLOAD VARIABLE */
 let DOWNLOAD_PAGE = ""; 
 
 function openAdTab() {
@@ -147,7 +143,6 @@ function openAdTab() {
     adCounter++;
 }
 
-/* 3. DOWNLOAD CLICK LOGIC */
 function handleDownloadClick() {
     if (DOWNLOAD_PAGE !== "") {
         openAdTab(); 
@@ -155,7 +150,6 @@ function handleDownloadClick() {
     }
 }
 
-/* 4. FULL CONTENT LIST */
 const videos = [
     { id: 0, title:"I can't resist you", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://download.boldilocks.xyz/dl1", thumbnail:"https://zpi.cx/b/hOW88T.jpg", tags: ["wife", "sexy", "hot wife"] },
     { id: 1, title:"Lets pluck your cherry", mp4:"https://zpi.cx/s4/Itrwoc4.mp4", download:"https://download.boldilocks.xyz/dl2", thumbnail:"https://zpi.cx/b/fGSLT5U.png", tags: ["blonde", "hot", "defloration"] },
@@ -187,7 +181,7 @@ function renderGrid(targetId, list, paginate = false) {
     displayList.forEach(v => {
         let card = document.createElement('div');
         card.className = 'card';
-        card.innerHTML = `<div class="thumb"><img src="${v.thumbnail}"></div><div class="title">${v.title}</div>`;
+        card.innerHTML = `<div class="thumb"><img src="${v.thumbnail}" loading="lazy"></div><div class="title">${v.title}</div>`;
         card.onclick = () => { openAdTab(); window.location.hash = `#video/${v.id}`; };
         grid.appendChild(card);
     });
@@ -202,12 +196,16 @@ function handleRoute() {
             DOWNLOAD_PAGE = video.download; 
             const mainVideo = document.getElementById('mainVideo');
             const mainIframe = document.getElementById('mainIframe');
+            const wrapper = document.getElementById('playerWrapper');
             
             document.getElementById('videoGrid').style.display = 'none';
             document.getElementById('pagination').style.display = 'none';
             document.getElementById('player').style.display = 'block';
             document.getElementById('playerTitle').textContent = video.title;
             document.getElementById('startPlayBtn').style.display = 'block';
+
+            // Show Thumbnail even for embeds
+            wrapper.style.backgroundImage = `url(${video.thumbnail})`;
 
             if (video.mp4) {
                 mainVideo.style.display = 'block';
@@ -217,7 +215,7 @@ function handleRoute() {
                 mainVideo.load();
             } else {
                 mainVideo.style.display = 'none';
-                mainIframe.style.display = 'block';
+                mainIframe.style.display = 'none'; // Hidden until play
                 mainIframe.src = ""; 
             }
             
@@ -231,10 +229,7 @@ function handleRoute() {
             window.scrollTo(0,0);
         }
     } else {
-        document.getElementById('player').style.display = 'none';
-        document.getElementById('videoGrid').style.display = 'grid';
-        document.getElementById('pagination').style.display = 'flex';
-        renderGrid('videoGrid', filteredVideos, true);
+        goHome();
     }
 }
 
@@ -243,18 +238,24 @@ function triggerActualPlay() {
     document.getElementById('startPlayBtn').style.display = 'none';
     const id = parseInt(window.location.hash.split('/')[1]);
     const video = videos.find(v => v.id === id);
+    const wrapper = document.getElementById('playerWrapper');
+    
+    wrapper.style.backgroundImage = 'none'; // Remove poster image
+
     if (video.mp4) {
         document.getElementById('mainVideo').src = video.mp4;
         document.getElementById('mainVideo').play();
     } else {
-        document.getElementById('mainIframe').src = video.embed;
+        const mainIframe = document.getElementById('mainIframe');
+        mainIframe.style.display = 'block';
+        mainIframe.src = video.embed + "?autoplay=1";
     }
 }
 
 function performSearch(q) {
     filteredVideos = videos.filter(v => v.title.toLowerCase().includes(q.toLowerCase()) || v.tags.join('').toLowerCase().includes(q.toLowerCase()));
     currentPage = 1; 
-    goHome(); 
+    goHome(true); 
 }
 
 function changePage(step) { currentPage += step; window.scrollTo(0,0); renderGrid('videoGrid', filteredVideos, true); }
@@ -263,8 +264,8 @@ function toggleMobileSearch() { document.getElementById('mobileSearchWrapper').c
 function desktopSearch() { performSearch(document.getElementById('searchInput').value); }
 function mobileSearch() { performSearch(document.getElementById('mobileSearchInput').value); toggleMobileSearch(); }
 
-function goHome() { 
-    if (window.location.hash === "") filteredVideos = [...videos]; 
+function goHome(keepSearch = false) { 
+    if (!keepSearch && window.location.hash === "") filteredVideos = [...videos]; 
     currentPage = 1; 
     if (window.location.hash !== "") {
         history.pushState("", document.title, window.location.pathname + window.location.search);
@@ -274,6 +275,7 @@ function goHome() {
     document.getElementById('pagination').style.display = 'flex';
     const v = document.getElementById('mainVideo');
     v.pause(); v.src = "";
+    document.getElementById('mainIframe').src = "";
     renderGrid('videoGrid', filteredVideos, true);
 }
 
