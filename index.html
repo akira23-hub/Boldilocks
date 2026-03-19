@@ -199,13 +199,27 @@ function handleRoute() {
         const video = videos.find(v => v.id === id);
         if (video) {
             DOWNLOAD_PAGE = video.download; 
+            const mainVideo = document.getElementById('mainVideo');
+            const mainIframe = document.getElementById('mainIframe');
+            
             document.getElementById('videoGrid').style.display = 'none';
             document.getElementById('pagination').style.display = 'none';
             document.getElementById('player').style.display = 'block';
             document.getElementById('playerTitle').textContent = video.title;
             document.getElementById('startPlayBtn').style.display = 'block';
-            document.getElementById('mainVideo').src = "";
-            document.getElementById('mainIframe').src = "";
+
+            // --- THUMBNAIL/POSTER FIX ---
+            if (video.mp4) {
+                mainVideo.style.display = 'block';
+                mainIframe.style.display = 'none';
+                mainVideo.src = ""; 
+                mainVideo.poster = video.thumbnail; // Shows your thumbnail
+                mainVideo.load(); // Refreshes player to show the poster
+            } else {
+                mainVideo.style.display = 'none';
+                mainIframe.style.display = 'block';
+                mainIframe.src = ""; 
+            }
             
             const tagsDiv = document.getElementById('tagsContainer');
             tagsDiv.innerHTML = '';
@@ -230,13 +244,9 @@ function triggerActualPlay() {
     const id = parseInt(window.location.hash.split('/')[1]);
     const video = videos.find(v => v.id === id);
     if (video.mp4) {
-        document.getElementById('mainVideo').style.display = 'block';
-        document.getElementById('mainIframe').style.display = 'none';
         document.getElementById('mainVideo').src = video.mp4;
         document.getElementById('mainVideo').play();
     } else {
-        document.getElementById('mainVideo').style.display = 'none';
-        document.getElementById('mainIframe').style.display = 'block';
         document.getElementById('mainIframe').src = video.embed;
     }
 }
