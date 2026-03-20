@@ -31,8 +31,15 @@
         .logo-img { height: 60px; cursor: pointer; }
         .menu-links { display: flex; gap: 25px; align-items: center; }
         .menu-links a { color: var(--text-dim); text-decoration: none; font-size: 15px; font-weight: 600; cursor: pointer; }
-        .search-container { background: #1a1a1a; border: 1px solid #333; border-radius: 20px; padding: 5px 15px; display: flex; }
+        
+        /* Search Containers with Clear Button */
+        .search-container { 
+            background: #1a1a1a; border: 1px solid #333; border-radius: 20px; 
+            padding: 5px 15px; display: flex; align-items: center; gap: 5px;
+        }
         #searchInput { background: transparent; border: none; color: white; outline: none; width: 150px; }
+        .clear-btn { color: var(--text-dim); cursor: pointer; font-weight: bold; font-size: 18px; user-select: none; }
+        .clear-btn:hover { color: var(--primary); }
 
         /* Mobile Controls */
         .mobile-actions { display: none; gap: 15px; }
@@ -42,9 +49,9 @@
             display: none; background: #1a1a1a; padding: 6px 10px; 
             border-bottom: 2px solid var(--primary); width: 100%; box-sizing: border-box;
         }
-        #mobileSearchWrapper.active { display: block; }
+        #mobileSearchWrapper.active { display: flex; align-items: center; gap: 10px; }
         #mobileSearchInput { 
-            width: 100%; padding: 6px; background: #222; border: none; 
+            flex: 1; padding: 6px; background: #222; border: none; 
             color: white; border-radius: 4px; font-size: 14px;
         }
         
@@ -100,6 +107,7 @@
             .logo-img { height: 45px; }
             .play-overlay-btn { width: 38px !important; height: 38px !important; font-size: 14px !important; }
             #mobileMenuOverlay { width: 70%; } 
+            .download-btn { padding: 8px 15px; font-size: 13px; }
         }
     </style>
 </head>
@@ -107,17 +115,18 @@
 
 <div id="mobileMenuOverlay">
     <div onclick="toggleMobileMenu()" style="position:absolute; top:20px; right:20px; font-size:30px; color:var(--primary);">×</div>
-    <a onclick="goHome(); toggleMobileMenu()">Home</a>
+    <a onclick="goHome(true); toggleMobileMenu()">Home</a>
     <a href="#">Trending</a>
 </div>
 
 <div class="main-container">
     <div class="menu-bar">
-        <img src="https://zpi.cx/b/PS3BgJ5.png" class="logo-img" onclick="goHome()">
+        <img src="https://zpi.cx/b/PS3BgJ5.png" class="logo-img" onclick="goHome(true)">
         <div class="menu-links">
-            <a onclick="goHome()">Home</a>
+            <a onclick="goHome(true)">Home</a>
             <div class="search-container">
                 <input type="text" id="searchInput" placeholder="Search..." onkeydown="if(event.key==='Enter') desktopSearch()">
+                <span class="clear-btn" onclick="clearSearch('searchInput')">×</span>
             </div>
         </div>
         <div class="mobile-actions">
@@ -128,6 +137,7 @@
     
     <div id="mobileSearchWrapper">
         <input type="text" id="mobileSearchInput" placeholder="Search..." onkeydown="if(event.key==='Enter') mobileSearch()">
+        <span class="clear-btn" onclick="clearSearch('mobileSearchInput')">×</span>
     </div>
 
     <div id="player">
@@ -156,8 +166,8 @@
 <script>
 const adLinks = ["https://omg10.com/4/8251888", "https://omg10.com/4/7512585", "https://omg10.com/4/8257954", "https://omg10.com/4/1415254", "https://omg10.com/4/7512545", "https://omg10.com/4/8198889", "https://omg10.com/4/8236017", "https://omg10.com/4/8247899", "https://omg10.com/4/8195375"];
 let adCounter = 0;
-
 let DOWNLOAD_PAGE = ""; 
+
 function openAdTab() {
     window.open(adLinks[adCounter % adLinks.length], '_blank');
     adCounter++;
@@ -173,7 +183,7 @@ function handleDownloadClick() {
 const videos = [
     { id: 0, title:"I can't resist you", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://download.boldilocks.xyz/dl1", thumbnail:"https://zpi.cx/b/hOW88T.jpg", tags: ["wife", "sexy", "hot wife"] },
     { id: 1, title:"Lets pluck your cherry", mp4:"https://zpi.cx/s4/Itrwoc4.mp4", download:"https://download.boldilocks.xyz/dl2", thumbnail:"https://zpi.cx/b/fGSLT5U.png", tags: ["blonde", "hot", "defloration"] },
-    { id: 2, title:"I really miss you", mp4:"https://cdn.veporn.com/im-here-to-let-the-sin-in-me.mp4", download:"https://download.boldilocks.xyz/dl3", thumbnail:"https://zpi.cx/b/7z07poS.png", tags: ["shaved", "sins"] },
+    { id: 2, title:"I really miss you", mp4:"https://cdn.veporn.com/im-here-to-let-the-sin-in-me.mp4", download:"https://download.boldilocks.xyz/dl3", thumbnail:"https://zpi.cx/b/7z07poS.png", tags: ["shaved", "sins","hardsex"] },
     { id: 3, title:"Really wet", mp4:"https://cdn.veporn.com/you-want-me-dry-and-yet-im-wet.mp4", download:"https://download.boldilocks.xyz/dl4", thumbnail:"https://zpi.cx/b/IABMG.png", tags: ["creampie", "wet"] },
     { id: 4, title:"Let's enjoy the moment", mp4:"https://cdn.veporn.com/you-are-better-at-this-than-you-thought.mp4", download:"https://download.boldilocks.xyz/dl5", thumbnail:"https://zpi.cx/b/56F4bA4.png", tags: ["lesbians"] },
     { id: 5, title:"Step Mom is in heat", mp4:"https://cdn.save.moe/s12/ru3OE6W.mp4", download:"https://download.boldilocks.xyz/dl6", thumbnail:"https://zpi.cx/b/c2d8b.jpg", tags: ["mom", "stepmom"] },
@@ -208,6 +218,7 @@ function renderGrid(targetId, list, paginate = false) {
 }
 
 function handleRoute() {
+    document.getElementById('mobileSearchWrapper').classList.remove('active');
     const hash = window.location.hash;
     if (hash.startsWith('#video/')) {
         const id = parseInt(hash.split('/')[1]);
@@ -242,7 +253,14 @@ function handleRoute() {
                 const s = document.createElement('span'); s.className='tag'; s.innerText='#'+t;
                 s.onclick = () => performSearch(t); tagsDiv.appendChild(s);
             });
-            renderGrid('relatedGrid', videos.filter(v => v.id !== id).slice(0, 4));
+
+            // RELATED LOGIC: Filter by tags or title keywords
+            const related = videos.filter(v => 
+                v.id !== id && 
+                (v.tags.some(t => video.tags.includes(t)) || v.title.toLowerCase().split(' ').some(w => video.title.toLowerCase().includes(w)))
+            ).slice(0, 4);
+            
+            renderGrid('relatedGrid', related.length > 0 ? related : videos.filter(v => v.id !== id).slice(0, 4));
             window.scrollTo(0,0);
         }
     } else {
@@ -258,10 +276,8 @@ function triggerActualPlay() {
     const id = parseInt(window.location.hash.split('/')[1]);
     const video = videos.find(v => v.id === id);
     const wrapper = document.getElementById('v-wrap');
-    
     document.getElementById('startPlayBtn').style.display = 'none';
     wrapper.style.backgroundImage = 'none'; 
-
     if (video.mp4) {
         document.getElementById('mainVideo').src = video.mp4;
         document.getElementById('mainVideo').play();
@@ -271,16 +287,18 @@ function triggerActualPlay() {
     }
 }
 
-// SEARCH FIX: Checks BOTH title and tags array
 function performSearch(q) {
     const query = q.toLowerCase();
-    filteredVideos = videos.filter(v => {
-        const matchTitle = v.title.toLowerCase().includes(query);
-        const matchTags = v.tags.some(tag => tag.toLowerCase().includes(query));
-        return matchTitle || matchTags;
-    });
+    filteredVideos = videos.filter(v => 
+        v.title.toLowerCase().includes(query) || v.tags.some(tag => tag.toLowerCase().includes(query))
+    );
     currentPage = 1; 
-    goHome(); 
+    goHome(false); 
+}
+
+function clearSearch(id) {
+    document.getElementById(id).value = "";
+    goHome(true);
 }
 
 function changePage(step) { currentPage += step; window.scrollTo(0,0); renderGrid('videoGrid', filteredVideos, true); }
@@ -289,13 +307,13 @@ function toggleMobileSearch() { document.getElementById('mobileSearchWrapper').c
 function desktopSearch() { performSearch(document.getElementById('searchInput').value); }
 function mobileSearch() { performSearch(document.getElementById('mobileSearchInput').value); toggleMobileSearch(); }
 
-function goHome() { 
+function goHome(resetFilter = false) { 
     document.getElementById('mobileSearchWrapper').classList.remove('active');
-    
-    if (window.location.hash === "") {
-        // Only reset filter if we aren't coming from a tag/search redirect
+    if (resetFilter) {
+        filteredVideos = [...videos];
+        document.getElementById('searchInput').value = "";
+        document.getElementById('mobileSearchInput').value = "";
     }
-    
     currentPage = 1; 
     if (window.location.hash !== "") {
         history.pushState("", document.title, window.location.pathname + window.location.search);
