@@ -14,8 +14,8 @@
         }
         body { background: var(--bg-dark); font-family: 'Segoe UI', sans-serif; color: var(--text-main); margin: 0; padding-bottom: 50px; overflow-x: hidden; }
         
-        /* Updated to 1920px for Desktop */
-        .main-container { max-width: 1920px; margin: 0 auto; padding: 0 15px; }
+        /* RESTORED: max-width 1200px ensures space on sides for 1920 monitors */
+        .main-container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         
         /* Header */
         .menu-bar { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #222; margin-bottom: 10px; }
@@ -177,6 +177,7 @@
 </div>
 
 <script>
+/* Script section remains exactly the same as provided */
 const adLinks = ["https://omg10.com/4/8251888", "https://omg10.com/4/7512585"];
 let adCounter = 0;
 let DOWNLOAD_PAGE = ""; 
