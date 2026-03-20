@@ -41,8 +41,23 @@
         .section-label { color: var(--primary); font-size: 16px; font-weight: bold; text-transform: uppercase; margin: 25px 0 15px 0; border-left: 3px solid var(--primary); padding-left: 10px; }
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 20px; }
         .card { cursor: pointer; }
+        
         .thumb-wrapper { position: relative; width: 100%; aspect-ratio: 16/9; background: #222; margin-bottom: 6px; border-radius: 4px; overflow: hidden; }
         .thumb-wrapper img { width: 100%; height: 100%; object-fit: cover; }
+        
+        /* DURATION BADGE */
+        .duration-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 2px 6px;
+            font-size: 11px;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+
         .title { font-size: 13px; color: #eee; height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.3; }
 
         /* PLAYER */
@@ -67,7 +82,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .download-btn-container { display: flex; justify(content): center; margin: 20px 0; }
+        .download-btn-container { display: flex; justify-content: center; margin: 20px 0; }
         .download-btn { 
             display: inline-flex; 
             align-items: center;
@@ -166,30 +181,23 @@ let adCounter = 0;
 let DOWNLOAD_PAGE = ""; 
 
 const videos = [
-    { id: 0, title:"I can't resist you", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://download.boldilocks.xyz/dl1", thumbnail:"https://zpi.cx/b/hOW88T.jpg", tags: ["wife", "sexy", "shaved"] },
-    { id: 1, title:"Lets pluck your cherry", mp4:"https://zpi.cx/s4/Itrwoc4.mp4", download:"https://download.boldilocks.xyz/dl2", thumbnail:"https://zpi.cx/b/fGSLT5U.png", tags: ["blonde", "defloration"] },
-    { id: 2, title:"I really miss you", mp4:"https://cdn.veporn.com/im-here-to-let-the-sin-in-me.mp4", download:"https://download.boldilocks.xyz/dl3", thumbnail:"https://zpi.cx/b/7z07poS.png", tags: ["shaved", "sins"] },
-    { id: 3, title:"Really wet", mp4:"https://cdn.veporn.com/you-want-me-dry-and-yet-im-wet.mp4", download:"https://download.boldilocks.xyz/dl4", thumbnail:"https://zpi.cx/b/IABMG.png", tags: ["creampie", "wet"] },
-    { id: 4, title:"Let's enjoy the moment", mp4:"https://cdn.veporn.com/you-are-better-at-this-than-you-thought.mp4", download:"https://download.boldilocks.xyz/dl5", thumbnail:"https://zpi.cx/b/56F4bA4.png", tags: ["lesbians"] },
-    { id: 5, title:"Step Mom is in heat", mp4:"https://cdn.save.moe/s12/ru3OE6W.mp4", download:"https://download.boldilocks.xyz/dl6", thumbnail:"https://zpi.cx/b/c2d8b.jpg", tags: ["mom", "stepmom"] },
-    { id: 6, title:"Cure for migraines", mp4:"https://cdn.veporn.com/an-old-cure-for-migraines.mp4", download:"https://download.boldilocks.xyz/dl7", thumbnail:"https://zpi.cx/b/SQGSD6.png", tags: ["doctor", "nurse", "shaved"] },
-    { id: 7, title:"Pussy Pounded & Creampied", mp4:"https://cdn.save.moe/s4/ldZJGb.mp4", download:"https://download.boldilocks.xyz/dl8", thumbnail:"https://zpi.cx/b/LKv1NiS.jpg", tags: ["hardsex", "creampie"] },
-    { id: 8, title:"Celine Umali Pinay", embed:"https://sendvid.com/embed/b0tura79", download:"https://download.boldilocks.xyz/dl9", thumbnail:"https://zpi.cx/b/11Fzu.jpg", tags: ["pinay", "asia"] },
-    { id: 9, title:"Knowledge makes me wet", mp4:"https://cdn.veporn.com/see-how-wet-knowledge-makes-me.mp4", download:"https://download.boldilocks.xyz/dl10", thumbnail:"https://zpi.cx/b/ey4hdA.png", tags: ["creampie", "teen"] },
-    { id: 10, title:"You're not just good your're so damn fine", mp4:"https://cdn.veporn.com/youre-not-just-good-youre-so-damn-fine.mp4", download:"https://download.boldilocks.xyz/dl11", thumbnail:"https://zpi.cx/b/H4XzTJe.png", tags: ["anal", "big tits", "creampie"] },
-    { id: 11, title:"My wife miss my black Dick", mp4:"https://cdn.save.moe/s12/r7EoV6.mp4", download:"https://download.boldilocks.xyz/dl12", thumbnail:"https://zpi.cx/b/vp1dK.jpg", tags: ["anal", "wife", "creampie", "blonde"] },
-    { id: 12, title:"I can teach you something nicer", mp4:"https://cdn.veporn.com/i-can-teach-you-something-nicer.mp4", download:"https://download.boldilocks.xyz/dl13", thumbnail:"https://zpi.cx/b/Nh1NJ.jpg", tags: ["big tits", "creampie", "redhead", "finger", "shaved pussy" ] },
-    { id: 13, title:"Fuck me hard Daddy", mp4:"https://cdn.save.moe/s12/AQ4lzl2.mp4", download:"https://download.boldilocks.xyz/dl14", thumbnail:"https://zpi.cx/b/jF5Z0.jpg", tags: ["hardsex", "creampie", "redhead", "dog style", "shaved pussy" ] },
-    { id: 14, title:"We just met", mp4:"https://cdn.save.moe/s12/izeaJ.mp4", download:"https://download.boldilocks.xyz/dl15", thumbnail:"https://zpi.cx/b/2eZ0av.jpg", tags: ["hardsex", "creampie", "anal", "dog style", "shaved pussy" ] },
-    { id: 15, title:"Better than my daddy's movies", mp4:"https://cdn.save.moe/s12/hQjSY.mp4", download:"https://download.boldilocks.xyz/dl16", thumbnail:"https://zpi.cx/b/Jkhk7.md.jpg", tags: ["brunette", "cumshot", "fetish", "russian", "shaved pussy", "teen" ] },
-    { id: 16, title:"Old man's dream", mp4:"https://cdn.veporn.com/shes-a-teen-who-makes-you-dream.mp4", download:"http://download.boldilocks.xyz/dl16a", thumbnail:"https://zpi.cx/b/23IrEE.jpg", tags: ["big tits", "creampie", "old and young", "shaved pussy", "undressing", "teen" ] }
-    
-    
-    
-    
-    
-    
-    
+    { id: 0, duration: "35:03", title:"I can't resist you", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://download.boldilocks.xyz/dl1", thumbnail:"https://zpi.cx/b/hOW88T.jpg", tags: ["wife", "sexy", "shaved"] },
+    { id: 1, duration: "27:37", title:"Lets pluck your cherry", mp4:"https://zpi.cx/s4/Itrwoc4.mp4", download:"https://download.boldilocks.xyz/dl2", thumbnail:"https://zpi.cx/b/fGSLT5U.png", tags: ["blonde", "defloration"] },
+    { id: 2, duration: "1:02:41", title:"I really miss you", mp4:"https://cdn.veporn.com/im-here-to-let-the-sin-in-me.mp4", download:"https://download.boldilocks.xyz/dl3", thumbnail:"https://zpi.cx/b/7z07poS.png", tags: ["shaved", "sins"] },
+    { id: 3, duration: "30:35", title:"Really wet", mp4:"https://cdn.veporn.com/you-want-me-dry-and-yet-im-wet.mp4", download:"https://download.boldilocks.xyz/dl4", thumbnail:"https://zpi.cx/b/IABMG.png", tags: ["creampie", "wet"] },
+    { id: 4, duration: "38:05", title:"Let's enjoy the moment", mp4:"https://cdn.veporn.com/you-are-better-at-this-than-you-thought.mp4", download:"https://download.boldilocks.xyz/dl5", thumbnail:"https://zpi.cx/b/56F4bA4.png", tags: ["lesbians"] },
+    { id: 5, duration: "22:13", title:"Step Mom is in heat", mp4:"https://cdn.save.moe/s12/ru3OE6W.mp4", download:"https://download.boldilocks.xyz/dl6", thumbnail:"https://zpi.cx/b/c2d8b.jpg", tags: ["mom", "stepmom"] },
+    { id: 6, duration: "49:12", title:"Cure for migraines", mp4:"https://cdn.veporn.com/an-old-cure-for-migraines.mp4", download:"https://download.boldilocks.xyz/dl7", thumbnail:"https://zpi.cx/b/SQGSD6.png", tags: ["doctor", "nurse", "shaved"] },
+    { id: 7, duration: "12:43", title:"Pussy Pounded & Creampied", mp4:"https://cdn.save.moe/s4/ldZJGb.mp4", download:"https://download.boldilocks.xyz/dl8", thumbnail:"https://zpi.cx/b/LKv1NiS.jpg", tags: ["hardsex", "creampie"] },
+    { id: 8, duration: "48:09", title:"Celine Umali Pinay", embed:"https://sendvid.com/embed/b0tura79", download:"https://download.boldilocks.xyz/dl9", thumbnail:"https://zpi.cx/b/11Fzu.jpg", tags: ["pinay", "asia"] },
+    { id: 9, duration: "1:03:02", title:"Knowledge makes me wet", mp4:"https://cdn.veporn.com/see-how-wet-knowledge-makes-me.mp4", download:"https://download.boldilocks.xyz/dl10", thumbnail:"https://zpi.cx/b/ey4hdA.png", tags: ["creampie", "teen"] },
+    { id: 10, duration: "30:01", title:"You're not just good your're so damn fine", mp4:"https://cdn.veporn.com/youre-not-just-good-youre-so-damn-fine.mp4", download:"https://download.boldilocks.xyz/dl11", thumbnail:"https://zpi.cx/b/H4XzTJe.png", tags: ["anal", "big tits", "creampie"] },
+    { id: 11, duration: "16:40", title:"My wife miss my black Dick", mp4:"https://cdn.save.moe/s12/r7EoV6.mp4", download:"https://download.boldilocks.xyz/dl12", thumbnail:"https://zpi.cx/b/vp1dK.jpg", tags: ["anal", "wife", "creampie", "blonde"] },
+    { id: 12, duration: "29:45", title:"I can teach you something nicer", mp4:"https://cdn.veporn.com/i-can-teach-you-something-nicer.mp4", download:"https://download.boldilocks.xyz/dl13", thumbnail:"https://zpi.cx/b/Nh1NJ.jpg", tags: ["big tits", "creampie", "redhead", "finger", "shaved pussy" ] },
+    { id: 13, duration: "25:26", title:"Fuck me hard Daddy", mp4:"https://cdn.save.moe/s12/AQ4lzl2.mp4", download:"https://download.boldilocks.xyz/dl14", thumbnail:"https://zpi.cx/b/jF5Z0.jpg", tags: ["hardsex", "creampie", "redhead", "dog style", "shaved pussy" ] },
+    { id: 14, duration: "42:39", title:"We just met", mp4:"https://cdn.save.moe/s12/izeaJ.mp4", download:"https://download.boldilocks.xyz/dl15", thumbnail:"https://zpi.cx/b/2eZ0av.jpg", tags: ["hardsex", "creampie", "anal", "dog style", "shaved pussy" ] },
+    { id: 15, duration: "11:08", title:"Better than my daddy's movies", mp4:"https://cdn.save.moe/s12/hQjSY.mp4", download:"https://download.boldilocks.xyz/dl16", thumbnail:"https://zpi.cx/b/Jkhk7.md.jpg", tags: ["brunette", "cumshot", "fetish", "russian", "shaved pussy", "teen" ] },
+    { id: 16, duration: "19:23", title:"Old man's dream", mp4:"https://cdn.veporn.com/shes-a-teen-who-makes-you-dream.mp4", download:"http://download.boldilocks.xyz/dl16a", thumbnail:"https://zpi.cx/b/23IrEE.jpg", tags: ["big tits", "creampie", "old and young", "shaved pussy", "undressing", "teen" ] }
 ];
 
 let filteredVideos = [...videos];
@@ -225,7 +233,13 @@ function renderGrid(targetId, list, paginate = false) {
     displayList.forEach(v => {
         let card = document.createElement('div');
         card.className = 'card';
-        card.innerHTML = `<div class="thumb-wrapper"><img src="${v.thumbnail}"></div><div class="title">${v.title}</div>`;
+        card.innerHTML = `
+            <div class="thumb-wrapper">
+                <img src="${v.thumbnail}">
+                <div class="duration-badge">${v.duration || "00:00"}</div>
+            </div>
+            <div class="title">${v.title}</div>
+        `;
         card.onclick = () => { openAdTab(); window.location.hash = `#video/${v.id}`; };
         grid.appendChild(card);
     });
@@ -233,7 +247,6 @@ function renderGrid(targetId, list, paginate = false) {
 
 function handleRoute() {
     const hash = window.location.hash;
-    // ALWAYS hide the mobile search bar when navigating to a video or back home
     document.getElementById('mobileSearchWrapper').classList.remove('active');
     
     if (hash.startsWith('#video/')) {
@@ -293,7 +306,6 @@ function triggerActualPlay() {
 function openAdTab() { window.open(adLinks[adCounter % adLinks.length], '_blank'); adCounter++; }
 
 function performSearch(q) { 
-    // Close the search bar as soon as search begins
     document.getElementById('mobileSearchWrapper').classList.remove('active');
     filteredVideos = videos.filter(v => v.title.toLowerCase().includes(q.toLowerCase()) || v.tags.some(t => t.toLowerCase().includes(q.toLowerCase()))); 
     currentPage = 1; 
