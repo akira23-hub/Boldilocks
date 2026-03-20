@@ -59,7 +59,6 @@
         }
         #mainVideo, #mainIframe { width: 100%; height: 100%; border: none; display: none; }
         
-        /* SHRUNK PLAY BUTTON */
         .play-overlay-btn { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             background: var(--primary); color: white; border: none; border-radius: 50%; 
@@ -68,8 +67,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        /* SHRUNK DOWNLOAD BUTTON */
-        .download-btn-container { display: flex; justify-content: center; margin: 20px 0; }
+        .download-btn-container { display: flex; justify(content): center; margin: 20px 0; }
         .download-btn { 
             display: inline-flex; 
             align-items: center;
@@ -168,19 +166,22 @@ let adCounter = 0;
 let DOWNLOAD_PAGE = ""; 
 
 const videos = [
-    { id: 0, title:"I can't resist you", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://download.boldilocks.xyz/dl1", thumbnail:"https://zpi.cx/b/hOW88T.jpg", tags: ["wife", "sexy"] },
+    { id: 0, title:"I can't resist you", mp4:"https://zpi.cx/s4/2EeZajd.mp4", download:"https://download.boldilocks.xyz/dl1", thumbnail:"https://zpi.cx/b/hOW88T.jpg", tags: ["wife", "sexy", "shaved"] },
     { id: 1, title:"Lets pluck your cherry", mp4:"https://zpi.cx/s4/Itrwoc4.mp4", download:"https://download.boldilocks.xyz/dl2", thumbnail:"https://zpi.cx/b/fGSLT5U.png", tags: ["blonde", "defloration"] },
     { id: 2, title:"I really miss you", mp4:"https://cdn.veporn.com/im-here-to-let-the-sin-in-me.mp4", download:"https://download.boldilocks.xyz/dl3", thumbnail:"https://zpi.cx/b/7z07poS.png", tags: ["shaved", "sins"] },
     { id: 3, title:"Really wet", mp4:"https://cdn.veporn.com/you-want-me-dry-and-yet-im-wet.mp4", download:"https://download.boldilocks.xyz/dl4", thumbnail:"https://zpi.cx/b/IABMG.png", tags: ["creampie", "wet"] },
     { id: 4, title:"Let's enjoy the moment", mp4:"https://cdn.veporn.com/you-are-better-at-this-than-you-thought.mp4", download:"https://download.boldilocks.xyz/dl5", thumbnail:"https://zpi.cx/b/56F4bA4.png", tags: ["lesbians"] },
     { id: 5, title:"Step Mom is in heat", mp4:"https://cdn.save.moe/s12/ru3OE6W.mp4", download:"https://download.boldilocks.xyz/dl6", thumbnail:"https://zpi.cx/b/c2d8b.jpg", tags: ["mom", "stepmom"] },
-    { id: 6, title:"Cure for migraines", mp4:"https://cdn.veporn.com/an-old-cure-for-migraines.mp4", download:"https://download.boldilocks.xyz/dl7", thumbnail:"https://zpi.cx/b/SQGSD6.png", tags: ["doctor", "nurse"] },
+    { id: 6, title:"Cure for migraines", mp4:"https://cdn.veporn.com/an-old-cure-for-migraines.mp4", download:"https://download.boldilocks.xyz/dl7", thumbnail:"https://zpi.cx/b/SQGSD6.png", tags: ["doctor", "nurse", "shaved"] },
     { id: 7, title:"Pussy Pounded & Creampied", mp4:"https://cdn.save.moe/s4/ldZJGb.mp4", download:"https://download.boldilocks.xyz/dl8", thumbnail:"https://zpi.cx/b/LKv1NiS.jpg", tags: ["hardsex", "creampie"] },
     { id: 8, title:"Celine Umali Pinay", embed:"https://sendvid.com/embed/b0tura79", download:"https://download.boldilocks.xyz/dl9", thumbnail:"https://zpi.cx/b/11Fzu.jpg", tags: ["pinay", "asia"] },
     { id: 9, title:"Knowledge makes me wet", mp4:"https://cdn.veporn.com/see-how-wet-knowledge-makes-me.mp4", download:"https://download.boldilocks.xyz/dl10", thumbnail:"https://zpi.cx/b/ey4hdA.png", tags: ["creampie", "teen"] },
     { id: 10, title:"You're not just good your're so damn fine", mp4:"https://cdn.veporn.com/youre-not-just-good-youre-so-damn-fine.mp4", download:"https://download.boldilocks.xyz/dl11", thumbnail:"https://zpi.cx/b/H4XzTJe.png", tags: ["anal", "big tits", "creampie"] },
     { id: 11, title:"My wife miss my black Dick", mp4:"https://cdn.save.moe/s12/r7EoV6.mp4", download:"https://download.boldilocks.xyz/dl12", thumbnail:"https://zpi.cx/b/vp1dK.jpg", tags: ["anal", "wife", "creampie"] },
-    { id: 12, title:"I can teach you something nicer", mp4:"https://cdn.veporn.com/i-can-teach-you-something-nicer.mp4", download:"https://download.boldilocks.xyz/dl13", thumbnail:"https://zpi.cx/b/Nh1NJ.jpg", tags: ["big tits", "creampie", "redhead", "finger", "shaved pussy" ] }
+    { id: 12, title:"I can teach you something nicer", mp4:"https://cdn.veporn.com/i-can-teach-you-something-nicer.mp4", download:"https://download.boldilocks.xyz/dl13", thumbnail:"https://zpi.cx/b/Nh1NJ.jpg", tags: ["big tits", "creampie", "redhead", "finger", "shaved pussy" ] },
+    { id: 13, title:"Fuck me hard Daady", mp4:"https://cdn.save.moe/s12/AQ4lzl2.mp4", download:"https://download.boldilocks.xyz/dl14", thumbnail:"https://zpi.cx/b/jF5Z0.jpg", tags: ["hardsex", "creampie", "redhead", "dog style", "shaved pussy" ] },
+    { id: 13, title:"We just met", mp4:"https://cdn.save.moe/s12/izeaJ.mp4", download:"https://download.boldilocks.xyz/dl15", thumbnail:"https://zpi.cx/b/2eZ0av.jpg", tags: ["hardsex", "creampie", "anal", "dog style", "shaved pussy" ] }
+    
     
     
     
@@ -231,6 +232,9 @@ function renderGrid(targetId, list, paginate = false) {
 
 function handleRoute() {
     const hash = window.location.hash;
+    // ALWAYS hide the mobile search bar when navigating to a video or back home
+    document.getElementById('mobileSearchWrapper').classList.remove('active');
+    
     if (hash.startsWith('#video/')) {
         const id = parseInt(hash.split('/')[1]);
         const video = videos.find(v => v.id === id);
@@ -286,13 +290,32 @@ function triggerActualPlay() {
 }
 
 function openAdTab() { window.open(adLinks[adCounter % adLinks.length], '_blank'); adCounter++; }
-function performSearch(q) { filteredVideos = videos.filter(v => v.title.toLowerCase().includes(q.toLowerCase()) || v.tags.some(t => t.toLowerCase().includes(q.toLowerCase()))); currentPage = 1; goHome(false); }
-function goHome(reset = false) { if(reset){ filteredVideos=[...videos]; document.getElementById('searchInput').value=""; } currentPage=1; history.pushState("", "", window.location.pathname); handleRoute(); }
+
+function performSearch(q) { 
+    // Close the search bar as soon as search begins
+    document.getElementById('mobileSearchWrapper').classList.remove('active');
+    filteredVideos = videos.filter(v => v.title.toLowerCase().includes(q.toLowerCase()) || v.tags.some(t => t.toLowerCase().includes(q.toLowerCase()))); 
+    currentPage = 1; 
+    goHome(false); 
+}
+
+function goHome(reset = false) { 
+    if(reset){ 
+        filteredVideos=[...videos]; 
+        document.getElementById('searchInput').value=""; 
+        document.getElementById('mobileSearchInput').value="";
+    } 
+    document.getElementById('mobileSearchWrapper').classList.remove('active');
+    currentPage=1; 
+    history.pushState("", "", window.location.pathname); 
+    handleRoute(); 
+}
+
 function handleDownloadClick() { if(DOWNLOAD_PAGE) { openAdTab(); window.location.href = DOWNLOAD_PAGE; } }
 function changePage(step) { currentPage += step; window.scrollTo(0,0); handleRoute(); }
 function toggleMobileSearch() { document.getElementById('mobileSearchWrapper').classList.toggle('active'); }
 function desktopSearch() { performSearch(document.getElementById('searchInput').value); }
-function mobileSearch() { performSearch(document.getElementById('mobileSearchInput').value); toggleMobileSearch(); }
+function mobileSearch() { performSearch(document.getElementById('mobileSearchInput').value); }
 
 window.addEventListener('hashchange', handleRoute);
 window.onload = () => { initCarousel(); handleRoute(); };
