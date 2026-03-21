@@ -12,9 +12,20 @@
             --text-main: #ffffff;
             --text-dim: #aaaaaa;
         }
-        body { background: var(--bg-dark); font-family: 'Segoe UI', sans-serif; color: var(--text-main); margin: 0; padding-bottom: 50px; overflow-x: hidden; }
+        body { 
+            background: var(--bg-dark); 
+            font-family: 'Segoe UI', sans-serif; 
+            color: var(--text-main); 
+            margin: 0; 
+            padding-bottom: 50px; 
+            overflow-x: hidden;
+            /* Prevents text selection which often triggers copy/save menus */
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+        }
         
-        /* RESTORED: max-width 1200px ensures space on sides for 1920 monitors */
         .main-container { max-width: 1200px; margin: 0 auto; padding: 0 15px; }
         
         /* Header */
@@ -32,7 +43,7 @@
         #mobileSearchWrapper.active { display: flex; align-items: center; gap: 10px; }
         #mobileSearchInput { flex: 1; padding: 8px; background: #222; border: none; color: white; border-radius: 4px; }
 
-        /* TAGS CAROUSEL */
+        /* Tags Carousel */
         .carousel-wrapper { position: relative; display: flex; align-items: center; margin: 10px 0; }
         .tags-carousel { display: flex; overflow-x: auto; gap: 8px; padding: 10px 0; scrollbar-width: none; scroll-behavior: smooth; flex: 1; }
         .tags-carousel::-webkit-scrollbar { display: none; }
@@ -60,7 +71,7 @@
 
         .title { font-size: 13px; color: #eee; height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.3; }
 
-        /* PLAYER */
+        /* PLAYER & PROTECTION */
         #player { display: none; margin-bottom: 40px; }
         .video-container { 
             position: relative; 
@@ -73,6 +84,12 @@
             overflow: hidden;
             image-rendering: -webkit-optimize-contrast;
         }
+        
+        /* Hides native download buttons in Chrome/Safari/Edge */
+        video::-internal-media-controls-download-button { display:none !important; }
+        video::-webkit-media-controls-enclosure { overflow:hidden !important; }
+        video::-webkit-media-controls-panel { width: calc(100% + 35px) !important; }
+
         #mainVideo, #mainIframe { width: 100%; height: 100%; border: none; display: none; }
         
         .play-overlay-btn { 
@@ -83,7 +100,7 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
 
-        .download-btn-container { display: flex; justify-content: center; margin: 20px 0; }
+        .download-btn-container { display: flex; justify: center; margin: 20px 0; }
         .download-btn { 
             display: inline-flex; 
             align-items: center;
@@ -114,9 +131,7 @@
         }
     </style>
 </head>
-<body>
-
-<div class="main-container">
+<body oncontextmenu="return false;"> <div class="main-container">
     <div class="menu-bar">
         <img src="https://zpi.cx/b/PS3BgJ5.png" class="logo-img" onclick="goHome(true)">
         <div class="menu-links">
@@ -159,8 +174,8 @@
     <div id="player">
         <div class="video-container" id="playerContainer">
             <button id="startPlayBtn" class="play-overlay-btn" onclick="triggerActualPlay()">▶</button>
-            <video id="mainVideo" controls playsinline></video>
-            <iframe id="mainIframe" allowfullscreen></iframe>
+            <video id="mainVideo" controls playsinline controlsList="nodownload" oncontextmenu="return false;"></video>
+            <iframe id="mainIframe" allowfullscreen oncontextmenu="return false;"></iframe>
         </div>
         <h1 id="playerTitle" style="font-size: 16px; margin: 15px 0 10px 0; line-height: 1.4;"></h1>
         <div id="tagsContainer"></div>
@@ -177,7 +192,6 @@
 </div>
 
 <script>
-/* Script section remains exactly the same as provided */
 const adLinks = ["https://omg10.com/4/8251888", "https://omg10.com/4/7512585"];
 let adCounter = 0;
 let DOWNLOAD_PAGE = ""; 
@@ -202,11 +216,6 @@ const videos = [
     { id: 16, duration: "19:23", title:"Old man's dream", mp4:"https://cdn.veporn.com/shes-a-teen-who-makes-you-dream.mp4", download:"http://download.boldilocks.xyz/dl16a", thumbnail:"https://zpi.cx/b/23IrEE.jpg", tags: ["big tits", "creampie", "old and young", "shaved pussy", "undressing", "teen" ] },
     { id: 17, duration: "21:22", title:"My Mom gave me the blessing Daddy", mp4:"https://cdn.veporn.com/my-mom-gave-me-the-blessing-daddy.mp4", download:"http://download.boldilocks.xyz/dl17", thumbnail:"https://zpi.cx/b/kUpND0h.png", tags: ["blonde", "creampie", "pussy licking", "shaved pussy", "undressing", "teen" ] },
     { id: 18, duration: "1:47:48", title:"Ekis", mp4:"https://ia801709.us.archive.org/27/items/ekis.-2025.1080p.-vmax.-webrip.-aac-2.0.x-264_202512/Ekis.2025.1080p.VMAX.WEBRip.AAC2.0.x264-.mp4", download:"http://download.boldilocks.xyz/dl18", thumbnail:"https://d1yei2z3i6k35z.cloudfront.net/14259744/69be1505eae951.36697764_Ekis.png", tags: ["pinay", "vmx", "big tits", "vivamax", "undressing", "fingering" ] }
-    
-    
-    
-    
-    
 ];
 
 let filteredVideos = [...videos];
@@ -266,7 +275,6 @@ function stopMedia() {
 function handleRoute() {
     const hash = window.location.hash;
     document.getElementById('mobileSearchWrapper').classList.remove('active');
-    
     stopMedia();
 
     if (hash.startsWith('#video/')) {
@@ -349,6 +357,17 @@ function changePage(step) { currentPage += step; window.scrollTo(0,0); handleRou
 function toggleMobileSearch() { document.getElementById('mobileSearchWrapper').classList.toggle('active'); }
 function desktopSearch() { performSearch(document.getElementById('searchInput').value); }
 function mobileSearch() { performSearch(document.getElementById('mobileSearchInput').value); }
+
+/* PROTECTION SCRIPTS */
+// Disable right-click on the whole page
+document.addEventListener('contextmenu', event => event.preventDefault());
+
+// Disable common devtool shortcuts
+document.onkeydown = function(e) {
+    if(e.keyCode == 123) return false;
+    if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
+    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false;
+};
 
 window.addEventListener('hashchange', handleRoute);
 window.onload = () => { initCarousel(); handleRoute(); };
