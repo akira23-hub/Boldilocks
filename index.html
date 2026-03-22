@@ -64,18 +64,12 @@
 
         .title { font-size: 13px; color: #eee; height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.3; }
 
-        /* PLAYER - BALANCED SIZE */
+        /* PLAYER */
         #player { display: none; margin-bottom: 40px; }
-        
-        .video-container-wrapper {
-            max-width: 800px; /* Balanced width for desktop */
-            margin: 0 auto;
-        }
-
+        .video-container-wrapper { max-width: 800px; margin: 0 auto; }
         .video-container { 
             position: relative; 
             width: 100%; 
-            /* Standard 16:9 removes black bars for most modern video content */
             aspect-ratio: 16 / 9; 
             background-color: #000; 
             background-size: cover; 
@@ -92,15 +86,27 @@
 
         #mainVideo, #mainIframe { width: 100%; height: 100%; border: none; display: none; }
         
+        /* NEW PERFECT CENTERING LOGIC */
         .play-overlay-btn { 
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--primary); color: white; border: none; border-radius: 50%; width: 55px; height: 55px; font-size: 22px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            background: var(--primary); border: none; border-radius: 50%; 
+            width: 60px; height: 60px; cursor: pointer; z-index: 20; 
+            display: flex; align-items: center; justify-content: center; 
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transition: transform 0.2s;
+        }
+        .play-overlay-btn:hover { transform: translate(-50%, -50%) scale(1.1); }
+
+        /* The Triangle Icon - Pure CSS Center */
+        .play-icon {
+            width: 0; height: 0;
+            border-top: 12px solid transparent;
+            border-bottom: 12px solid transparent;
+            border-left: 20px solid white; /* Triangle Shape */
+            margin-left: 5px; /* Offset to handle the triangle's visual center */
         }
 
-        .player-meta {
-            max-width: 800px; /* Matches the video width for alignment */
-            margin: 0 auto;
-        }
-
+        .player-meta { max-width: 800px; margin: 0 auto; }
         .download-btn-container { display: flex; justify-content: center; margin: 20px 0; }
         .download-btn { 
             display: inline-flex; align-items: center; gap: 8px; padding: 12px 30px; background: var(--primary); color: white; border-radius: 30px; cursor: pointer; font-weight: bold; text-decoration: none; font-size: 14px; transition: transform 0.2s;
@@ -116,7 +122,8 @@
             .mobile-actions { display: flex; }
             .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .logo-img { height: 55px; }
-            .play-overlay-btn { width: 50px; height: 50px; font-size: 20px; }
+            .play-overlay-btn { width: 50px; height: 50px; }
+            .play-icon { border-top: 10px solid transparent; border-bottom: 10px solid transparent; border-left: 16px solid white; margin-left: 4px; }
             .section-label { font-size: 14px; margin-top: 15px; }
             .video-container-wrapper, .player-meta { max-width: 100%; }
         }
@@ -167,7 +174,9 @@
     <div id="player">
         <div class="video-container-wrapper">
             <div class="video-container" id="playerContainer">
-                <button id="startPlayBtn" class="play-overlay-btn" onclick="triggerActualPlay()">▶</button>
+                <button id="startPlayBtn" class="play-overlay-btn" onclick="triggerActualPlay()">
+                    <div class="play-icon"></div>
+                </button>
                 <video id="mainVideo" controls playsinline controlsList="nodownload" oncontextmenu="return false;"></video>
                 <iframe id="mainIframe" allowfullscreen oncontextmenu="return false;"></iframe>
             </div>
@@ -190,7 +199,6 @@
 </div>
 
 <script>
-/* JS remains the same */
 const adLinks = ["https://omg10.com/4/8251888", "https://omg10.com/4/7512585"];
 let adCounter = 0;
 let DOWNLOAD_PAGE = ""; 
