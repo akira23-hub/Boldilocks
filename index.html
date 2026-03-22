@@ -21,7 +21,6 @@
             margin: 0; 
             padding-bottom: 50px; 
             overflow-x: hidden; 
-            /* Prevents text selection */
             -webkit-user-select: none;
             -moz-user-select: none;
             -ms-user-select: none;
@@ -32,7 +31,6 @@
         
         /* Header */
         .menu-bar { display: flex; align-items: center; justify-content: space-between; padding: 15px 0; border-bottom: 1px solid #222; margin-bottom: 10px; }
-        /* ADJUSTED DESKTOP LOGO SIZE */
         .logo-img { height: 120px; cursor: pointer; }
         .menu-links { display: flex; gap: 25px; align-items: center; }
         .menu-links a { color: var(--text-dim); text-decoration: none; font-size: 14px; font-weight: 600; cursor: pointer; }
@@ -66,13 +64,28 @@
 
         .title { font-size: 13px; color: #eee; height: 34px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; line-height: 1.3; }
 
-        /* PLAYER & PROTECTION */
+        /* PLAYER - BALANCED SIZE */
         #player { display: none; margin-bottom: 40px; }
-        .video-container { 
-            position: relative; width: 100%; aspect-ratio: 16/9; background-color: #000; background-size: cover; background-position: center; border-radius: 6px; overflow: hidden; image-rendering: -webkit-optimize-contrast;
+        
+        .video-container-wrapper {
+            max-width: 800px; /* Balanced width for desktop */
+            margin: 0 auto;
         }
 
-        /* Hides native download buttons in most browsers */
+        .video-container { 
+            position: relative; 
+            width: 100%; 
+            /* Standard 16:9 removes black bars for most modern video content */
+            aspect-ratio: 16 / 9; 
+            background-color: #000; 
+            background-size: cover; 
+            background-position: center; 
+            border-radius: 6px; 
+            overflow: hidden; 
+            image-rendering: -webkit-optimize-contrast;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+
         video::-internal-media-controls-download-button { display:none !important; }
         video::-webkit-media-controls-enclosure { overflow:hidden !important; }
         video::-webkit-media-controls-panel { width: calc(100% + 35px) !important; }
@@ -81,6 +94,11 @@
         
         .play-overlay-btn { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); background: var(--primary); color: white; border: none; border-radius: 50%; width: 55px; height: 55px; font-size: 22px; cursor: pointer; z-index: 20; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+
+        .player-meta {
+            max-width: 800px; /* Matches the video width for alignment */
+            margin: 0 auto;
         }
 
         .download-btn-container { display: flex; justify-content: center; margin: 20px 0; }
@@ -97,10 +115,10 @@
             .menu-links, .search-container, .nav-arrow { display: none; }
             .mobile-actions { display: flex; }
             .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
-            /* ADJUSTED MOBILE LOGO SIZE */
             .logo-img { height: 55px; }
             .play-overlay-btn { width: 50px; height: 50px; font-size: 20px; }
             .section-label { font-size: 14px; margin-top: 15px; }
+            .video-container-wrapper, .player-meta { max-width: 100%; }
         }
     </style>
 </head>
@@ -147,26 +165,32 @@
     </div>
 
     <div id="player">
-        <div class="video-container" id="playerContainer">
-            <button id="startPlayBtn" class="play-overlay-btn" onclick="triggerActualPlay()">▶</button>
-            <video id="mainVideo" controls playsinline controlsList="nodownload" oncontextmenu="return false;"></video>
-            <iframe id="mainIframe" allowfullscreen oncontextmenu="return false;"></iframe>
-        </div>
-        <h1 id="playerTitle" style="font-size: 16px; margin: 15px 0 10px 0; line-height: 1.4;"></h1>
-        <div id="tagsContainer"></div>
-        
-        <div class="download-btn-container">
-            <div id="downloadBtn" class="download-btn" onclick="handleDownloadClick()">
-                <span>⬇</span> DOWNLOAD VIDEO
+        <div class="video-container-wrapper">
+            <div class="video-container" id="playerContainer">
+                <button id="startPlayBtn" class="play-overlay-btn" onclick="triggerActualPlay()">▶</button>
+                <video id="mainVideo" controls playsinline controlsList="nodownload" oncontextmenu="return false;"></video>
+                <iframe id="mainIframe" allowfullscreen oncontextmenu="return false;"></iframe>
             </div>
         </div>
+        
+        <div class="player-meta">
+            <h1 id="playerTitle" style="font-size: 18px; margin: 15px 0 10px 0; line-height: 1.4;"></h1>
+            <div id="tagsContainer"></div>
+            
+            <div class="download-btn-container">
+                <div id="downloadBtn" class="download-btn" onclick="handleDownloadClick()">
+                    <span>⬇</span> DOWNLOAD VIDEO
+                </div>
+            </div>
 
-        <div style="color:var(--primary); font-size: 14px; font-weight:bold; margin-top:20px; margin-bottom:15px; border-bottom: 1px solid #222; padding-bottom: 5px;">Related Videos</div>
-        <div id="relatedGrid" class="grid"></div>
+            <div style="color:var(--primary); font-size: 14px; font-weight:bold; margin-top:20px; margin-bottom:15px; border-bottom: 1px solid #222; padding-bottom: 5px;">Related Videos</div>
+            <div id="relatedGrid" class="grid"></div>
+        </div>
     </div>
 </div>
 
 <script>
+/* JS remains the same */
 const adLinks = ["https://omg10.com/4/8251888", "https://omg10.com/4/7512585"];
 let adCounter = 0;
 let DOWNLOAD_PAGE = ""; 
@@ -198,15 +222,8 @@ const videos = [
     { id: 23, duration: "36:04", title:"Mom is not home", mp4:"https://cdn.veporn.com/mom-is-not-home-is-she.mp4", download:"http://download.boldilocks.xyz/dl23", thumbnail:"https://zpi.cx/b/aoRVnR3.jpg", tags: ["brunette", "creampie", "shaved pussy", "small tits", "vibrator"] },
     { id: 24, duration: "1:10:04", title:"Kalakal", mp4:"https://ia601705.us.archive.org/18/items/Kalakal/Kalakal.2025.720p.Eng.Sub.WEB-DL.AAC.x264-HakkkDoggg.ia.mp4", download:"http://download.boldilocks.xyz/dl24", thumbnail:"https://zpi.cx/b/VW4S5j.md.png", tags: ["vivamax", "kalakal", "vmx", "teen", "pinay"] },
     { id: 25, duration: "1:10:04", title:"Next Room Affair", mp4:"https://ia601701.us.archive.org/27/items/next.-room.-affair.-2025.1080p.-vmax.-webrip.-aac-2.0.x-264/Next.Room.Affair.2025.1080p.VMAX.WEBRip.AAC2.0.x264-HakkkDoggg%20%282%29%20%282%29.ia.mp4", download:"http://download.boldilocks.xyz/dl25", thumbnail:"https://zpi.cx/b/Opby1.md.png", tags: ["vivamax", "small tits", "vmx", "teen", "pinay" ] },
-    { id: 26, duration: "48:42", title:"Init", mp4:"https://dn721908.ca.archive.org/0/items/init_20240806/Init.ia.mp4", download:"http://download.boldilocks.xyz/dl26", thumbnail:"https://zpi.cx/b/0zfIGp.md.jpg", tags: ["vivamax", "big tits", "vmx", "teen", "pinay" ] }
-
-
-
-
-    
-
-
-    
+    { id: 26, duration: "48:42", title:"Init", mp4:"https://dn721908.ca.archive.org/0/items/init_20240806/Init.ia.mp4", download:"http://download.boldilocks.xyz/dl26", thumbnail:"https://zpi.cx/b/0zfIGp.md.jpg", tags: ["vivamax", "big tits", "vmx", "teen", "pinay" ] },
+    { id: 27, duration: "41:33", title:"Busty Teen Amber Moore Welcomes Him Home", mp4:"https://zpi.cx/s4/59BxIXp.mp4", download:"http://download.boldilocks.xyz/dl27", thumbnail:"https://zpi.cx/b/FRbAzii.png", tags: ["Hardcore", "Teen", "Nude", "teen", "Tight Pussy", "Big Tits Natural"] }
 ];
 
 let filteredVideos = [...videos];
@@ -257,10 +274,7 @@ function renderGrid(targetId, list, paginate = false) {
 function stopMedia() {
     const v = document.getElementById('mainVideo');
     const f = document.getElementById('mainIframe');
-    v.pause();
-    v.src = "";
-    v.load();
-    f.src = "";
+    v.pause(); v.src = ""; v.load(); f.src = "";
 }
 
 function handleRoute() {
@@ -349,15 +363,12 @@ function toggleMobileSearch() { document.getElementById('mobileSearchWrapper').c
 function desktopSearch() { performSearch(document.getElementById('searchInput').value); }
 function mobileSearch() { performSearch(document.getElementById('mobileSearchInput').value); }
 
-/* PROTECTION SCRIPTS */
-// Disable right-click on the whole page
 document.addEventListener('contextmenu', event => event.preventDefault());
 
-// Disable common devtool shortcuts
 document.onkeydown = function(e) {
-    if(e.keyCode == 123) return false; // F12
+    if(e.keyCode == 123) return false; 
     if(e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'C'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) return false;
-    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; // View Source
+    if(e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) return false; 
 };
 
 window.addEventListener('hashchange', handleRoute);
