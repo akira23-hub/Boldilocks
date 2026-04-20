@@ -86,7 +86,6 @@
 
         #mainVideo, #mainIframe { width: 100%; height: 100%; border: none; display: none; }
         
-        /* NEW PERFECT CENTERING LOGIC */
         .play-overlay-btn { 
             position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
             background: var(--primary); border: none; border-radius: 50%; 
@@ -97,13 +96,12 @@
         }
         .play-overlay-btn:hover { transform: translate(-50%, -50%) scale(1.1); }
 
-        /* The Triangle Icon - Pure CSS Center */
         .play-icon {
             width: 0; height: 0;
             border-top: 12px solid transparent;
             border-bottom: 12px solid transparent;
-            border-left: 20px solid white; /* Triangle Shape */
-            margin-left: 5px; /* Offset to handle the triangle's visual center */
+            border-left: 20px solid white; 
+            margin-left: 5px; 
         }
 
         .player-meta { max-width: 800px; margin: 0 auto; }
@@ -221,7 +219,7 @@ const videos = [
     { id: 14, duration: "42:39", title:"We just met", mp4:"https://cdn.save.moe/s12/izeaJ.mp4", download:"https://download.boldilocks.xyz/dl15", thumbnail:"https://zpi.cx/b/2eZ0av.jpg", tags: ["hardsex", "creampie", "anal", "dog style", "shaved pussy" ] },
     { id: 15, duration: "11:08", title:"Better than my daddy's movies", mp4:"https://cdn.save.moe/s12/hQjSY.mp4", download:"https://download.boldilocks.xyz/dl16", thumbnail:"https://zpi.cx/b/6oXb7mJ.jpg", tags: ["pussy licking", "cumshot", "fetish", "russian", "shaved pussy", "teen" ] },
     { id: 16, duration: "19:23", title:"Old man's dream", mp4:"https://cdn.veporn.com/shes-a-teen-who-makes-you-dream.mp4", download:"http://download.boldilocks.xyz/dl16a", thumbnail:"https://zpi.cx/b/23IrEE.jpg", tags: ["big tits", "creampie", "old and young", "shaved pussy", "undressing", "teen" ] },
-    { id: 17, duration: "21:22", title:"My Mom gave me the blessing Daddy", mp4:"https://cdn.veporn.com/my-mom-gave-me-the-blessing-daddy.mp4", download:"http://download.boldilocks.xyz/dl17", thumbnail:"https://zpi.cx/b/kUpND0h.png", tags: ["blonde", "creampie", "pussy licking", "shaved pussy", "undressing", "teen" ] },
+     { id: 17, duration: "21:22", title:"My Mom gave me the blessing Daddy", mp4:"https://cdn.veporn.com/my-mom-gave-me-the-blessing-daddy.mp4", download:"http://download.boldilocks.xyz/dl17", thumbnail:"https://zpi.cx/b/kUpND0h.png", tags: ["blonde", "creampie", "pussy licking", "shaved pussy", "undressing", "teen" ] },
     { id: 18, duration: "1:47:48", title:"Ekis", mp4:"https://ia801709.us.archive.org/27/items/ekis.-2025.1080p.-vmax.-webrip.-aac-2.0.x-264_202512/Ekis.2025.1080p.VMAX.WEBRip.AAC2.0.x264-.mp4", download:"http://download.boldilocks.xyz/dl18", thumbnail:"https://d1yei2z3i6k35z.cloudfront.net/14259744/69be1f3c9b57e5.88099060_Ekis1.png", tags: ["pinay", "vmx", "big tits", "vivamax", "undressing", "fingering" ] },
     { id: 19, duration: "1:10:58", title:"Bangkera", mp4:"https://ia801009.us.archive.org/31/items/bangkera_202509/Bangkera%202025.ia.mp4", download:"http://download.boldilocks.xyz/dl19", thumbnail:"https://d1yei2z3i6k35z.cloudfront.net/14259744/69be239a9a7553.47414972_Bangkera.jpg", tags: ["pinay", "vmx", "filipina", "vivamax", "undressing", "softcore" ] },
     { id: 20, duration: "11:38", title:"Escape from school", mp4:"https://zpi.cx/s12/VQ9I6A.mp4", download:"http://download.boldilocks.xyz/dl20", thumbnail:"https://zpi.cx/b/cjaBT7.png", tags: ["pinay", "teen", "student", "uniform", "finger", "scandal" ] },
@@ -264,7 +262,12 @@ const videos = [
     { id: 57, duration: "49:25", title:"Lisa Tutoha big titted Russian teen fucking", embed:"https://sendvid.com/embed/9c8srkm1", download:"https://download.boldilocks.xyz/dl57", thumbnail:"https://zpi.cx/b/30URJCMpx6.jpg", tags: ["teen defloration", "beautiful", "licking pussy","russian", "russian", "teen" ] },
     { id: 58, duration: "1:10:10", title:"Angkinin mo ako",  mp4:"https://sendvid.com/embed/9c8srkm1", download:"https://download.boldilocks.xyz/dl58", thumbnail:"https://zpi.cx/b/aMLEM3.jpg", tags: ["Vivamax", "Pinay", "VMX", "Softcore", "Small Tits", "Big Tits" ] }
 
-
+    
+    
+    
+    
+    
+    
 ];
 
 let filteredVideos = [...videos];
@@ -327,6 +330,9 @@ function handleRoute() {
         const id = parseInt(hash.split('/')[1]);
         const video = videos.find(v => v.id === id);
         if (video) {
+            // Updated: Set browser tab title to video title
+            document.title = video.title;
+
             DOWNLOAD_PAGE = video.download; 
             document.getElementById('homeContent').style.display = 'none';
             document.getElementById('player').style.display = 'block';
@@ -346,6 +352,9 @@ function handleRoute() {
             window.scrollTo(0,0);
         }
     } else {
+        // Updated: Reset title when returning home
+        document.title = "Boldilocks | Premium Porn";
+
         document.getElementById('player').style.display = 'none';
         document.getElementById('homeContent').style.display = 'block';
         const featured = videos.slice(-4).reverse();
