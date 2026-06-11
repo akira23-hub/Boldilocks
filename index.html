@@ -281,7 +281,7 @@ const videos = [
     { id: 76, duration: "1:13:56", title:"Rapsa",  mp4:"https://dn711507.ca.archive.org/0/items/rapsa.-2025-1080p_202506/Rapsa.2025-1080p.ia.mp4", download:"https://download.boldilocks.xyz/dl76", thumbnail:"https://zpi.cx/b/LUh2iskV.jpg", tags: ["Vivamax", "Pinay", "VMX", "Softcore", "Big Tits", "missionary", ] },
     { id: 77, duration: "1:10:09", title:"Check-In",  mp4:"https://ia800702.us.archive.org/12/items/check-in-2026-720p.-vmax.-webrip.-aac-2.0.x-264-hakkk-doggg/Check-In%202026%20720p.VMAX.WEBRip.AAC2.0.x264-HakkkDoggg.ia.mp4", download:"https://download.boldilocks.xyz/dl77", thumbnail:"https://zpi.cx/b/aZK4WEKt8Wg7.jpg", tags: ["Vivamax", "Pinay", "VMX", "Softcore", "Big Tits", "missionary", ] },
     { id: 78, duration: "1:10:29", title:"Tuklas",  mp4:"https://ia600809.us.archive.org/27/items/tuklas-2026-1080p-web-dl-x-264-aac-tagalog-mc-ephie/Tuklas%20%282026%29%20%E2%80%94%20%5B1080p%20WebDL%20x264%20AAC%20Tagalog%5D%20-%20McEphie.ia.mp4", download:"https://download.boldilocks.xyz/dl78", thumbnail:"https://zpi.cx/b/MrNT2wJjsgA.jpg", tags: ["Vivamax", "Pinay", "VMX", "Softcore", "Big Tits", "missionary", ] },
-    { id: 79, duration: "1:14:32", title:"Scissors",  mp4:"https://ia600803.us.archive.org/7/items/scissors-2026-1080p.-vmx.-web-dl.-aac.x-264.eng.sub.-thr-3/Scissors%202026%201080p.VMX.WEB-DL.AAC.x264.eng.sub.THR%20%283%29.mp4", download:"https://download.boldilocks.xyz/dl79", thumbnail:"https://zpic.biz/view/scissors.7RJUl6i6", tags: ["Vivamax", "Pinay", "VMX", "Softcore", "Big Tits", "missionary", ] }
+    { id: 79, duration: "1:14:32", title:"Scissors",  mp4:"https://ia600803.us.archive.org/7/items/scissors-2026-1080p.-vmx.-web-dl.-aac.x-264.eng.sub.-thr-3/Scissors%202026%201080p.VMX.WEB-DL.AAC.x264.eng.sub.THR%20%283%29.mp4", download:"https://download.boldilocks.xyz/dl79", thumbnail:"https://zpi.cx/b/zByt1P.jpg", tags: ["Vivamax", "Pinay", "VMX", "Softcore", "Big Tits", "missionary", ] }
 
 
 
@@ -365,9 +365,33 @@ function handleRoute() {
                 const s = document.createElement('span'); s.className='tag-pill'; s.innerText='#'+t;
                 s.onclick = () => performSearch(t); tagsDiv.appendChild(s);
             });
-            const related = videos.filter(v => v.id !== id && v.tags.some(t => video.tags.includes(t))).slice(0, 4);
-            renderGrid('relatedGrid', related.length > 0 ? related : videos.slice(0, 4));
-            window.scrollTo(0,0);
+            // Get related videos with matching tags and shuffle for variety
+let relatedVideos = videos.filter(v => v.id !== id && v.tags.some(t => video.tags.includes(t)));
+
+// Shuffle the array
+for (let i = relatedVideos.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [relatedVideos[i], relatedVideos[j]] = [relatedVideos[j], relatedVideos[i]];
+}
+
+// Take first 4 after shuffling
+let related = relatedVideos.slice(0, 4);
+
+// If less than 4, fill with random other videos
+if (related.length < 4) {
+    const otherVideos = videos.filter(v => v.id !== id && !relatedVideos.includes(v));
+    for (let i = otherVideos.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [otherVideos[i], otherVideos[j]] = [otherVideos[j], otherVideos[i]];
+    }
+    related.push(...otherVideos.slice(0, 4 - related.length));
+}
+
+renderGrid('relatedGrid', related);
+window.scrollTo(0,0);
+
+
+
         }
     } else {
         // Updated: Reset title when returning home
